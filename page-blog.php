@@ -56,7 +56,7 @@ get_header();
 		}
 		wp_reset_postdata();
 
-		ti_pagination();
+		denta_lite_pagination();
 		?>
 
 	</section><!--/#articles-->

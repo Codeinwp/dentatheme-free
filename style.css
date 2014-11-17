@@ -2749,6 +2749,7 @@ header {
   -o-transition: all 0.3s;
   -ms-transition: all 0.3s;
   transition: all 0.3s;
+  text-decoration: none;
   float: left;
 }
 .center-header .center-header-logo img {
@@ -2762,6 +2763,18 @@ header {
   -ms-opacity: 0.9;
   -o-opacity: 0.9;
   opacity: 0.9;
+}
+.center-header .center-header-logo .header-logo-title {
+  margin-top: 20px;
+  font-size: 24px;
+  color: #42B3E5;
+  text-align: left;
+}
+.center-header .center-header-logo .header-logo-description {
+  margin-top: 5px;
+  text-align: left;
+  color: #1B4269;
+  font-size: 16px;
 }
 .center-header .navigation {
   width: 756px;

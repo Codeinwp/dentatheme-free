@@ -1,5 +1,19 @@
 <?php
 
+/**
+ *	Sanitize Callback: Text
+ */
+function medica_lite_sanitize_callback_text( $input ) {
+	return wp_kses_post( force_balance_tags( $input ) );
+}
+
+/**
+ *	Sanitize Callback: Textarea
+ */
+function medica_lite_sanitize_callback_textarea( $input ) {
+	return htmlspecialchars_decode( $input );
+}
+
 function dentatheme_customizer( $wp_customize ) {
     $wp_customize->get_setting( 'blogname' )->transport = 'postMessage';
     $wp_customize->get_setting( 'blogdescription' )->transport = 'postMessage';
@@ -15,7 +29,7 @@ function dentatheme_customizer( $wp_customize ) {
 	) );
 
 		/* Top Header - Title 1 */
-		$wp_customize->add_setting( 'ti_topheader_title1' );
+		$wp_customize->add_setting( 'ti_topheader_title1', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_topheader_title1', array(
 		    'label'    => __( 'Opening Hours - Title:', 'ti' ),
 		    'section'  => 'header_settings',
@@ -24,9 +38,9 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 		/* Top Header - Content 1 */
-		$wp_customize->add_setting( 'ti_topheader_content1' );
+		$wp_customize->add_setting( 'ti_topheader_content1', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( new Example_Customize_Textarea_Control( $wp_customize, 'ti_topheader_content1', array(
-		            'label' 	=> __( 'Opening Schedule - Title', 'ti' ),
+		            'label' 	=> __( 'Opening Schedule:', 'ti' ),
 		            'section' 	=> 'header_settings',
 		            'settings' 	=> 'ti_topheader_content1',
 		            'priority' 	=> '2'
@@ -35,7 +49,7 @@ function dentatheme_customizer( $wp_customize ) {
 		);
 
 		/* Top Header - Title 2 */
-		$wp_customize->add_setting( 'ti_topheader_title2' );
+		$wp_customize->add_setting( 'ti_topheader_title2', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_topheader_title2', array(
 		    'label'    => __( 'Contact Us - Title:', 'ti' ),
 		    'section'  => 'header_settings',
@@ -44,22 +58,13 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 		/* Top Header - Content 2 */
-		$wp_customize->add_setting( 'ti_topheader_content2' );
+		$wp_customize->add_setting( 'ti_topheader_content2', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_topheader_content2', array(
 		    'label'    => __( 'Telephone - Entry:', 'ti' ),
 		    'section'  => 'header_settings',
 		    'settings' => 'ti_topheader_content2',
 			'priority' => '4',
 		) );
-
-		/* Center Header - Logo */
-		$wp_customize->add_setting( 'ti_centerheader_logo' );
-		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'ti_centerheader_logo', array(
-		    'label'    => __( 'Logo:', 'ti' ),
-		    'section'  => 'header_settings',
-		    'settings' => 'ti_centerheader_logo',
-		    'priority' => '5',
-		) ) );
 
 	/*
     ** Footer
@@ -70,7 +75,7 @@ function dentatheme_customizer( $wp_customize ) {
 	) );
 
 		/* Copyright - Entry */
-		$wp_customize->add_setting( 'ti_copyright_entry' );
+		$wp_customize->add_setting( 'ti_copyright_entry', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( new Example_Customize_Textarea_Control( $wp_customize, 'ti_copyright_entry', array(
 		            'label' 	=> __( 'Copyright - Entry:', 'ti' ),
 		            'section' 	=> 'footer_settings',
@@ -89,7 +94,7 @@ function dentatheme_customizer( $wp_customize ) {
 	) );
 
 		/* Features - Box 1 Icon Class */
-		$wp_customize->add_setting( 'ti_features_box1iconclass' );
+		$wp_customize->add_setting( 'ti_features_box1iconclass', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_features_box1iconclass', array(
 		    'label'    => __( 'Features - Box 1 Icon Class:', 'ti' ),
 		    'section'  => 'frontpage_settings',
@@ -98,7 +103,7 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 		/* Features - Box 1 Title */
-		$wp_customize->add_setting( 'ti_features_box1title' );
+		$wp_customize->add_setting( 'ti_features_box1title', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_features_box1title', array(
 		    'label'    => __( 'Features - Box 1 Title:', 'ti' ),
 		    'section'  => 'frontpage_settings',
@@ -107,7 +112,7 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 		/* Features - Box 1 Entry */
-		$wp_customize->add_setting( 'ti_features_box1entry' );
+		$wp_customize->add_setting( 'ti_features_box1entry', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( new Example_Customize_Textarea_Control( $wp_customize, 'ti_features_box1entry', array(
 		            'label' 	=> __( 'Features - Box 1 Entry:', 'ti' ),
 		            'section' 	=> 'frontpage_settings',
@@ -118,7 +123,7 @@ function dentatheme_customizer( $wp_customize ) {
 		);
 
 		/* Features - Box 2 Icon Class */
-		$wp_customize->add_setting( 'ti_features_box2iconclass' );
+		$wp_customize->add_setting( 'ti_features_box2iconclass', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_features_box2iconclass', array(
 		    'label'    => __( 'Features - Box 2 Icon Class:', 'ti' ),
 		    'section'  => 'frontpage_settings',
@@ -127,7 +132,7 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 		/* Features - Box 2 Title */
-		$wp_customize->add_setting( 'ti_features_box2title' );
+		$wp_customize->add_setting( 'ti_features_box2title', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_features_box2title', array(
 		    'label'    => __( 'Features - Box 2 Title:', 'ti' ),
 		    'section'  => 'frontpage_settings',
@@ -136,7 +141,7 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 		/* Features - Box 2 Entry */
-		$wp_customize->add_setting( 'ti_features_box2entry' );
+		$wp_customize->add_setting( 'ti_features_box2entry', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( new Example_Customize_Textarea_Control( $wp_customize, 'ti_features_box2entry', array(
 		            'label' 	=> __( 'Features - Box 2 Entry:', 'ti' ),
 		            'section' 	=> 'frontpage_settings',
@@ -147,7 +152,7 @@ function dentatheme_customizer( $wp_customize ) {
 		);
 
 		/* Features - Box 3 Icon Class */
-		$wp_customize->add_setting( 'ti_features_box3iconclass' );
+		$wp_customize->add_setting( 'ti_features_box3iconclass', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_features_box3iconclass', array(
 		    'label'    => __( 'Features - Box 3 Icon Class:', 'ti' ),
 		    'section'  => 'frontpage_settings',
@@ -156,7 +161,7 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 		/* Features - Box 3 Title */
-		$wp_customize->add_setting( 'ti_features_box3title' );
+		$wp_customize->add_setting( 'ti_features_box3title', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_features_box3title', array(
 		    'label'    => __( 'Features - Box 3 Title:', 'ti' ),
 		    'section'  => 'frontpage_settings',
@@ -165,7 +170,7 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 		/* Features - Box 3 Entry */
-		$wp_customize->add_setting( 'ti_features_box3entry' );
+		$wp_customize->add_setting( 'ti_features_box3entry', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( new Example_Customize_Textarea_Control( $wp_customize, 'ti_features_box3entry', array(
 		            'label' 	=> __( 'Features - Box 3 Entry:', 'ti' ),
 		            'section' 	=> 'frontpage_settings',
@@ -176,7 +181,7 @@ function dentatheme_customizer( $wp_customize ) {
 		);
 
 		/* Featured Article - Image */
-		$wp_customize->add_setting( 'ti_featuredarticle_image' );
+		$wp_customize->add_setting( 'ti_featuredarticle_image', array( 'sanitize_callback' => 'esc_url_raw' ) );
 		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'ti_featuredarticle_image', array(
 		    'label'    => __( 'Featured Article - Image:', 'ti' ),
 		    'section'  => 'frontpage_settings',
@@ -185,7 +190,7 @@ function dentatheme_customizer( $wp_customize ) {
 		) ) );
 
 		/* Featured Article - Title */
-		$wp_customize->add_setting( 'ti_featuredarticle_title' );
+		$wp_customize->add_setting( 'ti_featuredarticle_title', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_featuredarticle_title', array(
 		    'label'    => __( 'Featured Article - Title:', 'ti' ),
 		    'section'  => 'frontpage_settings',
@@ -194,7 +199,7 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 		/* Featured Article - Entry */
-		$wp_customize->add_setting( 'ti_featuredarticle_entry' );
+		$wp_customize->add_setting( 'ti_featuredarticle_entry', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( new Example_Customize_Textarea_Control( $wp_customize, 'ti_featuredarticle_entry', array(
 		            'label' 	=> __( 'Featured Article - Entry:', 'ti' ),
 		            'section' 	=> 'frontpage_settings',
@@ -204,37 +209,8 @@ function dentatheme_customizer( $wp_customize ) {
 		    )
 		);
 
-		/* Testimonials - Title */
-		$wp_customize->add_setting( 'ti_testimonials_title' );
-		$wp_customize->add_control( 'ti_testimonials_title', array(
-		    'label'    => __( 'Testimonials - Title:', 'ti' ),
-		    'section'  => 'frontpage_settings',
-		    'settings' => 'ti_testimonials_title',
-			'priority' => '20',
-		) );
-
-		/* Testimonials - Entry */
-		$wp_customize->add_setting( 'ti_testimonials_entry' );
-		$wp_customize->add_control( new Example_Customize_Textarea_Control( $wp_customize, 'ti_testimonials_entry', array(
-		            'label' 	=> __( 'Testimonials - Entry:', 'ti' ),
-		            'section' 	=> 'frontpage_settings',
-		            'settings' 	=> 'ti_testimonials_entry',
-		            'priority' 	=> '21'
-		        )
-		    )
-		);
-
-		/* Testimonials - Number of articles */
-		$wp_customize->add_setting( 'ti_testimonials_numberofarticles' );
-		$wp_customize->add_control( 'ti_testimonials_numberofarticles', array(
-		    'label'    => __( 'Testimonials - Number of articles:', 'ti' ),
-		    'section'  => 'frontpage_settings',
-		    'settings' => 'ti_testimonials_numberofarticles',
-			'priority' => '22',
-		) );
-
 		/* Latest News - Title */
-		$wp_customize->add_setting( 'ti_latestnews_title' );
+		$wp_customize->add_setting( 'ti_latestnews_title', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_latestnews_title', array(
 		    'label'    => __( 'Latest News - Title:', 'ti' ),
 		    'section'  => 'frontpage_settings',
@@ -251,7 +227,7 @@ function dentatheme_customizer( $wp_customize ) {
 	) );
 
 		/* Title 1 */
-		$wp_customize->add_setting( 'ti_404page_title1' );
+		$wp_customize->add_setting( 'ti_404page_title1', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_404page_title1', array(
 		    'label'    => __( 'Title 1:', 'ti' ),
 		    'section'  => '404page_settings',
@@ -260,7 +236,7 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 		/* Title 2 */
-		$wp_customize->add_setting( 'ti_404page_title2' );
+		$wp_customize->add_setting( 'ti_404page_title2', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_404page_title2', array(
 		    'label'    => __( 'Title 2:', 'ti' ),
 		    'section'  => '404page_settings',
@@ -269,7 +245,7 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 		/* Entry */
-		$wp_customize->add_setting( 'ti_404page_entry' );
+		$wp_customize->add_setting( 'ti_404page_entry', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( new Example_Customize_Textarea_Control( $wp_customize, 'ti_404page_entry', array(
 		            'label' 	=> __( 'Entry:', 'ti' ),
 		            'section' 	=> '404page_settings',
@@ -280,7 +256,7 @@ function dentatheme_customizer( $wp_customize ) {
 		);
 
 		/* Subtitle */
-		$wp_customize->add_setting( 'ti_404page_subtitle' );
+		$wp_customize->add_setting( 'ti_404page_subtitle', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_404page_subtitle', array(
 		    'label'    => __( 'Subtitle:', 'ti' ),
 		    'section'  => '404page_settings',
@@ -289,7 +265,7 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 		/* E-mail */
-		$wp_customize->add_setting( 'ti_404page_email' );
+		$wp_customize->add_setting( 'ti_404page_email', array( 'sanitize_callback' => 'is_email' ) );
 		$wp_customize->add_control( 'ti_404page_email', array(
 		    'label'    => __( 'E-mail:', 'ti' ),
 		    'section'  => '404page_settings',
@@ -298,7 +274,7 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 		/* Telephone */
-		$wp_customize->add_setting( 'ti_404page_telephone' );
+		$wp_customize->add_setting( 'ti_404page_telephone', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
 		$wp_customize->add_control( 'ti_404page_telephone', array(
 		    'label'    => __( 'Telephone:', 'ti' ),
 		    'section'  => '404page_settings',
@@ -307,7 +283,7 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 		/* URL */
-		$wp_customize->add_setting( 'ti_404page_url' );
+		$wp_customize->add_setting( 'ti_404page_url', array( 'sanitize_callback' => 'esc_url_raw' ) );
 		$wp_customize->add_control( 'ti_404page_url', array(
 		    'label'    => __( 'URL:', 'ti' ),
 		    'section'  => '404page_settings',

@@ -47,7 +47,7 @@ get_header();
 			_e( 'No posts found.', 'ti' );
 		}
 
-		ti_pagination();
+		denta_lite_pagination();
 		?>
 
 	</section><!--/#articles-->

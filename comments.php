@@ -36,7 +36,7 @@ if ( post_password_required() )
 
         <ul class="comments-list cf">
             <?php wp_list_comments( array(
-                    'callback'  => 'ti_comments',
+                    'callback'  => 'denta_lite_comments',
                     'max_depth' => '5'
                 )
             );

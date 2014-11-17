@@ -3,7 +3,7 @@
 /**
  *	Pagination
  */
-function ti_pagination() {
+function denta_lite_pagination() {
 
 	if( is_singular() )
 		return;
@@ -75,9 +75,9 @@ function ti_pagination() {
 /**
  *	Comments
  */
-if ( ! function_exists( 'ti_comments' ) ) :
+if ( ! function_exists( 'denta_lite_comments' ) ) :
 
-function ti_comments( $comment, $args, $depth ) {
+function denta_lite_comments( $comment, $args, $depth ) {
     $GLOBALS['comment'] = $comment;
     switch ( $comment->comment_type ) :
         case 'pingback' :
@@ -129,8 +129,8 @@ endif;
 /**
  *  Post Gallery
  */
-add_filter('post_gallery', 'my_post_gallery', 10, 2);
-function my_post_gallery($output, $attr) {
+add_filter('post_gallery', 'denta_lite_post_gallery', 10, 2);
+function denta_lite_post_gallery($output, $attr) {
     global $post;
 
     if (isset($attr['orderby'])) {

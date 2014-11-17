@@ -6,8 +6,7 @@
  */
 get_header();
 get_template_part( 'includes/features' );
-get_template_part( 'includes/featured-article' );
-get_template_part( 'includes/testimonials' ); ?>
+get_template_part( 'includes/featured-article' ); ?>
 <section id="latest-news">
 	<div class="wrap cf">
 		<?php
