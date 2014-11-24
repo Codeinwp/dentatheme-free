@@ -8,7 +8,7 @@ get_header();
 ?>
 <div class="wrap cf">
 	<div class="fullwidth-page-title">
-		<h3><?php _e( 'Our Blog', 'ti' ); ?></h3>
+		<h3><?php _e( 'Our Blog', 'denta_lite' ); ?></h3>
 	</div><!--/.fullwidth-page-title-->
 	<section id="articles">
 
@@ -29,7 +29,7 @@ get_header();
 					</a><!--/.article-title-->
 					<div class="article-meta cf">
 						<div class="article-meta-left">
-							<?php _e( 'Posted by', 'ti' ); ?> <?php the_author_posts_link(); ?> <?php _e( 'on', 'ti' ); ?> <?php echo get_the_date(); ?>
+							<?php _e( 'Posted by', 'denta_lite' ); ?> <?php the_author_posts_link(); ?> <?php _e( 'on', 'denta_lite' ); ?> <?php echo get_the_date(); ?>
 						</div><!--/.article-meta-left-->
 						<a href="<?php the_permalink(); ?>#comments-template" title="<?php comments_number( 'No responses', 'One comment', '% comments' ); ?>" class="article-meta-right"><?php comments_number( 'No responses', 'One comment', '% comments' ); ?>
 						</a><!--/.article-meta-right-->
@@ -37,14 +37,14 @@ get_header();
 					<div class="article-entry">
 						<?php the_excerpt(); ?>
 					</div><!--/.article-entry-->
-					<a href="<?php the_permalink(); ?>" title="<?php _e( 'Read More', 'ti' ); ?>" class="article-read-more">
-						<?php _e( 'Read More', 'ti' ); ?>
+					<a href="<?php the_permalink(); ?>" title="<?php _e( 'Read More', 'denta_lite' ); ?>" class="article-read-more">
+						<?php _e( 'Read More', 'denta_lite' ); ?>
 					</a><!--/.article-read-more-->
 				</article>
 
 			<?php }
 		} else {
-			_e( 'No posts found.', 'ti' );
+			_e( 'No posts found.', 'denta_lite' );
 		}
 
 		denta_lite_pagination();

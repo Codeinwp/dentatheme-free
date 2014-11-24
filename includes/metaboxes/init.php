@@ -276,8 +276,8 @@ class cmb_Meta_Box {
 			'file'            => 'File:',
 			'download'        => 'Download',
 			'ajaxurl'         => admin_url( '/admin-ajax.php' ),
-			'up_arrow'        => '[ ↑ ]&nbsp;',
-			'down_arrow'      => '&nbsp;[ ↓ ]',
+			'up_arrow'        => '[ &#8593; ]&nbsp;',
+			'down_arrow'      => '&nbsp;[ &#8595; ]',
 		) ) );
 
 		wp_register_style( 'cmb-styles', CMB_META_BOX_URL . 'style'. $min .'.css', $styles );

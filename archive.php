@@ -15,11 +15,11 @@ get_header();
 			$search_archive = get_search_query();
 
 			if ( is_day() ) {
-				printf( __( '%s', 'ti' ), get_the_date() );
+				printf( __( '%s', 'denta_lite' ), get_the_date() );
 			} elseif ( is_month() ) {
-				printf( __( '%s', 'ti' ), get_the_date( _x( 'F Y', '', 'ti' ) ) );
+				printf( __( '%s', 'denta_lite' ), get_the_date( _x( 'F Y', '', 'denta_lite' ) ) );
 			} elseif ( is_year() ) {
-				printf( __( '%s.', 'ti' ), get_the_date( _x( 'Y', '', 'ti' ) ) );
+				printf( __( '%s.', 'denta_lite' ), get_the_date( _x( 'Y', '', 'denta_lite' ) ) );
 			} elseif ( is_category() ) {
 				echo single_cat_title();
 			} elseif ( is_author() ) {
@@ -49,7 +49,7 @@ get_header();
 					</a><!--/.article-title-->
 					<div class="article-meta cf">
 						<div class="article-meta-left">
-							<?php _e( 'Posted by', 'ti' ); ?> <?php the_author_posts_link(); ?> <?php _e( 'on', 'ti' ); ?> <?php echo get_the_date(); ?>
+							<?php _e( 'Posted by', 'denta_lite' ); ?> <?php the_author_posts_link(); ?> <?php _e( 'on', 'denta_lite' ); ?> <?php echo get_the_date(); ?>
 						</div><!--/.article-meta-left-->
 						<a href="<?php the_permalink(); ?>#comments-template" title="<?php comments_number( 'No responses', 'One comment', '% comments' ); ?>" class="article-meta-right"><?php comments_number( 'No responses', 'One comment', '% comments' ); ?>
 						</a><!--/.article-meta-right-->
@@ -57,14 +57,14 @@ get_header();
 					<div class="article-entry">
 						<?php the_excerpt(); ?>
 					</div><!--/.article-entry-->
-					<a href="<?php the_permalink(); ?>" title="<?php _e( 'Read More', 'ti' ); ?>" class="article-read-more">
-						<?php _e( 'Read More', 'ti' ); ?>
+					<a href="<?php the_permalink(); ?>" title="<?php _e( 'Read More', 'denta_lite' ); ?>" class="article-read-more">
+						<?php _e( 'Read More', 'denta_lite' ); ?>
 					</a><!--/.article-read-more-->
 				</article>
 
 			<?php }
 		} else {
-			_e( 'No posts found.', 'ti' );
+			_e( 'No posts found.', 'denta_lite' );
 		}
 
 		denta_lite_pagination();

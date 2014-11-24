@@ -11,7 +11,7 @@
 		dynamic_sidebar( 'general_sidebar' );
 	} else {
 		echo '<div class="widget">';
-		_e( 'The widget is not active.', 'ti' );
+		_e( 'The widget is not active.', 'denta_lite' );
 		echo '</div>';
 	}
 	?>

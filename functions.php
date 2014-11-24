@@ -41,8 +41,8 @@ add_action( 'wp_enqueue_scripts', 'denta_lite_wp_enqueue_script' );
 function denta_lite_custom_navigation_menus() {
 
 	$locations = array(
-		'header_navigation' => __( 'Header Navigation', 'ti' ),
-        'footer_navigation' => __( 'Footer Navigation', 'ti' )
+		'header_navigation' => __( 'Header Navigation', 'denta_lite' ),
+        'footer_navigation' => __( 'Footer Navigation', 'denta_lite' )
 	);
 	register_nav_menus( $locations );
 
@@ -69,10 +69,22 @@ $args_custom_header = array(
 );
 add_theme_support( "custom-header", $args_custom_header ); // Custom Header
 
+$args_custom_background = array(
+    'default-color'         => '#ffffff',
+    'default-repeat'        => 'no-repeat',
+    'default-attachment'    => 'fixed'
+);
+add_theme_support( "custom-background", $args_custom_background ); // Custom Background
+
 /**
  *  The Post Thumbnail
  */
 the_post_thumbnail();
+
+/**
+ *  Add Editor Style
+ */
+add_editor_style();
 
 /**
  *  General Sidebar
@@ -81,8 +93,8 @@ function denta_lite_general_sidebar() {
 
     $args = array(
         'id'            => 'general_sidebar',
-        'name'          => __( 'General Sidebar', 'ti' ),
-        'description'   => __( 'Use this sidebar to display widgets in your website, including posts and pages.', 'ti' ),
+        'name'          => __( 'General Sidebar', 'denta_lite' ),
+        'description'   => __( 'Use this sidebar to display widgets in your website, including posts and pages.', 'denta_lite' ),
         'before_title'  => '<div class="title-widget">',
         'after_title'   => '</div>',
         'before_widget' => '<div id="%1$s" class="widget %2$s">',

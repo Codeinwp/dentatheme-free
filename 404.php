@@ -13,7 +13,7 @@ get_header();
 			if ( get_theme_mod( 'ti_404page_title1' ) ) {
 				echo '<h3>'. get_theme_mod( 'ti_404page_title1' ) .'</h3>';
 			} else {
-				echo '<h3>'. __( 'Error', 'ti' ) .'</h3>';
+				echo '<h3>'. __( 'Error', 'denta_lite' ) .'</h3>';
 			}
 			?>
 		</div><!--/.fullwidth-page-title-->
@@ -22,7 +22,7 @@ get_header();
 			if ( get_theme_mod( 'ti_404page_title2' ) ) {
 				echo '<h2>'. get_theme_mod( 'ti_404page_title2' ) .'</h2>';
 			} else {
-				echo '<h2>'. __( 'The page you were looking for was not found.', 'ti' ) .'</h2>';
+				echo '<h2>'. __( 'The page you were looking for was not found.', 'denta_lite' ) .'</h2>';
 			}
 			?>
 			<div class="page-content-entry">
@@ -30,7 +30,7 @@ get_header();
 				if ( get_theme_mod( 'ti_404page_entry' ) ) {
 					echo htmlspecialchars_decode( get_theme_mod( 'ti_404page_entry' ) );
 				} else {
-					echo '<p>'. __( 'The page you are looking for does not exist, I can take you to the ', 'ti' ) .'<a href="'. home_url() .'" title="'. __( 'home page.', 'ti' ) .'">'. __( 'home page.', 'ti' ) .'</a></p>';
+					echo '<p>'. __( 'The page you are looking for does not exist, I can take you to the ', 'denta_lite' ) .'<a href="'. home_url() .'" title="'. __( 'home page.', 'denta_lite' ) .'">'. __( 'home page.', 'denta_lite' ) .'</a></p>';
 				}
 				?>
 			</div><!--/.page-content-entry-->

@@ -24,7 +24,7 @@ get_header();
 				<h1><?php the_title(); ?></h1>
 				<div class="article-meta cf">
 					<div class="article-meta-left">
-						<?php _e( 'Posted by', 'ti' ); ?> <?php the_author_posts_link(); ?> <?php _e( 'on', 'ti' ); ?> <?php echo get_the_date(); ?>
+						<?php _e( 'Posted by', 'denta_lite' ); ?> <?php the_author_posts_link(); ?> <?php _e( 'on', 'denta_lite' ); ?> <?php echo get_the_date(); ?>
 					</div><!--/.article-meta-left-->
 					<a href="#comments-template" title="<?php comments_number( 'No responses', 'One comment', '% comments' ); ?>" class="article-meta-right"><?php comments_number( 'No responses', 'One comment', '% comments' ); ?>
 					</a><!--/.article-meta-right-->
@@ -34,7 +34,7 @@ get_header();
 				</div><!--/.single-article-entry-->
 				<?php
 				wp_link_pages( array(
-					'before'      => '<div class="single-article-pagination"><span class="article-pagination-title">' . __( 'Pages:', 'ti' ) . '</span>',
+					'before'      => '<div class="single-article-pagination"><span class="article-pagination-title">' . __( 'Pages:', 'denta_lite' ) . '</span>',
 					'after'       => '</div>',
 					'link_before' => '<span>',
 					'link_after'  => '</span>',
@@ -70,7 +70,7 @@ get_header();
 		if( $my_query->have_posts() ) {
 
 		 	echo '<div id="similar-articles">';
-		 	echo '<div class="fullwidth-single-title"><h4>'. __( 'Similar Articles', 'ti' ) .'</h4></div>';
+		 	echo '<div class="fullwidth-single-title"><h4>'. __( 'Similar Articles', 'denta_lite' ) .'</h4></div>';
 		 	echo '<div class="similar-articles-carousel">';
 		 	echo '<div id="similar-article-carousel">';
 

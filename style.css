@@ -1,13 +1,13 @@
 /*
-Theme Name: DentaTheme Free
-Theme URI: http://www.themeisle.com
-Author: The ThemeIsle team
+Theme Name: DentaTheme Lite
+Theme URI: https://themeisle.com/themes/dentatheme-lite
+Author: ThemeIsle
 Author URI: http://www.themeisle.com
-Description: Premium WordPressTheme for ThemeIsle.
-License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Description: DentaTheme Lite is free WordPress theme. It's perfect for dentist.
+License: GNU General Public License version 3
+License URI: license.txt
 Tags: light, two-columns, right-sidebar, custom-menu, featured-images, sticky-post, translation-ready
-Text Domain: ti
+Text Domain: denta_lite
 Domain Path: /languages/
 Version: 1.0
 
@@ -108,6 +108,14 @@ table {
 
 a {
   color: #314b60;
+}
+
+body.custom-background {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 /* 1.2 General */
