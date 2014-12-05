@@ -225,3 +225,5 @@ The GNU General Public License does not permit incorporating your program into p
 18. Credit:
 
 	- TGM Plugin Activation: http://www.tgmpluginactivation
+	- Contact Form 7: https://wordpress.org/plugins/contact-form-7/
+	- Font Awesome: https://www.google.ro/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCEQFjAA&url=http%3A%2F%2Ffortawesome.github.io%2FFont-Awesome%2Ficons%2F&ei=jRR1VP_mIY_qaNyNgMAF&usg=AFQjCNH5fPgR6XPmQHmsXvECe_sveaqmQQ&bvm=bv.80642063,d.d2s
