@@ -41,8 +41,7 @@ add_action( 'wp_enqueue_scripts', 'denta_lite_wp_enqueue_script' );
 function denta_lite_custom_navigation_menus() {
 
 	$locations = array(
-		'header_navigation' => __( 'Header Navigation', 'denta_lite' ),
-        'footer_navigation' => __( 'Footer Navigation', 'denta_lite' )
+		'header_navigation' => __( 'Header Navigation', 'denta_lite' )
 	);
 	register_nav_menus( $locations );
 
