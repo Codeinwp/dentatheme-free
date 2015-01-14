@@ -17,29 +17,29 @@
 		<header>
 
 			<?php
-			if ( get_theme_mod( 'ti_topheader_title1' ) || get_theme_mod( 'ti_topheader_content1' ) || get_theme_mod( 'ti_topheader_title2' ) || get_theme_mod( 'ti_topheader_content2' ) ) { ?>
+			if ( get_theme_mod( 'denta_lite_topheader_title1' ) || get_theme_mod( 'denta_lite_topheader_content1' ) || get_theme_mod( 'denta_lite_topheader_title2' ) || get_theme_mod( 'denta_lite_topheader_content2' ) ) { ?>
 
 				<div class="top-header">
 					<div class="wrap cf">
 						<div class="top-header-left">
 							<?php
-							if ( get_theme_mod( 'ti_topheader_title1' ) ) {
-								echo get_theme_mod( 'ti_topheader_title1' ) . '<br />';
+							if ( get_theme_mod( 'denta_lite_topheader_title1' ) ) {
+								echo get_theme_mod( 'denta_lite_topheader_title1' ) . '<br />';
 							}
 
-							if ( get_theme_mod( 'ti_topheader_content1' ) ) {
-								echo '<span>'. get_theme_mod( 'ti_topheader_content1' ) .'</span>';
+							if ( get_theme_mod( 'denta_lite_topheader_content1' ) ) {
+								echo '<span>'. get_theme_mod( 'denta_lite_topheader_content1' ) .'</span>';
 							}
 							?>
 						</div><!--/.top-header-left-->
 						<div class="top-header-right">
 							<?php
-							if ( get_theme_mod( 'ti_topheader_title2' ) ) {
-								echo get_theme_mod( 'ti_topheader_title2' ) . '<br />';
+							if ( get_theme_mod( 'denta_lite_topheader_title2' ) ) {
+								echo get_theme_mod( 'denta_lite_topheader_title2' ) . '<br />';
 							}
 
-							if ( get_theme_mod( 'ti_topheader_content2' ) ) {
-								echo '<span><a href="tel:'. get_theme_mod( 'ti_topheader_content2' ) .'" title="'. get_theme_mod( 'ti_topheader_content2' ) .'">'. get_theme_mod( 'ti_topheader_content2' ) .'</a></span>';
+							if ( get_theme_mod( 'denta_lite_topheader_content2' ) ) {
+								echo '<span><a href="tel:'. get_theme_mod( 'denta_lite_topheader_content2' ) .'" title="'. get_theme_mod( 'denta_lite_topheader_content2' ) .'">'. get_theme_mod( 'denta_lite_topheader_content2' ) .'</a></span>';
 							}
 							?>
 						</div><!--/.top-header-right-->
