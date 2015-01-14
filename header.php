@@ -11,9 +11,6 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 		<title><?php wp_title('|', true, 'right'); ?></title>
-		<!--[if lt IE 9]>
-			<script src="<?php echo get_template_directory_uri(); ?>/js/html5shiv.js"></script>
-		<![endif]-->
 		<?php wp_head(); ?>
 	</head>
 	<body <?php body_class(); ?>>

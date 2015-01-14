@@ -32,9 +32,23 @@ function denta_lite_wp_enqueue_script() {
     wp_enqueue_script( 'carouFredSel', get_template_directory_uri() . '/js/jquery.carouFredSel-6.2.1-packed.js', array( 'jquery' ), '6.2.1', true );
     wp_enqueue_script( 'fancybox', get_template_directory_uri() . '/js/jquery.fancybox.js', array( 'jquery' ), '1.0', true );
     wp_enqueue_script( 'matchHeight', get_template_directory_uri() . '/js/jquery.matchHeight-min.js', array( 'jquery' ), '0.5.2', true );
+    wp_enqueue_script( 'html5shiv', get_template_directory_uri() . '/js/html5shiv.js', array(), '3.7.2', false );
     wp_enqueue_script( 'scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ), '1.0', true );
 }
 add_action( 'wp_enqueue_scripts', 'denta_lite_wp_enqueue_script' );
+
+/**
+ * Load only in IE as of WP 4.1
+ */
+function denta_lite_html5shiv( $tag, $handle, $src ) {
+    if ( 'html5shiv' === $handle ) {
+        $tag = "<!--[if lt IE 9]>\n";
+        $tag .= "<script type='text/javascript' src='$src'></script>\n";
+        $tag .= "<![endif]-->\n";
+    }
+    return $tag;
+}
+add_filter( 'script_loader_tag', 'denta_lite_html5shiv', 10, 3 );
 
 /**
  *	Custom Navigation Menus
