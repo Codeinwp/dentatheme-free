@@ -30,7 +30,7 @@ get_header();
 				if ( get_theme_mod( 'ti_404page_entry' ) ) {
 					echo htmlspecialchars_decode( get_theme_mod( 'ti_404page_entry' ) );
 				} else {
-					echo '<p>'. __( 'The page you are looking for does not exist, I can take you to the ', 'denta_lite' ) .'<a href="'. home_url() .'" title="'. __( 'home page.', 'denta_lite' ) .'">'. __( 'home page.', 'denta_lite' ) .'</a></p>';
+					echo '<p>'. __( 'The page you are looking for does not exist, I can take you to the ', 'denta_lite' ) .'<a href="'. esc_url( home_url() ) .'" title="'. __( 'home page.', 'denta_lite' ) .'">'. __( 'home page.', 'denta_lite' ) .'</a></p>';
 				}
 				?>
 			</div><!--/.page-content-entry-->

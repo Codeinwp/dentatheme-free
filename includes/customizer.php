@@ -67,25 +67,6 @@ function dentatheme_customizer( $wp_customize ) {
 		) );
 
 	/*
-    ** Footer
-    */
-    $wp_customize->add_section( 'footer_settings' , array(
-    	'title'       => __( 'Footer', 'denta_lite' ),
-    	'priority'    => 300,
-	) );
-
-		/* Copyright - Entry */
-		$wp_customize->add_setting( 'ti_copyright_entry', array( 'sanitize_callback' => 'medica_lite_sanitize_callback_text' ) );
-		$wp_customize->add_control( new Example_Customize_Textarea_Control( $wp_customize, 'ti_copyright_entry', array(
-		            'label' 	=> __( 'Copyright - Entry:', 'denta_lite' ),
-		            'section' 	=> 'footer_settings',
-		            'settings' 	=> 'ti_copyright_entry',
-		            'priority' 	=> '10'
-		        )
-		    )
-		);
-
-	/*
     ** Front Page
     */
     $wp_customize->add_section( 'frontpage_settings' , array(
@@ -223,7 +204,7 @@ function dentatheme_customizer( $wp_customize ) {
 	 */
 	$wp_customize->add_section( '404page_settings' , array(
     	'title'       => __( '404 Page', 'denta_lite' ),
-    	'priority'    => 400,
+    	'priority'    => 300,
 	) );
 
 		/* Title 1 */

@@ -51,7 +51,7 @@
 
 			<div class="center-header">
 				<div class="wrap cf">
-					<a href="<?php echo home_url(); ?>" title="<?php bloginfo('name'); ?>" class="center-header-logo">
+					<a href="<?php echo esc_url( home_url() ); ?>" title="<?php bloginfo('name'); ?>" class="center-header-logo">
 						<?php
 						if ( get_header_image() != NULL ) {
 							echo '<img src="'. get_header_image() .'" alt="'. get_bloginfo( 'name' ) .'" title="'. get_bloginfo( 'name' ) .'" width="'. get_custom_header()->width .'" height="'. get_custom_header()->height .'" />';
