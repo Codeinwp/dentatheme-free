@@ -177,7 +177,7 @@ function denta_lite_post_gallery($output, $attr) {
         $img = wp_get_attachment_image_src($id, 'full');
 
         $output .= "<dl class='gallery-item gallery-columns-". $columns ."'>";
-        $output .= "<a href=\"{$img[0]}\" rel='post-". $post->ID ."' class=\"fancybox\" title='". $attachment->post_excerpt ."'>\n";
+        $output .= "<a href=\"{$img[0]}\" rel='post-". $post->ID ."' class=\"nivo-lightbox\" data-lightbox-gallery='". $post->ID ."' title='". $attachment->post_excerpt ."'>\n";
         $output .= "<div class='gallery-item-thumb'><img src=\"{$img[0]}\" alt='". $attachment->post_excerpt ."' /></div>\n";
         $output .= "<div class='wp-caption-text'>";
         $output .= $attachment->post_excerpt;

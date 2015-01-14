@@ -44,4 +44,9 @@ jQuery(document).ready(function($) {
         $(this).children('article').matchHeight(byRow);
     });
 
+    // Nivo Lightbox
+	$(document).ready(function(){
+	    $('a.nivo-lightbox').nivoLightbox();
+	});
+
 });

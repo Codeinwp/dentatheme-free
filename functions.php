@@ -13,6 +13,7 @@ require_once( 'includes/custom-widgets.php' );
  */
 function denta_lite_wp_enqueue_style() {
 	wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '1.0' );
+    wp_enqueue_style( 'nivo-lightbox', get_template_directory_uri() . '/css/nivo-lightbox.css', array(), '1.2.0' );
 	wp_enqueue_style( 'font-family-open-sans', 'http://fonts.googleapis.com/css?family=Open+Sans:600italic,400italic,400,600,700,300,800' );
     wp_enqueue_style( 'font-family-cabin', 'http://fonts.googleapis.com/css?family=Cabin' );
     wp_enqueue_style( 'font-family-source-sans-pro', 'http://fonts.googleapis.com/css?family=Source+Sans+Pro' );
@@ -28,8 +29,8 @@ add_action( 'wp_enqueue_scripts', 'denta_lite_wp_enqueue_style' );
  */
 function denta_lite_wp_enqueue_script() {
     wp_enqueue_script( 'masonry' );
+    wp_enqueue_script( 'nivo-lightbox.min', get_template_directory_uri() . '/js/nivo-lightbox.min.js', array(), '1.2.0', false );
     wp_enqueue_script( 'all-scripts', get_template_directory_uri() . '/js/all-scripts.js', array( 'jquery' ), '', true );
-    wp_enqueue_script( 'fancybox', get_template_directory_uri() . '/js/jquery.fancybox.js', array( 'jquery' ), '1.0', true );
     wp_enqueue_script( 'html5shiv', get_template_directory_uri() . '/js/html5shiv.js', array(), '3.7.2', false );
     wp_enqueue_script( 'scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ), '1.0', true );
 }
