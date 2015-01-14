@@ -7,8 +7,8 @@ class Custom_Search_Widget extends WP_Widget {
 	function Custom_Search_Widget() {
 		parent::__construct(
 			'custom_search', // Base ID
-			__('Custom Search', 'ti'), // Name
-			array( 'description' => __( 'Custom Search widget.', 'ti' ), ) // Args
+			__('Custom Search', 'denta_lite'), // Name
+			array( 'description' => __( 'Custom Search widget.', 'denta_lite' ), ) // Args
 		);
 	}
 
@@ -43,11 +43,11 @@ class Custom_Search_Widget extends WP_Widget {
 			$title = $instance[ 'title' ];
 		}
 		else {
-			$title = __( 'Custom Search', 'ti' );
+			$title = __( 'Custom Search', 'denta_lite' );
 		}
 		?>
 			<p>
-				<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'ti' ); ?></label>
+				<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'denta_lite' ); ?></label>
 				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 			</p>
 

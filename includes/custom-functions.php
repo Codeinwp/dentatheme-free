@@ -84,7 +84,7 @@ function denta_lite_comments( $comment, $args, $depth ) {
         case 'trackback' :
     ?>
     <li class="post pingback">
-        <p><?php _e( 'Pingback:', 'ti' ); ?> <?php comment_author_link(); ?><?php edit_comment_link( __( '(Edit)', 'ti' ), ' ' ); ?></p>
+        <p><?php _e( 'Pingback:', 'denta_lite' ); ?> <?php comment_author_link(); ?><?php edit_comment_link( __( '(Edit)', 'denta_lite' ), ' ' ); ?></p>
     <?php
             break;
         default :
@@ -97,15 +97,15 @@ function denta_lite_comments( $comment, $args, $depth ) {
         	<div class="comment-content">
         		<div class="comment-content-meta">
         			<div class="content-meta-left">
-        				<?php printf( __( '<span class="meta-left-author">%s</span>', 'ti' ), sprintf( '%s', get_comment_author_link() ) ); ?>
+        				<?php printf( __( '<span class="meta-left-author">%s</span>', 'denta_lite' ), sprintf( '%s', get_comment_author_link() ) ); ?>
         				<a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>" class="content-meta-date">
 	                        <time pubdate datetime="<?php comment_time( 'c' ); ?>">
-	                            <?php printf( __( '%1$s at %2$s', 'ti' ), get_comment_date(), get_comment_time() ); ?>
+	                            <?php printf( __( '%1$s at %2$s', 'denta_lite' ), get_comment_date(), get_comment_time() ); ?>
 	                        </time>
 	                    </a><!--/.content-meta-date-->
         			</div><!--/.content-meta-left-->
         			<div class="content-meta-right">
-        				<?php edit_comment_link( __( 'Edit comment', 'ti' ), '' ); ?>
+        				<?php edit_comment_link( __( 'Edit comment', 'denta_lite' ), '' ); ?>
         				<?php comment_reply_link( array_merge( $args, array( 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
         			</div><!--/.content-meta-right-->
         		</div><!--/.comment-content-meta-->
@@ -113,7 +113,7 @@ function denta_lite_comments( $comment, $args, $depth ) {
         			<?php comment_text(); ?>
         			<?php if ( $comment->comment_approved == '0' ) : ?>
 	                    <em class="awaiting-moderation cf">
-	                    	<?php _e( 'Your comment is awaiting moderation.', 'ti' ); ?>
+	                    	<?php _e( 'Your comment is awaiting moderation.', 'denta_lite' ); ?>
 	                    </em>
 	                <?php endif; ?>
         		</div><!--/.comment-content-entry-->

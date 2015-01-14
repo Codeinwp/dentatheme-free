@@ -138,7 +138,7 @@ function denta_lite_wp_title( $title, $sep ) {
 
     // Add a page number if necessary.
     if ( $paged >= 2 || $page >= 2 )
-        $title = "$title $sep " . sprintf( __( 'Page %s', 'twentytwelve' ), max( $paged, $page ) );
+        $title = "$title $sep " . sprintf( __( 'Page %s', 'denta_lite' ), max( $paged, $page ) );
 
     return $title;
 }

@@ -13,7 +13,7 @@ get_template_part( 'includes/featured-article' ); ?>
 		if ( get_theme_mod( 'ti_latestnews_title' ) ) {
 			echo '<div class="fullwidth-title">'. get_theme_mod( 'ti_latestnews_title' ) .'</div>';
 		} else {
-			echo '<div class="fullwidth-title">'. __( 'Latest News', 'ti' ) .'</div>';
+			echo '<div class="fullwidth-title">'. __( 'Latest News', 'denta_lite' ) .'</div>';
 		}
 		?>
 		<div class="latest-news-articles cf">
@@ -36,7 +36,7 @@ get_template_part( 'includes/featured-article' ); ?>
 								<div class="article-featured-background-hover">
 								</div><!--/.article-featured-background-hover-->
 								<div class="article-featured-image-hover">
-									<?php _e( 'Read More', 'ti' ); ?>
+									<?php _e( 'Read More', 'denta_lite' ); ?>
 								</div><!--/.article-featured-image-hover-->
 							</a><!--/.article-featured-image-->
 						<?php }
@@ -51,7 +51,7 @@ get_template_part( 'includes/featured-article' ); ?>
 
 				<?php }
 			} else {
-				echo __( 'No posts found.', 'ti' );
+				echo __( 'No posts found.', 'denta_lite' );
 			}
 			wp_reset_postdata();
 			?>
