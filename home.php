@@ -21,8 +21,6 @@ get_template_part( 'includes/featured-article' ); ?>
 			<?php
 			$args = array (
 				'post_type'              => 'post',
-				'posts_per_page'         => '4',
-				'ignore_sticky_posts'    => true,
 			);
 			$wp_query = new WP_Query( $args );
 
@@ -53,7 +51,7 @@ get_template_part( 'includes/featured-article' ); ?>
 
 				<?php }
 			} else {
-				_e( 'No posts found.', 'ti' );
+				echo __( 'No posts found.', 'ti' );
 			}
 			wp_reset_postdata();
 			?>

@@ -3519,11 +3519,25 @@ h4 {
 }
 .latest-news-articles article {
   width: 232px;
-  margin-left: 30px;
+  margin: 30px 0 0 30px;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  transition: all 0.3s;
   float: left;
 }
-.latest-news-articles article:first-child {
+.latest-news-articles article.sticky:hover {
+  border-left: 10px solid #42b3e5;
+}
+.latest-news-articles article:nth-child(4n+1) {
   margin-left: 0;
+}
+.latest-news-articles article:nth-child(1),
+.latest-news-articles article:nth-child(2),
+.latest-news-articles article:nth-child(3),
+.latest-news-articles article:nth-child(4) {
+  margin-top: 0;
 }
 .latest-news-articles article .article-featured-image {
   width: 100%;
