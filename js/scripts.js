@@ -15,17 +15,7 @@ jQuery(".navigation ul:first > li").each(function( index ) {
  */
 jQuery(document).ready(function($) {
 
-	/* Testimonials Slides */
-	$('#testimonials-slides').carouFredSel({
-		width: 1018,
-		auto: false,
-		prev: '#testimonials-slide-prev',
-		next: '#testimonials-slide-next',
-		items: 1,
-		responsive: true
-	});
-
-	/* Similar Article Carousel */
+	// Similar Article Carousel
 	$('#similar-article-carousel').carouFredSel({
 		width: 1018,
 		auto: false,
@@ -35,21 +25,28 @@ jQuery(document).ready(function($) {
 		responsive: true
 	});
 
-	/* Fancybox */
-	$(".fancybox").fancybox();
-
-	/* Masonry */
+	// Masonry
 	var $container = $('.gallery');
-
 	$container.imagesLoaded( function(){
 		$container.masonry({
 			itemSelector : 'dl.gallery-item'
 		});
 	});
 
-	/* Responsive Menu */
+	// Responsive Menu
 	$('.openresponsivemenu').click(function() {
 		$('.navigation').toggleClass("responsivemenu cf");
+	});
+
+	// Match Height
+	var byRow = $('body').hasClass('matchheight');
+    $('.latest-news-articles').each(function() {
+        $(this).children('article').matchHeight(byRow);
+    });
+
+    // Nivo Lightbox
+	$(document).ready(function(){
+	    $('a.nivo-lightbox').nivoLightbox();
 	});
 
 });

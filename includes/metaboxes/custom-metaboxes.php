@@ -22,7 +22,7 @@ function dentatheme_metaboxes( array $meta_boxes ) {
 
 	$meta_boxes['page_custom_metaboxes'] = array(
 		'id'         => 'page_custom_metaboxes',
-		'title'      => __( 'Informations', 'ti' ),
+		'title'      => __( 'Informations', 'denta_lite' ),
 		'pages'      => array( 'page' ),
 		'show_on'    => array( 'key' => 'page-template', 'value' => 'page-custom.php' ),
 		'context'    => 'normal',
@@ -30,23 +30,23 @@ function dentatheme_metaboxes( array $meta_boxes ) {
 		'show_names' => true,
 		'fields'     => array(
 			array(
-				'name' => __( 'Title:', 'ti' ),
+				'name' => __( 'Title:', 'denta_lite' ),
 				'id'   => $prefix . 'informations_title',
 				'type' => 'text_medium',
 			),
 			array(
-				'name' => __( 'E-mail:', 'ti' ),
+				'name' => __( 'E-mail:', 'denta_lite' ),
 				'id'   => $prefix . 'informations_email',
 				'type' => 'text_medium',
 			),
 			array(
-				'name' => __( 'Telephone:', 'ti' ),
+				'name' => __( 'Telephone:', 'denta_lite' ),
 				'id'   => $prefix . 'informations_telephone',
 				'type' => 'text_medium',
 			),
 
 			array(
-				'name' => __( 'URL:', 'ti' ),
+				'name' => __( 'URL:', 'denta_lite' ),
 				'id'   => $prefix . 'informations_url',
 				'type' => 'text_medium',
 			),
