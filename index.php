@@ -44,7 +44,7 @@ get_header();
 
 			<?php }
 		} else {
-			_e( 'No posts found.', 'denta_lite' );
+			echo __( 'No posts found.', 'denta_lite' );
 		}
 
 		denta_lite_pagination();

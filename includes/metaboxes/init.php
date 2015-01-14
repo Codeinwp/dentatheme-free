@@ -248,10 +248,10 @@ class cmb_Meta_Box {
 			   wp_register_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), self::CMB_VERSION );
 		   	wp_register_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris' ), self::CMB_VERSION );
 				wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', array(
-					'clear' => __( 'Clear', 'ti' ),
-					'defaultString' => __( 'Default', 'ti' ),
-					'pick' => __( 'Select Color', 'ti' ),
-					'current' => __( 'Current Color', 'ti' ),
+					'clear' => __( 'Clear', 'denta_lite' ),
+					'defaultString' => __( 'Default', 'denta_lite' ),
+					'pick' => __( 'Select Color', 'denta_lite' ),
+					'current' => __( 'Current Color', 'denta_lite' ),
 				) );
 			}
 		} else {
@@ -1152,7 +1152,7 @@ function cmb_metabox_form( $meta_box, $object_id, $echo = true ) {
 
 	$form_format = apply_filters( 'cmb_frontend_form_format', '<form class="cmb-form" method="post" id="%s" enctype="multipart/form-data" encoding="multipart/form-data"><input type="hidden" name="object_id" value="%s">%s<input type="submit" name="submit-cmb" value="%s" class="button-primary"></form>', $object_id, $meta_box, $form );
 
-	$form = sprintf( $form_format, $meta_box['id'], $object_id, $form, __( 'Save', 'ti' ) );
+	$form = sprintf( $form_format, $meta_box['id'], $object_id, $form, __( 'Save', 'denta_lite' ) );
 
 	if ( $echo )
 		echo $form;

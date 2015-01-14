@@ -9,10 +9,62 @@ require_once( 'includes/custom-functions.php' );
 require_once( 'includes/custom-widgets.php' );
 
 /**
+ *  Setup
+ */
+if ( !function_exists( 'denta_lite_setup' ) ) {
+
+    function denta_lite_setup() {
+
+        // Post Thumbnails
+        add_theme_support( 'post-thumbnails' );
+
+        // Automatic Feed Links
+        add_theme_support( 'automatic-feed-links' );
+
+        // Title Tag
+        add_theme_support( "title-tag" );
+
+        // Custom Header
+        $args_custom_header = array(
+            'width'         => '262',
+            'height'        => '90',
+            'flex-height'   => true,
+            'header-text'   => true,
+            'default-image' => get_template_directory_uri() . '/images/logo.png'
+        );
+        add_theme_support( "custom-header", $args_custom_header );
+
+        // Custom Background
+        $args_custom_background = array(
+            'default-color'         => '#ffffff',
+            'default-repeat'        => 'no-repeat',
+            'default-attachment'    => 'fixed'
+        );
+        add_theme_support( "custom-background", $args_custom_background );
+
+        // Add Editor Style
+        add_editor_style();
+
+        // The Post Thumbnail
+        the_post_thumbnail();
+
+        // Header Navigation
+        $header_navigation_args = array(
+            'header_navigation' => __( 'Header Navigation', 'denta_lite' )
+        );
+        register_nav_menus( $header_navigation_args );
+
+    }
+
+}
+add_action( 'after_setup_theme', 'denta_lite_setup' );
+
+/**
  *	WP Enqueue Style
  */
 function denta_lite_wp_enqueue_style() {
 	wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '1.0' );
+    wp_enqueue_style( 'nivo-lightbox', get_template_directory_uri() . '/css/nivo-lightbox.css', array(), '1.2.0' );
 	wp_enqueue_style( 'font-family-open-sans', 'http://fonts.googleapis.com/css?family=Open+Sans:600italic,400italic,400,600,700,300,800' );
     wp_enqueue_style( 'font-family-cabin', 'http://fonts.googleapis.com/css?family=Cabin' );
     wp_enqueue_style( 'font-family-source-sans-pro', 'http://fonts.googleapis.com/css?family=Source+Sans+Pro' );
@@ -27,64 +79,30 @@ add_action( 'wp_enqueue_scripts', 'denta_lite_wp_enqueue_style' );
  *	WP Enqueue Script
  */
 function denta_lite_wp_enqueue_script() {
-    wp_enqueue_script( 'jquery' );
-    wp_enqueue_script( 'carouFredSel', get_template_directory_uri() . '/js/jquery.carouFredSel-6.2.1-packed.js', array( 'jquery' ), '6.2.1', true );
-    wp_enqueue_script( 'fancybox', get_template_directory_uri() . '/js/jquery.fancybox.js', array( 'jquery' ), '1.0', true );
     wp_enqueue_script( 'masonry' );
+    wp_enqueue_script( 'all-scripts', get_template_directory_uri() . '/js/all-scripts.js', array( 'jquery' ), '', true );
+    wp_enqueue_script( 'html5shiv', get_template_directory_uri() . '/js/html5shiv.js', array(), '3.7.2', false );
     wp_enqueue_script( 'scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ), '1.0', true );
 }
 add_action( 'wp_enqueue_scripts', 'denta_lite_wp_enqueue_script' );
 
 /**
- *	Custom Navigation Menus
+ * Load only in IE as of WP 4.1
  */
-function denta_lite_custom_navigation_menus() {
-
-	$locations = array(
-		'header_navigation' => __( 'Header Navigation', 'denta_lite' ),
-        'footer_navigation' => __( 'Footer Navigation', 'denta_lite' )
-	);
-	register_nav_menus( $locations );
-
+function denta_lite_html5shiv( $tag, $handle, $src ) {
+    if ( 'html5shiv' === $handle ) {
+        $tag = "<!--[if lt IE 9]>\n";
+        $tag .= "<script type='text/javascript' src='$src'></script>\n";
+        $tag .= "<![endif]-->\n";
+    }
+    return $tag;
 }
-add_action( 'init', 'denta_lite_custom_navigation_menus' );
+add_filter( 'script_loader_tag', 'denta_lite_html5shiv', 10, 3 );
 
 /**
  *  Content Width
  */
 if ( ! isset( $content_width ) ) $content_width = 756;
-
-/**
- *	Add Theme Support
- */
-add_theme_support( 'post-thumbnails' ); // Post Thumbnails
-add_theme_support( 'automatic-feed-links' ); // Automatic Feed Links
-
-$args_custom_header = array(
-    'width'         => '262',
-    'height'        => '90',
-    'flex-height'   => true,
-    'header-text'   => true,
-    'default-image' => get_template_directory_uri() . '/images/logo.png'
-);
-add_theme_support( "custom-header", $args_custom_header ); // Custom Header
-
-$args_custom_background = array(
-    'default-color'         => '#ffffff',
-    'default-repeat'        => 'no-repeat',
-    'default-attachment'    => 'fixed'
-);
-add_theme_support( "custom-background", $args_custom_background ); // Custom Background
-
-/**
- *  The Post Thumbnail
- */
-the_post_thumbnail();
-
-/**
- *  Add Editor Style
- */
-add_editor_style();
 
 /**
  *  General Sidebar
@@ -124,7 +142,7 @@ function denta_lite_wp_title( $title, $sep ) {
 
     // Add a page number if necessary.
     if ( $paged >= 2 || $page >= 2 )
-        $title = "$title $sep " . sprintf( __( 'Page %s', 'twentytwelve' ), max( $paged, $page ) );
+        $title = "$title $sep " . sprintf( __( 'Page %s', 'denta_lite' ), max( $paged, $page ) );
 
     return $title;
 }

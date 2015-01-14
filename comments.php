@@ -16,21 +16,21 @@ if ( post_password_required() )
         <div class="fullwidth-single-title">
             <h4>
                 <?php
-                    printf( _n( 'One Comment', '%1$s Comments', get_comments_number(), 'ti' ),
+                    printf( _n( 'One Comment', '%1$s Comments', get_comments_number(), 'denta_lite' ),
                         number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
                 ?>
                 -
                 <a href="#respond" title="Leave a Comment">
-                    <?php _e( 'Leave a Comment', 'ti' ); ?>
+                    <?php _e( 'Leave a Comment', 'denta_lite' ); ?>
                 </a>
             </h4>
         </div><!--/.fullwidth-single-title-->
 
         <?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through? If so, show navigation ?>
         <nav role="navigation" id="comment-nav-above" class="site-navigation comment-navigation">
-            <h1 class="assistive-text"><?php _e( 'Comment navigation', 'ti' ); ?></h1>
-            <div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'ti' ) ); ?></div>
-            <div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'ti' ) ); ?></div>
+            <h1 class="assistive-text"><?php _e( 'Comment navigation', 'denta_lite' ); ?></h1>
+            <div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'denta_lite' ) ); ?></div>
+            <div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'denta_lite' ) ); ?></div>
         </nav><!-- #comment-nav-before .site-navigation .comment-navigation -->
         <?php endif; // check for comment navigation ?>
 
@@ -45,9 +45,9 @@ if ( post_password_required() )
 
         <?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through? If so, show navigation ?>
         <nav role="navigation" id="comment-nav-below" class="site-navigation comment-navigation">
-            <h1 class="assistive-text"><?php _e( 'Comment navigation', 'ti' ); ?></h1>
-            <div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'ti' ) ); ?></div>
-            <div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'ti' ) ); ?></div>
+            <h1 class="assistive-text"><?php _e( 'Comment navigation', 'denta_lite' ); ?></h1>
+            <div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'denta_lite' ) ); ?></div>
+            <div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'denta_lite' ) ); ?></div>
         </nav><!-- #comment-nav-below .site-navigation .comment-navigation -->
         <?php endif; // check for comment navigation ?>
 
@@ -57,7 +57,7 @@ if ( post_password_required() )
         // If comments are closed and there are comments, let's leave a little note, shall we?
         if ( ! comments_open() && '0' != get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) :
     ?>
-        <p class="nocomments"><?php _e( 'Comments are closed.', 'ti' ); ?></p>
+        <p class="nocomments"><?php _e( 'Comments are closed.', 'denta_lite' ); ?></p>
     <?php endif; ?>
 
         <?php
@@ -89,7 +89,7 @@ if ( post_password_required() )
             );
 
             $comment_textarea = '<textarea placeholder="Your Message... (*)" class="input-textarea" name="comment" aria-required="true"></textarea>';
-            comment_form( array( 'fields' => $fields, 'comment_field' => $comment_textarea, 'id_submit' => 'comment-form-submit', 'label_submit' => esc_attr__( 'Submit', 'ti' ), 'title_reply' => esc_attr__( 'Leave a comment', 'ti' ), 'title_reply_to' => esc_attr__( 'Leave a comment to %s', 'ti' )) );
+            comment_form( array( 'fields' => $fields, 'comment_field' => $comment_textarea, 'id_submit' => 'comment-form-submit', 'label_submit' => esc_attr__( 'Submit', 'denta_lite' ), 'title_reply' => esc_attr__( 'Leave a comment', 'denta_lite' ), 'title_reply_to' => esc_attr__( 'Leave a comment to %s', 'denta_lite' )) );
         ?>
 
 </div><!-- #comments .comments-area -->
