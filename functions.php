@@ -49,10 +49,10 @@ if ( !function_exists( 'denta_lite_setup' ) ) {
         the_post_thumbnail();
 
         // Header Navigation
-        $locations = array(
+        $header_navigation_args = array(
             'header_navigation' => __( 'Header Navigation', 'denta_lite' )
         );
-        register_nav_menus( $locations );
+        register_nav_menus( $header_navigation_args );
 
     }
 
@@ -80,7 +80,6 @@ add_action( 'wp_enqueue_scripts', 'denta_lite_wp_enqueue_style' );
  */
 function denta_lite_wp_enqueue_script() {
     wp_enqueue_script( 'masonry' );
-    wp_enqueue_script( 'nivo-lightbox.min', get_template_directory_uri() . '/js/nivo-lightbox.min.js', array(), '1.2.0', false );
     wp_enqueue_script( 'all-scripts', get_template_directory_uri() . '/js/all-scripts.js', array( 'jquery' ), '', true );
     wp_enqueue_script( 'html5shiv', get_template_directory_uri() . '/js/html5shiv.js', array(), '3.7.2', false );
     wp_enqueue_script( 'scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ), '1.0', true );
