@@ -310,18 +310,13 @@ function denta_lite_registers() {
 add_action( 'customize_controls_enqueue_scripts', 'denta_lite_registers' );
 
 /**
-
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
-
  */
 
 function denta_lite_customize_preview_js() {
 	wp_enqueue_script( 'denta_lite_customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), '20130508', true );
 }
 add_action( 'customize_preview_init', 'denta_lite_customize_preview_js' );
-
-
-add_action( 'customize_controls_enqueue_scripts', 'denta_lite_registers' );
 
 if( class_exists( 'WP_Customize_Control' ) ):
 	class Example_Customize_Textarea_Control extends WP_Customize_Control {

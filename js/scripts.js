@@ -15,16 +15,6 @@ jQuery(".navigation ul:first > li").each(function( index ) {
  */
 jQuery(document).ready(function($) {
 
-	// Testimonials Slides
-	$('#testimonials-slides').carouFredSel({
-		width: 1018,
-		auto: false,
-		prev: '#testimonials-slide-prev',
-		next: '#testimonials-slide-next',
-		items: 1,
-		responsive: true
-	});
-
 	// Similar Article Carousel
 	$('#similar-article-carousel').carouFredSel({
 		width: 1018,
@@ -34,9 +24,6 @@ jQuery(document).ready(function($) {
 		items: 4,
 		responsive: true
 	});
-
-	// Fancybox
-	$(".fancybox").fancybox();
 
 	// Masonry
 	var $container = $('.gallery');
