@@ -295,27 +295,31 @@ function dentatheme_customizer( $wp_customize ) {
 add_action( 'customize_register', 'dentatheme_customizer' );
 
 /**
+ *	Registers
+ */
+function denta_lite_registers() {
+	wp_register_script( 'denta_lite_customizer_script', get_template_directory_uri() . '/js/denta_lite_customizer.js', array("jquery"), '20120206', true  );
+	wp_enqueue_script( 'denta_lite_customizer_script' );
+	wp_localize_script( 'denta_lite_customizer_script', 'denta_lite_buttons', array(
+		'doc'		=> __( 'Documentation', 'denta_lite' ),
+		'pro'		=> __( 'View PRO Version', 'denta_lite' ),
+		'team'		=> '<span class="sidebar-content-title">'. __( 'Our Team Section', 'denta_lite' ) .'</span><span class="sidebar-content-description">'. __( '(available in PRO version)', 'denta_lite' ) .'</span>',
+		'services'	=> '<span class="sidebar-content-title">'. __( 'Services Section', 'denta_lite' ) .'</span><span class="sidebar-content-description">'. __( '(available in PRO version)', 'denta_lite' ) .'</span>'
+	) );
+}
+add_action( 'customize_controls_enqueue_scripts', 'denta_lite_registers' );
+
+/**
 
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
 
  */
 
 function denta_lite_customize_preview_js() {
-
 	wp_enqueue_script( 'denta_lite_customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), '20130508', true );
-
 }
-
 add_action( 'customize_preview_init', 'denta_lite_customize_preview_js' );
 
-
-function denta_lite_registers() {
-
-	wp_register_script( 'denta_lite_customizer_script', get_template_directory_uri() . '/js/denta_lite_customizer.js', array("jquery"), '20120206', true  );
-
-	wp_enqueue_script( 'denta_lite_customizer_script' );
-
-}
 
 add_action( 'customize_controls_enqueue_scripts', 'denta_lite_registers' );
 
