@@ -9,6 +9,57 @@ require_once( 'includes/custom-functions.php' );
 require_once( 'includes/custom-widgets.php' );
 
 /**
+ *  Setup
+ */
+if ( !function_exists( 'denta_lite_setup' ) ) {
+
+    function denta_lite_setup() {
+
+        // Post Thumbnails
+        add_theme_support( 'post-thumbnails' );
+
+        // Automatic Feed Links
+        add_theme_support( 'automatic-feed-links' );
+
+        // Title Tag
+        add_theme_support( "title-tag" );
+
+        // Custom Header
+        $args_custom_header = array(
+            'width'         => '262',
+            'height'        => '90',
+            'flex-height'   => true,
+            'header-text'   => true,
+            'default-image' => get_template_directory_uri() . '/images/logo.png'
+        );
+        add_theme_support( "custom-header", $args_custom_header );
+
+        // Custom Background
+        $args_custom_background = array(
+            'default-color'         => '#ffffff',
+            'default-repeat'        => 'no-repeat',
+            'default-attachment'    => 'fixed'
+        );
+        add_theme_support( "custom-background", $args_custom_background );
+
+        // Add Editor Style
+        add_editor_style();
+
+        // The Post Thumbnail
+        the_post_thumbnail();
+
+        // Header Navigation
+        $locations = array(
+            'header_navigation' => __( 'Header Navigation', 'denta_lite' )
+        );
+        register_nav_menus( $locations );
+
+    }
+
+}
+add_action( 'after_setup_theme', 'denta_lite_setup' );
+
+/**
  *	WP Enqueue Style
  */
 function denta_lite_wp_enqueue_style() {
@@ -50,55 +101,9 @@ function denta_lite_html5shiv( $tag, $handle, $src ) {
 add_filter( 'script_loader_tag', 'denta_lite_html5shiv', 10, 3 );
 
 /**
- *	Custom Navigation Menus
- */
-function denta_lite_custom_navigation_menus() {
-
-	$locations = array(
-		'header_navigation' => __( 'Header Navigation', 'denta_lite' )
-	);
-	register_nav_menus( $locations );
-
-}
-add_action( 'init', 'denta_lite_custom_navigation_menus' );
-
-/**
  *  Content Width
  */
 if ( ! isset( $content_width ) ) $content_width = 756;
-
-/**
- *	Add Theme Support
- */
-add_theme_support( 'post-thumbnails' ); // Post Thumbnails
-add_theme_support( 'automatic-feed-links' ); // Automatic Feed Links
-add_theme_support( "title-tag" ); // Title Tag
-
-$args_custom_header = array(
-    'width'         => '262',
-    'height'        => '90',
-    'flex-height'   => true,
-    'header-text'   => true,
-    'default-image' => get_template_directory_uri() . '/images/logo.png'
-);
-add_theme_support( "custom-header", $args_custom_header ); // Custom Header
-
-$args_custom_background = array(
-    'default-color'         => '#ffffff',
-    'default-repeat'        => 'no-repeat',
-    'default-attachment'    => 'fixed'
-);
-add_theme_support( "custom-background", $args_custom_background ); // Custom Background
-
-/**
- *  The Post Thumbnail
- */
-the_post_thumbnail();
-
-/**
- *  Add Editor Style
- */
-add_editor_style();
 
 /**
  *  General Sidebar
