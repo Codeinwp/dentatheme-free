@@ -53,9 +53,10 @@
 				<div class="wrap cf">
 					<a href="<?php echo esc_url( home_url() ); ?>" title="<?php bloginfo('name'); ?>" class="center-header-logo">
 						<?php
-						if ( get_header_image() != NULL ) {
+						if ( !display_header_text() ) {
 							echo '<img src="'. get_header_image() .'" alt="'. get_bloginfo( 'name' ) .'" title="'. get_bloginfo( 'name' ) .'" width="'. get_custom_header()->width .'" height="'. get_custom_header()->height .'" />';
 						} else {
+
 							$header_textcolor = get_header_textcolor();
 							if ( empty( $header_textcolor ) ) {
 								$header_logo_style = '';
@@ -69,15 +70,8 @@
 							echo '<div class="header-logo-description"'. $header_textcolor .'>';
 							echo bloginfo( 'description' );
 							echo '</div>';
-						}
 
-						/*
-						if ( get_theme_mod( 'ti_centerheader_logo' ) ) {
-							echo '<img src="'. get_theme_mod( 'ti_centerheader_logo' ) .'" alt="'. get_bloginfo('name') .'" title="'. get_bloginfo('name') .'" />';
-						} else {
-							echo '<img src="'. get_template_directory_uri() .'/images/logo.png" alt="'. get_bloginfo('name') .'" title="'. get_bloginfo('name') .'" />';
 						}
-						*/
 						?>
 					</a><!--/.center-header-logo-->
 					<div class="openresponsivemenu">
