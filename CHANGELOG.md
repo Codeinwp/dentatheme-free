@@ -1,5 +1,54 @@
 
 
+### 1.1.4 - 20/01/2015
+
+ Changes: 
+
+
+ * Issue #18 fixed
+
+Issue fixed:
+
+am vazut ca ai folosit mixin pentru transition, este corect ce ai facut,
+dar codul de la transition se repeta la nesfarsit. Uite o solutie buna:
+faci o clasa .transition unde pui @include transition() apoi unde ai
+nevoie de transition faci extend la clasa respectiva, rezultatul va fi
+un cod mai optimizat.
+ * Issue #30 fixed
+
+Issue fixed:
+
+Adauga o bordura la header, se vede rau tare sectiunea aia.
+ * Issue #31 fixed
+
+Issue fixed:
+
+La latest news adauga border-bottom si putin mai mult spatiu in jos (
+adica vertical , adaugi margin-bottom ).
+ * Issue #32 fixed
+
+Issue fixed:
+
+Spatiu-ul dintre featured icons si latest news este mult prea mare.
+ * Issue #33 fixed
+
+Issue fixed:
+
+rtl.css shouild be in the main folder
+ * Issue #34 fixed
+
+Issue fixed:
+
+logo image should not be set by default - there's no real reason for a
+Theme to bundle a default logo. Unless the user configures either a
+favicon or a logo - ie by defining/uploading one - the Theme should
+output/display neither.
+ * Merge pull request #35 from robciucioan/development
+
+Development
+ * Update style.css
+
+
 ### 1.1.3 - 14/01/2015
 
  Changes: 
