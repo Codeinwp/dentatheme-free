@@ -70,7 +70,7 @@ function denta_lite_wp_enqueue_style() {
     wp_enqueue_style( 'font-family-source-sans-pro', 'http://fonts.googleapis.com/css?family=Source+Sans+Pro' );
     if ( is_singular() ) wp_enqueue_script( "comment-reply" );
     if ( is_rtl() ) {
-        wp_enqueue_style( 'rtl', get_template_directory_uri() . '/css/rtl.css', array(), '1.0' );
+        wp_enqueue_style( 'rtl', get_template_directory_uri() . '/rtl.css', array(), '1.0' );
     }
 }
 add_action( 'wp_enqueue_scripts', 'denta_lite_wp_enqueue_style' );
