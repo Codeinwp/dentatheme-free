@@ -380,9 +380,10 @@ header {
   margin-left: 0px;
 }
 .center-header .navigation li ul li a {
-  height: 40px;
-  padding: 0 25px;
-  line-height: 40px;
+  /* height: 40px; */
+  padding: 10px 25px;
+  /* line-height: 40px; */
+  line-height: 16px;
   font-weight: normal;
   border: none;
   color: #fff;
