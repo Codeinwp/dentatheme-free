@@ -1,5 +1,58 @@
 
 
+### 1.1.4 - 26/01/2015
+
+ Changes: 
+
+
+ * Issue #37 fixed
+
+Issue fixed:
+
+Daca link-ul in meniu are mai mult de un rand, se vede rau.
+ * Merge pull request #38 from robciucioan/development
+
+Issue #37 fixed
+ * Issue #40 fixed
+
+Issue fixed:
+
+style.css : line 821 Wrong syntax
+ * Issue #41 fixed
+
+Issue fixed:
+
+scoate logo-ul ti de pe screenshot
+ * Issue #42 fixed
+
+Issue fixed:
+
+page-blog.php: line 42 Text string missing
+index.php: line 34 Text string missing
+ * Issue #42 fixed
+
+Issue fixed:
+
+Title Tag: It displays Title tag twice in the source
+ * Revert "Issue #42 fixed"
+
+This reverts commit e5e9a634aae817526b372aabd16f4afa10ce95b0.
+ * Issue #43 fixed
+
+Issue fixed:
+
+Title Tag: It displays Title tag twice in the source
+ * Issue #44 fixed
+
+Issue fixed:
+
+Provide unminfied version with along with minified js
+allscript.js
+ * Merge pull request #45 from robciucioan/development
+
+Development
+
+
 ### 1.1.4 - 20/01/2015
 
  Changes: 
