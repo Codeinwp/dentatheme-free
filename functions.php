@@ -63,7 +63,7 @@ add_action( 'after_setup_theme', 'denta_lite_setup' );
  *	WP Enqueue Style
  */
 function denta_lite_wp_enqueue_style() {
-	wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '1.0' );
+	wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '1.1.4' );
     wp_enqueue_style( 'nivo-lightbox', get_template_directory_uri() . '/css/nivo-lightbox.css', array(), '1.2.0' );
 	wp_enqueue_style( 'font-family-open-sans', 'http://fonts.googleapis.com/css?family=Open+Sans:600italic,400italic,400,600,700,300,800' );
     wp_enqueue_style( 'font-family-cabin', 'http://fonts.googleapis.com/css?family=Cabin' );

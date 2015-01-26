@@ -31,7 +31,8 @@ get_header();
 						<div class="article-meta-left">
 							<?php _e( 'Posted by', 'denta_lite' ); ?> <?php the_author_posts_link(); ?> <?php _e( 'on', 'denta_lite' ); ?> <?php echo get_the_date(); ?>
 						</div><!--/.article-meta-left-->
-						<a href="<?php the_permalink(); ?>#comments-template" title="<?php comments_number( 'No responses', 'One comment', '% comments' ); ?>" class="article-meta-right"><?php comments_number( 'No responses', 'One comment', '% comments' ); ?>
+						<a href="<?php the_permalink(); ?>#comments-template" title="<?php comments_number( __( 'No responses1', 'denta_lite' ), __( 'One comment', 'denta_lite' ), __( '% comments', 'denta_lite' ) ); ?>" class="article-meta-right">
+							<?php comments_number( __( 'No responses', 'denta_lite' ), __( 'One comment', 'denta_lite' ), __( '% comments', 'denta_lite' ) ); ?>
 						</a><!--/.article-meta-right-->
 					</div><!--/.article-meta.cf-->
 					<div class="article-entry">
