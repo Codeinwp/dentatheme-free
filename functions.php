@@ -148,11 +148,14 @@ function denta_lite_wp_title( $title, $sep ) {
 }
 add_filter( 'wp_title', 'denta_lite_wp_title', 10, 2 );
 
+/**
+ *  WP Render Title
+ */
 if ( ! function_exists( '_wp_render_title_tag' ) ) {
-    function theme_slug_render_title() {
+    function denta_lite_render_title() {
 ?>
 <title><?php wp_title( '|', true, 'right' ); ?></title>
 <?php
     }
-    add_action( 'wp_head', 'theme_slug_render_title' );
+    add_action( 'wp_head', 'denta_lite_render_title' );
 }
