@@ -1,5 +1,49 @@
 
 
+### 1.1.6 - 28/01/2015
+
+ Changes: 
+
+
+ * Issue #52 fixed (New copyright)
+
+Copyright (C) [Nume site] | Proudly powered by WordPress.
+ * Issue #51 fixed (title tag bc)
+
+Trebuie sa faci ca titlul sa fie compatibil si cu alte versiuni de
+wordpress, uite aici exemplu:
+http://codex.wordpress.org/Title_Tag
+ * Issue #50 fixed (RECOMMENDED: Tags: is either empty or missing in style.css header)
+
+RECOMMENDED: Tags: is either empty or missing in style.css header.
+
+NU stiu exact de ce imi da asta theme checkerul cand vreau sa fac update
+
+@robi09 @robciucioan
+ * Issue #48 fixed (screenshot f urat)
+
+@robi09 @robciucioan screenshotul arata f rau, fara featured images la
+posts, cu imaginile alea standard etc, putem sa facem unu mai ok ?
+
+Putem trimite toate cele 3 teme lite azi ? Adica sa fixam toate issues ?
+ * Issue #44 fixed (Unminified scripts)
+
+De ce nu punem totul neminificat ? @robciucioan cred ca ai intles
+gresit, el vrea totul neminificat, iar tu ai facut tocmai invers
+ * Issue #47 fixed (Customizer update)
+
+Faci update si aici la fel ca la mooveit si media, cum am discutat.
+ * Issue #51 fixed (Title tag bc)
+
+Trebuie sa faci ca titlul sa fie compatibil si cu alte versiuni de
+wordpress, uite aici exemplu:
+http://codex.wordpress.org/Title_Tag
+ * Merge pull request #53 from robciucioan/development
+
+Development
+ * Update style.css
+
+
 ### 1.1.5 - 26/01/2015
 
  Changes: 
