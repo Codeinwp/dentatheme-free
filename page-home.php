@@ -1,5 +1,7 @@
 <?php
 /**
+ *	Template name: Home
+ *
  *	The template for displaying Front Page.
  *
  *	@package ThemeIsle.

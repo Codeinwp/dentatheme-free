@@ -24,8 +24,9 @@ function dentatheme_customizer( $wp_customize ) {
     ** Header
     */
     $wp_customize->add_section( 'header_settings' , array(
-    	'title'       => __( 'Header', 'denta_lite' ),
-    	'priority'    => 200,
+    	'title'			=> __( 'Header', 'denta_lite' ),
+    	'priority'		=> 200,
+    	'description'	=> __( 'Denta Lite theme header options.' )
 	) );
 
 		/* Top Header - Title 1 */
@@ -274,6 +275,26 @@ function dentatheme_customizer( $wp_customize ) {
 
 }
 add_action( 'customize_register', 'dentatheme_customizer' );
+
+/**
+ *	Active Callback
+ */
+function active_callback( $active, $control ) {
+
+	// 404 Page Settings
+    if ( '404page_settings' === $control->section ) {
+        $active = is_404();
+    }
+
+    // Frontpage Settings
+    if ( 'frontpage_settings' === $control->section ) {
+        $active = is_home();
+    }
+
+    return $active;
+
+}
+add_filter( 'customize_control_active', 'active_callback', 10, 2 );
 
 /**
  *	Registers
