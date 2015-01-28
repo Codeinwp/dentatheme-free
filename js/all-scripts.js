@@ -1,1 +1,4983 @@
-(function($){function sc_setScroll(e,t,n){return"transition"==n.transition&&"swing"==t&&(t="ease"),{anims:[],duration:e,orgDuration:e,easing:t,startTime:getTime()}}function sc_startScroll(e,t){for(var n=0,r=e.anims.length;r>n;n++){var i=e.anims[n];i&&i[0][t.transition](i[1],e.duration,e.easing,i[2])}}function sc_stopScroll(e,t){is_boolean(t)||(t=!0),is_object(e.pre)&&sc_stopScroll(e.pre,t);for(var n=0,r=e.anims.length;r>n;n++){var i=e.anims[n];i[0].stop(!0),t&&(i[0].css(i[1]),is_function(i[2])&&i[2]())}is_object(e.post)&&sc_stopScroll(e.post,t)}function sc_afterScroll(e,t,n){switch(t&&t.remove(),n.fx){case"fade":case"crossfade":case"cover-fade":case"uncover-fade":e.css("opacity",1),e.css("filter","")}}function sc_fireCallbacks(e,t,n,r,i){if(t[n]&&t[n].call(e,r),i[n].length)for(var s=0,o=i[n].length;o>s;s++)i[n][s].call(e,r);return[]}function sc_fireQueue(e,t,n){return t.length&&(e.trigger(cf_e(t[0][0],n),t[0][1]),t.shift()),t}function sc_hideHiddenItems(e){e.each(function(){var e=$(this);e.data("_cfs_isHidden",e.is(":hidden")).hide()})}function sc_showHiddenItems(e){e&&e.each(function(){var e=$(this);e.data("_cfs_isHidden")||e.show()})}function sc_clearTimers(e){return e.auto&&clearTimeout(e.auto),e.progress&&clearInterval(e.progress),e}function sc_mapCallbackArguments(e,t,n,r,i,s,o){return{width:o.width,height:o.height,items:{old:e,skipped:t,visible:n},scroll:{items:r,direction:i,duration:s}}}function sc_getDuration(e,t,n,r){var i=e.duration;return"none"==e.fx?0:("auto"==i?i=t.scroll.duration/t.scroll.items*n:10>i&&(i=r/i),1>i?0:("fade"==e.fx&&(i/=2),Math.round(i)))}function nv_showNavi(e,t,n){var r=is_number(e.items.minimum)?e.items.minimum:e.items.visible+1;if("show"==t||"hide"==t)var i=t;else if(r>t){debug(n,"Not enough items ("+t+" total, "+r+" needed): Hiding navigation.");var i="hide"}else var i="show";var s="show"==i?"removeClass":"addClass",o=cf_c("hidden",n);e.auto.button&&e.auto.button[i]()[s](o),e.prev.button&&e.prev.button[i]()[s](o),e.next.button&&e.next.button[i]()[s](o),e.pagination.container&&e.pagination.container[i]()[s](o)}function nv_enableNavi(e,t,n){if(!e.circular&&!e.infinite){var r="removeClass"==t||"addClass"==t?t:!1,i=cf_c("disabled",n);if(e.auto.button&&r&&e.auto.button[r](i),e.prev.button){var s=r||0==t?"addClass":"removeClass";e.prev.button[s](i)}if(e.next.button){var s=r||t==e.items.visible?"addClass":"removeClass";e.next.button[s](i)}}}function go_getObject(e,t){return is_function(t)?t=t.call(e):is_undefined(t)&&(t={}),t}function go_getItemsObject(e,t){return t=go_getObject(e,t),is_number(t)?t={visible:t}:"variable"==t?t={visible:t,width:t,height:t}:is_object(t)||(t={}),t}function go_getScrollObject(e,t){return t=go_getObject(e,t),is_number(t)?t=50>=t?{items:t}:{duration:t}:is_string(t)?t={easing:t}:is_object(t)||(t={}),t}function go_getNaviObject(e,t){if(t=go_getObject(e,t),is_string(t)){var n=cf_getKeyCode(t);t=-1==n?$(t):n}return t}function go_getAutoObject(e,t){return t=go_getNaviObject(e,t),is_jquery(t)?t={button:t}:is_boolean(t)?t={play:t}:is_number(t)&&(t={timeoutDuration:t}),t.progress&&(is_string(t.progress)||is_jquery(t.progress))&&(t.progress={bar:t.progress}),t}function go_complementAutoObject(e,t){return is_function(t.button)&&(t.button=t.button.call(e)),is_string(t.button)&&(t.button=$(t.button)),is_boolean(t.play)||(t.play=!0),is_number(t.delay)||(t.delay=0),is_undefined(t.pauseOnEvent)&&(t.pauseOnEvent=!0),is_boolean(t.pauseOnResize)||(t.pauseOnResize=!0),is_number(t.timeoutDuration)||(t.timeoutDuration=10>t.duration?2500:5*t.duration),t.progress&&(is_function(t.progress.bar)&&(t.progress.bar=t.progress.bar.call(e)),is_string(t.progress.bar)&&(t.progress.bar=$(t.progress.bar)),t.progress.bar?(is_function(t.progress.updater)||(t.progress.updater=$.fn.carouFredSel.progressbarUpdater),is_number(t.progress.interval)||(t.progress.interval=50)):t.progress=!1),t}function go_getPrevNextObject(e,t){return t=go_getNaviObject(e,t),is_jquery(t)?t={button:t}:is_number(t)&&(t={key:t}),t}function go_complementPrevNextObject(e,t){return is_function(t.button)&&(t.button=t.button.call(e)),is_string(t.button)&&(t.button=$(t.button)),is_string(t.key)&&(t.key=cf_getKeyCode(t.key)),t}function go_getPaginationObject(e,t){return t=go_getNaviObject(e,t),is_jquery(t)?t={container:t}:is_boolean(t)&&(t={keys:t}),t}function go_complementPaginationObject(e,t){return is_function(t.container)&&(t.container=t.container.call(e)),is_string(t.container)&&(t.container=$(t.container)),is_number(t.items)||(t.items=!1),is_boolean(t.keys)||(t.keys=!1),is_function(t.anchorBuilder)||is_false(t.anchorBuilder)||(t.anchorBuilder=$.fn.carouFredSel.pageAnchorBuilder),is_number(t.deviation)||(t.deviation=0),t}function go_getSwipeObject(e,t){return is_function(t)&&(t=t.call(e)),is_undefined(t)&&(t={onTouch:!1}),is_true(t)?t={onTouch:t}:is_number(t)&&(t={items:t}),t}function go_complementSwipeObject(e,t){return is_boolean(t.onTouch)||(t.onTouch=!0),is_boolean(t.onMouse)||(t.onMouse=!1),is_object(t.options)||(t.options={}),is_boolean(t.options.triggerOnTouchEnd)||(t.options.triggerOnTouchEnd=!1),t}function go_getMousewheelObject(e,t){return is_function(t)&&(t=t.call(e)),is_true(t)?t={}:is_number(t)?t={items:t}:is_undefined(t)&&(t=!1),t}function go_complementMousewheelObject(e,t){return t}function gn_getItemIndex(e,t,n,r,i){if(is_string(e)&&(e=$(e,i)),is_object(e)&&(e=$(e,i)),is_jquery(e)?(e=i.children().index(e),is_boolean(n)||(n=!1)):is_boolean(n)||(n=!0),is_number(e)||(e=0),is_number(t)||(t=0),n&&(e+=r.first),e+=t,r.total>0){for(;e>=r.total;)e-=r.total;for(;0>e;)e+=r.total}return e}function gn_getVisibleItemsPrev(e,t,n){for(var r=0,i=0,s=n;s>=0;s--){var o=e.eq(s);if(r+=o.is(":visible")?o[t.d.outerWidth](!0):0,r>t.maxDimension)return i;0==s&&(s=e.length),i++}}function gn_getVisibleItemsPrevFilter(e,t,n){return gn_getItemsPrevFilter(e,t.items.filter,t.items.visibleConf.org,n)}function gn_getScrollItemsPrevFilter(e,t,n,r){return gn_getItemsPrevFilter(e,t.items.filter,r,n)}function gn_getItemsPrevFilter(e,t,n,r){for(var i=0,s=0,o=r,u=e.length;o>=0;o--){if(s++,s==u)return s;var a=e.eq(o);if(a.is(t)&&(i++,i==n))return s;0==o&&(o=u)}}function gn_getVisibleOrg(e,t){return t.items.visibleConf.org||e.children().slice(0,t.items.visible).filter(t.items.filter).length}function gn_getVisibleItemsNext(e,t,n){for(var r=0,i=0,s=n,o=e.length-1;o>=s;s++){var u=e.eq(s);if(r+=u.is(":visible")?u[t.d.outerWidth](!0):0,r>t.maxDimension)return i;if(i++,i==o+1)return i;s==o&&(s=-1)}}function gn_getVisibleItemsNextTestCircular(e,t,n,r){var i=gn_getVisibleItemsNext(e,t,n);return t.circular||n+i>r&&(i=r-n),i}function gn_getVisibleItemsNextFilter(e,t,n){return gn_getItemsNextFilter(e,t.items.filter,t.items.visibleConf.org,n,t.circular)}function gn_getScrollItemsNextFilter(e,t,n,r){return gn_getItemsNextFilter(e,t.items.filter,r+1,n,t.circular)-1}function gn_getItemsNextFilter(e,t,n,r){for(var i=0,s=0,o=r,u=e.length-1;u>=o;o++){if(s++,s>=u)return s;var a=e.eq(o);if(a.is(t)&&(i++,i==n))return s;o==u&&(o=-1)}}function gi_getCurrentItems(e,t){return e.slice(0,t.items.visible)}function gi_getOldItemsPrev(e,t,n){return e.slice(n,t.items.visibleConf.old+n)}function gi_getNewItemsPrev(e,t){return e.slice(0,t.items.visible)}function gi_getOldItemsNext(e,t){return e.slice(0,t.items.visibleConf.old)}function gi_getNewItemsNext(e,t,n){return e.slice(n,t.items.visible+n)}function sz_storeMargin(e,t,n){t.usePadding&&(is_string(n)||(n="_cfs_origCssMargin"),e.each(function(){var e=$(this),r=parseInt(e.css(t.d.marginRight),10);is_number(r)||(r=0),e.data(n,r)}))}function sz_resetMargin(e,t,n){if(t.usePadding){var r=is_boolean(n)?n:!1;is_number(n)||(n=0),sz_storeMargin(e,t,"_cfs_tempCssMargin"),e.each(function(){var e=$(this);e.css(t.d.marginRight,r?e.data("_cfs_tempCssMargin"):n+e.data("_cfs_origCssMargin"))})}}function sz_storeOrigCss(e){e.each(function(){var e=$(this);e.data("_cfs_origCss",e.attr("style")||"")})}function sz_restoreOrigCss(e){e.each(function(){var e=$(this);e.attr("style",e.data("_cfs_origCss")||"")})}function sz_setResponsiveSizes(e,t){var n=(e.items.visible,e.items[e.d.width]),r=e[e.d.height],i=is_percentage(r);t.each(function(){var t=$(this),s=n-ms_getPaddingBorderMargin(t,e,"Width");t[e.d.width](s),i&&t[e.d.height](ms_getPercentage(s,r))})}function sz_setSizes(e,t){var n=e.parent(),r=e.children(),i=gi_getCurrentItems(r,t),s=cf_mapWrapperSizes(ms_getSizes(i,t,!0),t,!1);if(n.css(s),t.usePadding){var o=t.padding,u=o[t.d[1]];t.align&&0>u&&(u=0);var a=i.last();a.css(t.d.marginRight,a.data("_cfs_origCssMargin")+u),e.css(t.d.top,o[t.d[0]]),e.css(t.d.left,o[t.d[3]])}return e.css(t.d.width,s[t.d.width]+2*ms_getTotalSize(r,t,"width")),e.css(t.d.height,ms_getLargestSize(r,t,"height")),s}function ms_getSizes(e,t,n){return[ms_getTotalSize(e,t,"width",n),ms_getLargestSize(e,t,"height",n)]}function ms_getLargestSize(e,t,n,r){return is_boolean(r)||(r=!1),is_number(t[t.d[n]])&&r?t[t.d[n]]:is_number(t.items[t.d[n]])?t.items[t.d[n]]:(n=n.toLowerCase().indexOf("width")>-1?"outerWidth":"outerHeight",ms_getTrueLargestSize(e,t,n))}function ms_getTrueLargestSize(e,t,n){for(var r=0,i=0,s=e.length;s>i;i++){var o=e.eq(i),u=o.is(":visible")?o[t.d[n]](!0):0;u>r&&(r=u)}return r}function ms_getTotalSize(e,t,n,r){if(is_boolean(r)||(r=!1),is_number(t[t.d[n]])&&r)return t[t.d[n]];if(is_number(t.items[t.d[n]]))return t.items[t.d[n]]*e.length;for(var i=n.toLowerCase().indexOf("width")>-1?"outerWidth":"outerHeight",s=0,o=0,u=e.length;u>o;o++){var a=e.eq(o);s+=a.is(":visible")?a[t.d[i]](!0):0}return s}function ms_getParentSize(e,t,n){var r=e.is(":visible");r&&e.hide();var i=e.parent()[t.d[n]]();return r&&e.show(),i}function ms_getMaxDimension(e,t){return is_number(e[e.d.width])?e[e.d.width]:t}function ms_hasVariableSizes(e,t,n){for(var r=!1,i=!1,s=0,o=e.length;o>s;s++){var u=e.eq(s),a=u.is(":visible")?u[t.d[n]](!0):0;r===!1?r=a:r!=a&&(i=!0),0==r&&(i=!0)}return i}function ms_getPaddingBorderMargin(e,t,n){return e[t.d["outer"+n]](!0)-e[t.d[n.toLowerCase()]]()}function ms_getPercentage(e,t){if(is_percentage(t)){if(t=parseInt(t.slice(0,-1),10),!is_number(t))return e;e*=t/100}return e}function cf_e(e,t,n,r,i){return is_boolean(n)||(n=!0),is_boolean(r)||(r=!0),is_boolean(i)||(i=!1),n&&(e=t.events.prefix+e),r&&(e=e+"."+t.events.namespace),r&&i&&(e+=t.serialNumber),e}function cf_c(e,t){return is_string(t.classnames[e])?t.classnames[e]:e}function cf_mapWrapperSizes(e,t,n){is_boolean(n)||(n=!0);var r=t.usePadding&&n?t.padding:[0,0,0,0],i={};return i[t.d.width]=e[0]+r[1]+r[3],i[t.d.height]=e[1]+r[0]+r[2],i}function cf_sortParams(e,t){for(var n=[],r=0,i=e.length;i>r;r++)for(var s=0,o=t.length;o>s;s++)if(t[s].indexOf(typeof e[r])>-1&&is_undefined(n[s])){n[s]=e[r];break}return n}function cf_getPadding(e){if(is_undefined(e))return[0,0,0,0];if(is_number(e))return[e,e,e,e];if(is_string(e)&&(e=e.split("px").join("").split("em").join("").split(" ")),!is_array(e))return[0,0,0,0];for(var t=0;4>t;t++)e[t]=parseInt(e[t],10);switch(e.length){case 0:return[0,0,0,0];case 1:return[e[0],e[0],e[0],e[0]];case 2:return[e[0],e[1],e[0],e[1]];case 3:return[e[0],e[1],e[2],e[1]];default:return[e[0],e[1],e[2],e[3]]}}function cf_getAlignPadding(e,t){var n=is_number(t[t.d.width])?Math.ceil(t[t.d.width]-ms_getTotalSize(e,t,"width")):0;switch(t.align){case"left":return[0,n];case"right":return[n,0];case"center":default:return[Math.ceil(n/2),Math.floor(n/2)]}}function cf_getDimensions(e){for(var t=[["width","innerWidth","outerWidth","height","innerHeight","outerHeight","left","top","marginRight",0,1,2,3],["height","innerHeight","outerHeight","width","innerWidth","outerWidth","top","left","marginBottom",3,2,1,0]],n=t[0].length,r="right"==e.direction||"left"==e.direction?0:1,i={},s=0;n>s;s++)i[t[0][s]]=t[r][s];return i}function cf_getAdjust(e,t,n,r){var i=e;if(is_function(n))i=n.call(r,i);else if(is_string(n)){var s=n.split("+"),o=n.split("-");if(o.length>s.length)var u=!0,a=o[0],f=o[1];else var u=!1,a=s[0],f=s[1];switch(a){case"even":i=1==e%2?e-1:e;break;case"odd":i=0==e%2?e-1:e;break;default:i=e}f=parseInt(f,10),is_number(f)&&(u&&(f=-f),i+=f)}return(!is_number(i)||1>i)&&(i=1),i}function cf_getItemsAdjust(e,t,n,r){return cf_getItemAdjustMinMax(cf_getAdjust(e,t,n,r),t.items.visibleConf)}function cf_getItemAdjustMinMax(e,t){return is_number(t.min)&&t.min>e&&(e=t.min),is_number(t.max)&&e>t.max&&(e=t.max),1>e&&(e=1),e}function cf_getSynchArr(e){is_array(e)||(e=[[e]]),is_array(e[0])||(e=[e]);for(var t=0,n=e.length;n>t;t++)is_string(e[t][0])&&(e[t][0]=$(e[t][0])),is_boolean(e[t][1])||(e[t][1]=!0),is_boolean(e[t][2])||(e[t][2]=!0),is_number(e[t][3])||(e[t][3]=0);return e}function cf_getKeyCode(e){return"right"==e?39:"left"==e?37:"up"==e?38:"down"==e?40:-1}function cf_setCookie(e,t,n){if(e){var r=t.triggerHandler(cf_e("currentPosition",n));$.fn.carouFredSel.cookie.set(e,r)}}function cf_getCookie(e){var t=$.fn.carouFredSel.cookie.get(e);return""==t?0:t}function in_mapCss(e,t){for(var n={},r=0,i=t.length;i>r;r++)n[t[r]]=e.css(t[r]);return n}function in_complementItems(e,t,n,r){return is_object(e.visibleConf)||(e.visibleConf={}),is_object(e.sizesConf)||(e.sizesConf={}),0==e.start&&is_number(r)&&(e.start=r),is_object(e.visible)?(e.visibleConf.min=e.visible.min,e.visibleConf.max=e.visible.max,e.visible=!1):is_string(e.visible)?("variable"==e.visible?e.visibleConf.variable=!0:e.visibleConf.adjust=e.visible,e.visible=!1):is_function(e.visible)&&(e.visibleConf.adjust=e.visible,e.visible=!1),is_string(e.filter)||(e.filter=n.filter(":hidden").length>0?":visible":"*"),e[t.d.width]||(t.responsive?(debug(!0,"Set a "+t.d.width+" for the items!"),e[t.d.width]=ms_getTrueLargestSize(n,t,"outerWidth")):e[t.d.width]=ms_hasVariableSizes(n,t,"outerWidth")?"variable":n[t.d.outerWidth](!0)),e[t.d.height]||(e[t.d.height]=ms_hasVariableSizes(n,t,"outerHeight")?"variable":n[t.d.outerHeight](!0)),e.sizesConf.width=e.width,e.sizesConf.height=e.height,e}function in_complementVisibleItems(e,t){return"variable"==e.items[e.d.width]&&(e.items.visibleConf.variable=!0),e.items.visibleConf.variable||(is_number(e[e.d.width])?e.items.visible=Math.floor(e[e.d.width]/e.items[e.d.width]):(e.items.visible=Math.floor(t/e.items[e.d.width]),e[e.d.width]=e.items.visible*e.items[e.d.width],e.items.visibleConf.adjust||(e.align=!1)),("Infinity"==e.items.visible||1>e.items.visible)&&(debug(!0,'Not a valid number of visible items: Set to "variable".'),e.items.visibleConf.variable=!0)),e}function in_complementPrimarySize(e,t,n){return"auto"==e&&(e=ms_getTrueLargestSize(n,t,"outerWidth")),e}function in_complementSecondarySize(e,t,n){return"auto"==e&&(e=ms_getTrueLargestSize(n,t,"outerHeight")),e||(e=t.items[t.d.height]),e}function in_getAlignPadding(e,t){var n=cf_getAlignPadding(gi_getCurrentItems(t,e),e);return e.padding[e.d[1]]=n[1],e.padding[e.d[3]]=n[0],e}function in_getResponsiveValues(e,t){var n=cf_getItemAdjustMinMax(Math.ceil(e[e.d.width]/e.items[e.d.width]),e.items.visibleConf);n>t.length&&(n=t.length);var r=Math.floor(e[e.d.width]/n);return e.items.visible=n,e.items[e.d.width]=r,e[e.d.width]=n*r,e}function bt_pauseOnHoverConfig(e){if(is_string(e))var t=e.indexOf("immediate")>-1?!0:!1,n=e.indexOf("resume")>-1?!0:!1;else var t=n=!1;return[t,n]}function bt_mousesheelNumber(e){return is_number(e)?e:null}function is_null(e){return null===e}function is_undefined(e){return is_null(e)||e===void 0||""===e||"undefined"===e}function is_array(e){return e instanceof Array}function is_jquery(e){return e instanceof jQuery}function is_object(e){return(e instanceof Object||"object"==typeof e)&&!is_null(e)&&!is_jquery(e)&&!is_array(e)&&!is_function(e)}function is_number(e){return(e instanceof Number||"number"==typeof e)&&!isNaN(e)}function is_string(e){return(e instanceof String||"string"==typeof e)&&!is_undefined(e)&&!is_true(e)&&!is_false(e)}function is_function(e){return e instanceof Function||"function"==typeof e}function is_boolean(e){return e instanceof Boolean||"boolean"==typeof e||is_true(e)||is_false(e)}function is_true(e){return e===!0||"true"===e}function is_false(e){return e===!1||"false"===e}function is_percentage(e){return is_string(e)&&"%"==e.slice(-1)}function getTime(){return(new Date).getTime()}function deprecated(e,t){debug(!0,e+" is DEPRECATED, support for it will be removed. Use "+t+" instead.")}function debug(e,t){if(!is_undefined(window.console)&&!is_undefined(window.console.log)){if(is_object(e)){var n=" ("+e.selector+")";e=e.debug}else var n="";if(!e)return!1;t=is_string(t)?"carouFredSel"+n+": "+t:["carouFredSel"+n+":",t],window.console.log(t)}return!1}$.fn.carouFredSel||($.fn.caroufredsel=$.fn.carouFredSel=function(options,configs){if(0==this.length)return debug(!0,'No element found for "'+this.selector+'".'),this;if(this.length>1)return this.each(function(){$(this).carouFredSel(options,configs)});var $cfs=this,$tt0=this[0],starting_position=!1;$cfs.data("_cfs_isCarousel")&&(starting_position=$cfs.triggerHandler("_cfs_triggerEvent","currentPosition"),$cfs.trigger("_cfs_triggerEvent",["destroy",!0]));var FN={};FN._init=function(e,t,n){e=go_getObject($tt0,e),e.items=go_getItemsObject($tt0,e.items),e.scroll=go_getScrollObject($tt0,e.scroll),e.auto=go_getAutoObject($tt0,e.auto),e.prev=go_getPrevNextObject($tt0,e.prev),e.next=go_getPrevNextObject($tt0,e.next),e.pagination=go_getPaginationObject($tt0,e.pagination),e.swipe=go_getSwipeObject($tt0,e.swipe),e.mousewheel=go_getMousewheelObject($tt0,e.mousewheel),t&&(opts_orig=$.extend(!0,{},$.fn.carouFredSel.defaults,e)),opts=$.extend(!0,{},$.fn.carouFredSel.defaults,e),opts.d=cf_getDimensions(opts),crsl.direction="up"==opts.direction||"left"==opts.direction?"next":"prev";var r=$cfs.children(),i=ms_getParentSize($wrp,opts,"width");if(is_true(opts.cookie)&&(opts.cookie="caroufredsel_cookie_"+conf.serialNumber),opts.maxDimension=ms_getMaxDimension(opts,i),opts.items=in_complementItems(opts.items,opts,r,n),opts[opts.d.width]=in_complementPrimarySize(opts[opts.d.width],opts,r),opts[opts.d.height]=in_complementSecondarySize(opts[opts.d.height],opts,r),opts.responsive&&(is_percentage(opts[opts.d.width])||(opts[opts.d.width]="100%")),is_percentage(opts[opts.d.width])&&(crsl.upDateOnWindowResize=!0,crsl.primarySizePercentage=opts[opts.d.width],opts[opts.d.width]=ms_getPercentage(i,crsl.primarySizePercentage),opts.items.visible||(opts.items.visibleConf.variable=!0)),opts.responsive?(opts.usePadding=!1,opts.padding=[0,0,0,0],opts.align=!1,opts.items.visibleConf.variable=!1):(opts.items.visible||(opts=in_complementVisibleItems(opts,i)),opts[opts.d.width]||(!opts.items.visibleConf.variable&&is_number(opts.items[opts.d.width])&&"*"==opts.items.filter?(opts[opts.d.width]=opts.items.visible*opts.items[opts.d.width],opts.align=!1):opts[opts.d.width]="variable"),is_undefined(opts.align)&&(opts.align=is_number(opts[opts.d.width])?"center":!1),opts.items.visibleConf.variable&&(opts.items.visible=gn_getVisibleItemsNext(r,opts,0))),"*"==opts.items.filter||opts.items.visibleConf.variable||(opts.items.visibleConf.org=opts.items.visible,opts.items.visible=gn_getVisibleItemsNextFilter(r,opts,0)),opts.items.visible=cf_getItemsAdjust(opts.items.visible,opts,opts.items.visibleConf.adjust,$tt0),opts.items.visibleConf.old=opts.items.visible,opts.responsive)opts.items.visibleConf.min||(opts.items.visibleConf.min=opts.items.visible),opts.items.visibleConf.max||(opts.items.visibleConf.max=opts.items.visible),opts=in_getResponsiveValues(opts,r,i);else switch(opts.padding=cf_getPadding(opts.padding),"top"==opts.align?opts.align="left":"bottom"==opts.align&&(opts.align="right"),opts.align){case"center":case"left":case"right":"variable"!=opts[opts.d.width]&&(opts=in_getAlignPadding(opts,r),opts.usePadding=!0);break;default:opts.align=!1,opts.usePadding=0==opts.padding[0]&&0==opts.padding[1]&&0==opts.padding[2]&&0==opts.padding[3]?!1:!0}is_number(opts.scroll.duration)||(opts.scroll.duration=500),is_undefined(opts.scroll.items)&&(opts.scroll.items=opts.responsive||opts.items.visibleConf.variable||"*"!=opts.items.filter?"visible":opts.items.visible),opts.auto=$.extend(!0,{},opts.scroll,opts.auto),opts.prev=$.extend(!0,{},opts.scroll,opts.prev),opts.next=$.extend(!0,{},opts.scroll,opts.next),opts.pagination=$.extend(!0,{},opts.scroll,opts.pagination),opts.auto=go_complementAutoObject($tt0,opts.auto),opts.prev=go_complementPrevNextObject($tt0,opts.prev),opts.next=go_complementPrevNextObject($tt0,opts.next),opts.pagination=go_complementPaginationObject($tt0,opts.pagination),opts.swipe=go_complementSwipeObject($tt0,opts.swipe),opts.mousewheel=go_complementMousewheelObject($tt0,opts.mousewheel),opts.synchronise&&(opts.synchronise=cf_getSynchArr(opts.synchronise)),opts.auto.onPauseStart&&(opts.auto.onTimeoutStart=opts.auto.onPauseStart,deprecated("auto.onPauseStart","auto.onTimeoutStart")),opts.auto.onPausePause&&(opts.auto.onTimeoutPause=opts.auto.onPausePause,deprecated("auto.onPausePause","auto.onTimeoutPause")),opts.auto.onPauseEnd&&(opts.auto.onTimeoutEnd=opts.auto.onPauseEnd,deprecated("auto.onPauseEnd","auto.onTimeoutEnd")),opts.auto.pauseDuration&&(opts.auto.timeoutDuration=opts.auto.pauseDuration,deprecated("auto.pauseDuration","auto.timeoutDuration"))},FN._build=function(){$cfs.data("_cfs_isCarousel",!0);var e=$cfs.children(),t=in_mapCss($cfs,["textAlign","float","position","top","right","bottom","left","zIndex","width","height","marginTop","marginRight","marginBottom","marginLeft"]),n="relative";switch(t.position){case"absolute":case"fixed":n=t.position}"parent"==conf.wrapper?sz_storeOrigCss($wrp):$wrp.css(t),$wrp.css({overflow:"hidden",position:n}),sz_storeOrigCss($cfs),$cfs.data("_cfs_origCssZindex",t.zIndex),$cfs.css({textAlign:"left","float":"none",position:"absolute",top:0,right:"auto",bottom:"auto",left:0,marginTop:0,marginRight:0,marginBottom:0,marginLeft:0}),sz_storeMargin(e,opts),sz_storeOrigCss(e),opts.responsive&&sz_setResponsiveSizes(opts,e)},FN._bind_events=function(){FN._unbind_events(),$cfs.bind(cf_e("stop",conf),function(e,t){return e.stopPropagation(),crsl.isStopped||opts.auto.button&&opts.auto.button.addClass(cf_c("stopped",conf)),crsl.isStopped=!0,opts.auto.play&&(opts.auto.play=!1,$cfs.trigger(cf_e("pause",conf),t)),!0}),$cfs.bind(cf_e("finish",conf),function(e){return e.stopPropagation(),crsl.isScrolling&&sc_stopScroll(scrl),!0}),$cfs.bind(cf_e("pause",conf),function(e,t,n){if(e.stopPropagation(),tmrs=sc_clearTimers(tmrs),t&&crsl.isScrolling){scrl.isStopped=!0;var r=getTime()-scrl.startTime;scrl.duration-=r,scrl.pre&&(scrl.pre.duration-=r),scrl.post&&(scrl.post.duration-=r),sc_stopScroll(scrl,!1)}if(crsl.isPaused||crsl.isScrolling||n&&(tmrs.timePassed+=getTime()-tmrs.startTime),crsl.isPaused||opts.auto.button&&opts.auto.button.addClass(cf_c("paused",conf)),crsl.isPaused=!0,opts.auto.onTimeoutPause){var i=opts.auto.timeoutDuration-tmrs.timePassed,s=100-Math.ceil(100*i/opts.auto.timeoutDuration);opts.auto.onTimeoutPause.call($tt0,s,i)}return!0}),$cfs.bind(cf_e("play",conf),function(e,t,n,r){e.stopPropagation(),tmrs=sc_clearTimers(tmrs);var i=[t,n,r],s=["string","number","boolean"],o=cf_sortParams(i,s);if(t=o[0],n=o[1],r=o[2],"prev"!=t&&"next"!=t&&(t=crsl.direction),is_number(n)||(n=0),is_boolean(r)||(r=!1),r&&(crsl.isStopped=!1,opts.auto.play=!0),!opts.auto.play)return e.stopImmediatePropagation(),debug(conf,"Carousel stopped: Not scrolling.");crsl.isPaused&&opts.auto.button&&(opts.auto.button.removeClass(cf_c("stopped",conf)),opts.auto.button.removeClass(cf_c("paused",conf))),crsl.isPaused=!1,tmrs.startTime=getTime();var u=opts.auto.timeoutDuration+n;return dur2=u-tmrs.timePassed,perc=100-Math.ceil(100*dur2/u),opts.auto.progress&&(tmrs.progress=setInterval(function(){var e=getTime()-tmrs.startTime+tmrs.timePassed,t=Math.ceil(100*e/u);opts.auto.progress.updater.call(opts.auto.progress.bar[0],t)},opts.auto.progress.interval)),tmrs.auto=setTimeout(function(){opts.auto.progress&&opts.auto.progress.updater.call(opts.auto.progress.bar[0],100),opts.auto.onTimeoutEnd&&opts.auto.onTimeoutEnd.call($tt0,perc,dur2),crsl.isScrolling?$cfs.trigger(cf_e("play",conf),t):$cfs.trigger(cf_e(t,conf),opts.auto)},dur2),opts.auto.onTimeoutStart&&opts.auto.onTimeoutStart.call($tt0,perc,dur2),!0}),$cfs.bind(cf_e("resume",conf),function(e){return e.stopPropagation(),scrl.isStopped?(scrl.isStopped=!1,crsl.isPaused=!1,crsl.isScrolling=!0,scrl.startTime=getTime(),sc_startScroll(scrl,conf)):$cfs.trigger(cf_e("play",conf)),!0}),$cfs.bind(cf_e("prev",conf)+" "+cf_e("next",conf),function(e,t,n,r,i){if(e.stopPropagation(),crsl.isStopped||$cfs.is(":hidden"))return e.stopImmediatePropagation(),debug(conf,"Carousel stopped or hidden: Not scrolling.");var s=is_number(opts.items.minimum)?opts.items.minimum:opts.items.visible+1;if(s>itms.total)return e.stopImmediatePropagation(),debug(conf,"Not enough items ("+itms.total+" total, "+s+" needed): Not scrolling.");var o=[t,n,r,i],u=["object","number/string","function","boolean"],a=cf_sortParams(o,u);t=a[0],n=a[1],r=a[2],i=a[3];var f=e.type.slice(conf.events.prefix.length);if(is_object(t)||(t={}),is_function(r)&&(t.onAfter=r),is_boolean(i)&&(t.queue=i),t=$.extend(!0,{},opts[f],t),t.conditions&&!t.conditions.call($tt0,f))return e.stopImmediatePropagation(),debug(conf,'Callback "conditions" returned false.');if(!is_number(n)){if("*"!=opts.items.filter)n="visible";else for(var l=[n,t.items,opts[f].items],a=0,c=l.length;c>a;a++)if(is_number(l[a])||"page"==l[a]||"visible"==l[a]){n=l[a];break}switch(n){case"page":return e.stopImmediatePropagation(),$cfs.triggerHandler(cf_e(f+"Page",conf),[t,r]);case"visible":opts.items.visibleConf.variable||"*"!=opts.items.filter||(n=opts.items.visible)}}if(scrl.isStopped)return $cfs.trigger(cf_e("resume",conf)),$cfs.trigger(cf_e("queue",conf),[f,[t,n,r]]),e.stopImmediatePropagation(),debug(conf,"Carousel resumed scrolling.");if(t.duration>0&&crsl.isScrolling)return t.queue&&("last"==t.queue&&(queu=[]),("first"!=t.queue||0==queu.length)&&$cfs.trigger(cf_e("queue",conf),[f,[t,n,r]])),e.stopImmediatePropagation(),debug(conf,"Carousel currently scrolling.");if(tmrs.timePassed=0,$cfs.trigger(cf_e("slide_"+f,conf),[t,n]),opts.synchronise)for(var h=opts.synchronise,p=[t,n],d=0,c=h.length;c>d;d++){var v=f;h[d][2]||(v="prev"==v?"next":"prev"),h[d][1]||(p[0]=h[d][0].triggerHandler("_cfs_triggerEvent",["configuration",v])),p[1]=n+h[d][3],h[d][0].trigger("_cfs_triggerEvent",["slide_"+v,p])}return!0}),$cfs.bind(cf_e("slide_prev",conf),function(e,t,n){e.stopPropagation();var r=$cfs.children();if(!opts.circular&&0==itms.first)return opts.infinite&&$cfs.trigger(cf_e("next",conf),itms.total-1),e.stopImmediatePropagation();if(sz_resetMargin(r,opts),!is_number(n)){if(opts.items.visibleConf.variable)n=gn_getVisibleItemsPrev(r,opts,itms.total-1);else if("*"!=opts.items.filter){var i=is_number(t.items)?t.items:gn_getVisibleOrg($cfs,opts);n=gn_getScrollItemsPrevFilter(r,opts,itms.total-1,i)}else n=opts.items.visible;n=cf_getAdjust(n,opts,t.items,$tt0)}if(opts.circular||itms.total-n<itms.first&&(n=itms.total-itms.first),opts.items.visibleConf.old=opts.items.visible,opts.items.visibleConf.variable){var s=cf_getItemsAdjust(gn_getVisibleItemsNext(r,opts,itms.total-n),opts,opts.items.visibleConf.adjust,$tt0);s>=opts.items.visible+n&&itms.total>n&&(n++,s=cf_getItemsAdjust(gn_getVisibleItemsNext(r,opts,itms.total-n),opts,opts.items.visibleConf.adjust,$tt0)),opts.items.visible=s}else if("*"!=opts.items.filter){var s=gn_getVisibleItemsNextFilter(r,opts,itms.total-n);opts.items.visible=cf_getItemsAdjust(s,opts,opts.items.visibleConf.adjust,$tt0)}if(sz_resetMargin(r,opts,!0),0==n)return e.stopImmediatePropagation(),debug(conf,"0 items to scroll: Not scrolling.");for(debug(conf,"Scrolling "+n+" items backward."),itms.first+=n;itms.first>=itms.total;)itms.first-=itms.total;opts.circular||(0==itms.first&&t.onEnd&&t.onEnd.call($tt0,"prev"),opts.infinite||nv_enableNavi(opts,itms.first,conf)),$cfs.children().slice(itms.total-n,itms.total).prependTo($cfs),itms.total<opts.items.visible+n&&$cfs.children().slice(0,opts.items.visible+n-itms.total).clone(!0).appendTo($cfs);var r=$cfs.children(),o=gi_getOldItemsPrev(r,opts,n),u=gi_getNewItemsPrev(r,opts),a=r.eq(n-1),f=o.last(),l=u.last();sz_resetMargin(r,opts);var c=0,h=0;if(opts.align){var p=cf_getAlignPadding(u,opts);c=p[0],h=p[1]}var d=0>c?opts.padding[opts.d[3]]:0,v=!1,m=$();if(n>opts.items.visible&&(m=r.slice(opts.items.visibleConf.old,n),"directscroll"==t.fx)){var g=opts.items[opts.d.width];v=m,a=l,sc_hideHiddenItems(v),opts.items[opts.d.width]="variable"}var y=!1,b=ms_getTotalSize(r.slice(0,n),opts,"width"),w=cf_mapWrapperSizes(ms_getSizes(u,opts,!0),opts,!opts.usePadding),E=0,S={},x={},T={},N={},C={},k={},L={},A=sc_getDuration(t,opts,n,b);switch(t.fx){case"cover":case"cover-fade":E=ms_getTotalSize(r.slice(0,opts.items.visible),opts,"width")}v&&(opts.items[opts.d.width]=g),sz_resetMargin(r,opts,!0),h>=0&&sz_resetMargin(f,opts,opts.padding[opts.d[1]]),c>=0&&sz_resetMargin(a,opts,opts.padding[opts.d[3]]),opts.align&&(opts.padding[opts.d[1]]=h,opts.padding[opts.d[3]]=c),k[opts.d.left]=-(b-d),L[opts.d.left]=-(E-d),x[opts.d.left]=w[opts.d.width];var O=function(){},M=function(){},_=function(){},D=function(){},P=function(){},H=function(){},B=function(){},j=function(){},F=function(){},I=function(){},q=function(){};switch(t.fx){case"crossfade":case"cover":case"cover-fade":case"uncover":case"uncover-fade":y=$cfs.clone(!0).appendTo($wrp)}switch(t.fx){case"crossfade":case"uncover":case"uncover-fade":y.children().slice(0,n).remove(),y.children().slice(opts.items.visibleConf.old).remove();break;case"cover":case"cover-fade":y.children().slice(opts.items.visible).remove(),y.css(L)}if($cfs.css(k),scrl=sc_setScroll(A,t.easing,conf),S[opts.d.left]=opts.usePadding?opts.padding[opts.d[3]]:0,("variable"==opts[opts.d.width]||"variable"==opts[opts.d.height])&&(O=function(){$wrp.css(w)},M=function(){scrl.anims.push([$wrp,w])}),opts.usePadding){switch(l.not(a).length&&(T[opts.d.marginRight]=a.data("_cfs_origCssMargin"),0>c?a.css(T):(B=function(){a.css(T)},j=function(){scrl.anims.push([a,T])})),t.fx){case"cover":case"cover-fade":y.children().eq(n-1).css(T)}l.not(f).length&&(N[opts.d.marginRight]=f.data("_cfs_origCssMargin"),_=function(){f.css(N)},D=function(){scrl.anims.push([f,N])}),h>=0&&(C[opts.d.marginRight]=l.data("_cfs_origCssMargin")+opts.padding[opts.d[1]],P=function(){l.css(C)},H=function(){scrl.anims.push([l,C])})}q=function(){$cfs.css(S)};var R=opts.items.visible+n-itms.total;I=function(){if(R>0&&($cfs.children().slice(itms.total).remove(),o=$($cfs.children().slice(itms.total-(opts.items.visible-R)).get().concat($cfs.children().slice(0,R).get()))),sc_showHiddenItems(v),opts.usePadding){var e=$cfs.children().eq(opts.items.visible+n-1);e.css(opts.d.marginRight,e.data("_cfs_origCssMargin"))}};var U=sc_mapCallbackArguments(o,m,u,n,"prev",A,w);switch(F=function(){sc_afterScroll($cfs,y,t),crsl.isScrolling=!1,clbk.onAfter=sc_fireCallbacks($tt0,t,"onAfter",U,clbk),queu=sc_fireQueue($cfs,queu,conf),crsl.isPaused||$cfs.trigger(cf_e("play",conf))},crsl.isScrolling=!0,tmrs=sc_clearTimers(tmrs),clbk.onBefore=sc_fireCallbacks($tt0,t,"onBefore",U,clbk),t.fx){case"none":$cfs.css(S),O(),_(),P(),B(),q(),I(),F();break;case"fade":scrl.anims.push([$cfs,{opacity:0},function(){O(),_(),P(),B(),q(),I(),scrl=sc_setScroll(A,t.easing,conf),scrl.anims.push([$cfs,{opacity:1},F]),sc_startScroll(scrl,conf)}]);break;case"crossfade":$cfs.css({opacity:0}),scrl.anims.push([y,{opacity:0}]),scrl.anims.push([$cfs,{opacity:1},F]),M(),_(),P(),B(),q(),I();break;case"cover":scrl.anims.push([y,S,function(){_(),P(),B(),q(),I(),F()}]),M();break;case"cover-fade":scrl.anims.push([$cfs,{opacity:0}]),scrl.anims.push([y,S,function(){_(),P(),B(),q(),I(),F()}]),M();break;case"uncover":scrl.anims.push([y,x,F]),M(),_(),P(),B(),q(),I();break;case"uncover-fade":$cfs.css({opacity:0}),scrl.anims.push([$cfs,{opacity:1}]),scrl.anims.push([y,x,F]),M(),_(),P(),B(),q(),I();break;default:scrl.anims.push([$cfs,S,function(){I(),F()}]),M(),D(),H(),j()}return sc_startScroll(scrl,conf),cf_setCookie(opts.cookie,$cfs,conf),$cfs.trigger(cf_e("updatePageStatus",conf),[!1,w]),!0}),$cfs.bind(cf_e("slide_next",conf),function(e,t,n){e.stopPropagation();var r=$cfs.children();if(!opts.circular&&itms.first==opts.items.visible)return opts.infinite&&$cfs.trigger(cf_e("prev",conf),itms.total-1),e.stopImmediatePropagation();if(sz_resetMargin(r,opts),!is_number(n)){if("*"!=opts.items.filter){var i=is_number(t.items)?t.items:gn_getVisibleOrg($cfs,opts);n=gn_getScrollItemsNextFilter(r,opts,0,i)}else n=opts.items.visible;n=cf_getAdjust(n,opts,t.items,$tt0)}var s=0==itms.first?itms.total:itms.first;if(!opts.circular){if(opts.items.visibleConf.variable)var o=gn_getVisibleItemsNext(r,opts,n),i=gn_getVisibleItemsPrev(r,opts,s-1);else var o=opts.items.visible,i=opts.items.visible;n+o>s&&(n=s-i)}if(opts.items.visibleConf.old=opts.items.visible,opts.items.visibleConf.variable){for(var o=cf_getItemsAdjust(gn_getVisibleItemsNextTestCircular(r,opts,n,s),opts,opts.items.visibleConf.adjust,$tt0);opts.items.visible-n>=o&&itms.total>n;)n++,o=cf_getItemsAdjust(gn_getVisibleItemsNextTestCircular(r,opts,n,s),opts,opts.items.visibleConf.adjust,$tt0);opts.items.visible=o}else if("*"!=opts.items.filter){var o=gn_getVisibleItemsNextFilter(r,opts,n);opts.items.visible=cf_getItemsAdjust(o,opts,opts.items.visibleConf.adjust,$tt0)}if(sz_resetMargin(r,opts,!0),0==n)return e.stopImmediatePropagation(),debug(conf,"0 items to scroll: Not scrolling.");for(debug(conf,"Scrolling "+n+" items forward."),itms.first-=n;0>itms.first;)itms.first+=itms.total;opts.circular||(itms.first==opts.items.visible&&t.onEnd&&t.onEnd.call($tt0,"next"),opts.infinite||nv_enableNavi(opts,itms.first,conf)),itms.total<opts.items.visible+n&&$cfs.children().slice(0,opts.items.visible+n-itms.total).clone(!0).appendTo($cfs);var r=$cfs.children(),u=gi_getOldItemsNext(r,opts),a=gi_getNewItemsNext(r,opts,n),f=r.eq(n-1),l=u.last(),c=a.last();sz_resetMargin(r,opts);var h=0,p=0;if(opts.align){var d=cf_getAlignPadding(a,opts);h=d[0],p=d[1]}var v=!1,m=$();if(n>opts.items.visibleConf.old&&(m=r.slice(opts.items.visibleConf.old,n),"directscroll"==t.fx)){var g=opts.items[opts.d.width];v=m,f=l,sc_hideHiddenItems(v),opts.items[opts.d.width]="variable"}var y=!1,b=ms_getTotalSize(r.slice(0,n),opts,"width"),w=cf_mapWrapperSizes(ms_getSizes(a,opts,!0),opts,!opts.usePadding),E=0,S={},x={},T={},N={},C={},k=sc_getDuration(t,opts,n,b);switch(t.fx){case"uncover":case"uncover-fade":E=ms_getTotalSize(r.slice(0,opts.items.visibleConf.old),opts,"width")}v&&(opts.items[opts.d.width]=g),opts.align&&0>opts.padding[opts.d[1]]&&(opts.padding[opts.d[1]]=0),sz_resetMargin(r,opts,!0),sz_resetMargin(l,opts,opts.padding[opts.d[1]]),opts.align&&(opts.padding[opts.d[1]]=p,opts.padding[opts.d[3]]=h),C[opts.d.left]=opts.usePadding?opts.padding[opts.d[3]]:0;var L=function(){},A=function(){},O=function(){},M=function(){},_=function(){},D=function(){},P=function(){},H=function(){},B=function(){};switch(t.fx){case"crossfade":case"cover":case"cover-fade":case"uncover":case"uncover-fade":y=$cfs.clone(!0).appendTo($wrp),y.children().slice(opts.items.visibleConf.old).remove()}switch(t.fx){case"crossfade":case"cover":case"cover-fade":$cfs.css("zIndex",1),y.css("zIndex",0)}if(scrl=sc_setScroll(k,t.easing,conf),S[opts.d.left]=-b,x[opts.d.left]=-E,0>h&&(S[opts.d.left]+=h),("variable"==opts[opts.d.width]||"variable"==opts[opts.d.height])&&(L=function(){$wrp.css(w)},A=function(){scrl.anims.push([$wrp,w])}),opts.usePadding){var j=c.data("_cfs_origCssMargin");p>=0&&(j+=opts.padding[opts.d[1]]),c.css(opts.d.marginRight,j),f.not(l).length&&(N[opts.d.marginRight]=l.data("_cfs_origCssMargin")),O=function(){l.css(N)},M=function(){scrl.anims.push([l,N])};var F=f.data("_cfs_origCssMargin");h>0&&(F+=opts.padding[opts.d[3]]),T[opts.d.marginRight]=F,_=function(){f.css(T)},D=function(){scrl.anims.push([f,T])}}B=function(){$cfs.css(C)};var I=opts.items.visible+n-itms.total;H=function(){I>0&&$cfs.children().slice(itms.total).remove();var e=$cfs.children().slice(0,n).appendTo($cfs).last();if(I>0&&(a=gi_getCurrentItems(r,opts)),sc_showHiddenItems(v),opts.usePadding){if(itms.total<opts.items.visible+n){var t=$cfs.children().eq(opts.items.visible-1);t.css(opts.d.marginRight,t.data("_cfs_origCssMargin")+opts.padding[opts.d[1]])}e.css(opts.d.marginRight,e.data("_cfs_origCssMargin"))}};var q=sc_mapCallbackArguments(u,m,a,n,"next",k,w);switch(P=function(){$cfs.css("zIndex",$cfs.data("_cfs_origCssZindex")),sc_afterScroll($cfs,y,t),crsl.isScrolling=!1,clbk.onAfter=sc_fireCallbacks($tt0,t,"onAfter",q,clbk),queu=sc_fireQueue($cfs,queu,conf),crsl.isPaused||$cfs.trigger(cf_e("play",conf))},crsl.isScrolling=!0,tmrs=sc_clearTimers(tmrs),clbk.onBefore=sc_fireCallbacks($tt0,t,"onBefore",q,clbk),t.fx){case"none":$cfs.css(S),L(),O(),_(),B(),H(),P();break;case"fade":scrl.anims.push([$cfs,{opacity:0},function(){L(),O(),_(),B(),H(),scrl=sc_setScroll(k,t.easing,conf),scrl.anims.push([$cfs,{opacity:1},P]),sc_startScroll(scrl,conf)}]);break;case"crossfade":$cfs.css({opacity:0}),scrl.anims.push([y,{opacity:0}]),scrl.anims.push([$cfs,{opacity:1},P]),A(),O(),_(),B(),H();break;case"cover":$cfs.css(opts.d.left,$wrp[opts.d.width]()),scrl.anims.push([$cfs,C,P]),A(),O(),_(),H();break;case"cover-fade":$cfs.css(opts.d.left,$wrp[opts.d.width]()),scrl.anims.push([y,{opacity:0}]),scrl.anims.push([$cfs,C,P]),A(),O(),_(),H();break;case"uncover":scrl.anims.push([y,x,P]),A(),O(),_(),B(),H();break;case"uncover-fade":$cfs.css({opacity:0}),scrl.anims.push([$cfs,{opacity:1}]),scrl.anims.push([y,x,P]),A(),O(),_(),B(),H();break;default:scrl.anims.push([$cfs,S,function(){B(),H(),P()}]),A(),M(),D()}return sc_startScroll(scrl,conf),cf_setCookie(opts.cookie,$cfs,conf),$cfs.trigger(cf_e("updatePageStatus",conf),[!1,w]),!0}),$cfs.bind(cf_e("slideTo",conf),function(e,t,n,r,i,s,o){e.stopPropagation();var u=[t,n,r,i,s,o],a=["string/number/object","number","boolean","object","string","function"],f=cf_sortParams(u,a);return i=f[3],s=f[4],o=f[5],t=gn_getItemIndex(f[0],f[1],f[2],itms,$cfs),0==t?!1:(is_object(i)||(i=!1),"prev"!=s&&"next"!=s&&(s=opts.circular?itms.total/2>=t?"next":"prev":0==itms.first||itms.first>t?"next":"prev"),"prev"==s&&(t=itms.total-t),$cfs.trigger(cf_e(s,conf),[i,t,o]),!0)}),$cfs.bind(cf_e("prevPage",conf),function(e,t,n){e.stopPropagation();var r=$cfs.triggerHandler(cf_e("currentPage",conf));return $cfs.triggerHandler(cf_e("slideToPage",conf),[r-1,t,"prev",n])}),$cfs.bind(cf_e("nextPage",conf),function(e,t,n){e.stopPropagation();var r=$cfs.triggerHandler(cf_e("currentPage",conf));return $cfs.triggerHandler(cf_e("slideToPage",conf),[r+1,t,"next",n])}),$cfs.bind(cf_e("slideToPage",conf),function(e,t,n,r,i){e.stopPropagation(),is_number(t)||(t=$cfs.triggerHandler(cf_e("currentPage",conf)));var s=opts.pagination.items||opts.items.visible,o=Math.ceil(itms.total/s)-1;return 0>t&&(t=o),t>o&&(t=0),$cfs.triggerHandler(cf_e("slideTo",conf),[t*s,0,!0,n,r,i])}),$cfs.bind(cf_e("jumpToStart",conf),function(e,t){if(e.stopPropagation(),t=t?gn_getItemIndex(t,0,!0,itms,$cfs):0,t+=itms.first,0!=t){if(itms.total>0)for(;t>itms.total;)t-=itms.total;$cfs.prepend($cfs.children().slice(t,itms.total))}return!0}),$cfs.bind(cf_e("synchronise",conf),function(e,t){if(e.stopPropagation(),t)t=cf_getSynchArr(t);else{if(!opts.synchronise)return debug(conf,"No carousel to synchronise.");t=opts.synchronise}for(var n=$cfs.triggerHandler(cf_e("currentPosition",conf)),r=!0,i=0,s=t.length;s>i;i++)t[i][0].triggerHandler(cf_e("slideTo",conf),[n,t[i][3],!0])||(r=!1);return r}),$cfs.bind(cf_e("queue",conf),function(e,t,n){return e.stopPropagation(),is_function(t)?t.call($tt0,queu):is_array(t)?queu=t:is_undefined(t)||queu.push([t,n]),queu}),$cfs.bind(cf_e("insertItem",conf),function(e,t,n,r,i){e.stopPropagation();var s=[t,n,r,i],o=["string/object","string/number/object","boolean","number"],u=cf_sortParams(s,o);if(t=u[0],n=u[1],r=u[2],i=u[3],is_object(t)&&!is_jquery(t)?t=$(t):is_string(t)&&(t=$(t)),!is_jquery(t)||0==t.length)return debug(conf,"Not a valid object.");is_undefined(n)&&(n="end"),sz_storeMargin(t,opts),sz_storeOrigCss(t);var a=n,f="before";"end"==n?r?(0==itms.first?(n=itms.total-1,f="after"):(n=itms.first,itms.first+=t.length),0>n&&(n=0)):(n=itms.total-1,f="after"):n=gn_getItemIndex(n,i,r,itms,$cfs);var l=$cfs.children().eq(n);return l.length?l[f](t):(debug(conf,"Correct insert-position not found! Appending item to the end."),$cfs.append(t)),"end"==a||r||itms.first>n&&(itms.first+=t.length),itms.total=$cfs.children().length,itms.first>=itms.total&&(itms.first-=itms.total),$cfs.trigger(cf_e("updateSizes",conf)),$cfs.trigger(cf_e("linkAnchors",conf)),!0}),$cfs.bind(cf_e("removeItem",conf),function(e,t,n,r){e.stopPropagation();var i=[t,n,r],s=["string/number/object","boolean","number"],o=cf_sortParams(i,s);if(t=o[0],n=o[1],r=o[2],t instanceof $&&t.length>1)return u=$(),t.each(function(){var e=$cfs.trigger(cf_e("removeItem",conf),[$(this),n,r]);e&&(u=u.add(e))}),u;if(is_undefined(t)||"end"==t)u=$cfs.children().last();else{t=gn_getItemIndex(t,r,n,itms,$cfs);var u=$cfs.children().eq(t);u.length&&itms.first>t&&(itms.first-=u.length)}return u&&u.length&&(u.detach(),itms.total=$cfs.children().length,$cfs.trigger(cf_e("updateSizes",conf))),u}),$cfs.bind(cf_e("onBefore",conf)+" "+cf_e("onAfter",conf),function(e,t){e.stopPropagation();var n=e.type.slice(conf.events.prefix.length);return is_array(t)&&(clbk[n]=t),is_function(t)&&clbk[n].push(t),clbk[n]}),$cfs.bind(cf_e("currentPosition",conf),function(e,t){if(e.stopPropagation(),0==itms.first)var n=0;else var n=itms.total-itms.first;return is_function(t)&&t.call($tt0,n),n}),$cfs.bind(cf_e("currentPage",conf),function(e,t){e.stopPropagation();var n,r=opts.pagination.items||opts.items.visible,i=Math.ceil(itms.total/r-1);return n=0==itms.first?0:itms.first<itms.total%r?0:itms.first!=r||opts.circular?Math.round((itms.total-itms.first)/r):i,0>n&&(n=0),n>i&&(n=i),is_function(t)&&t.call($tt0,n),n}),$cfs.bind(cf_e("currentVisible",conf),function(e,t){e.stopPropagation();var n=gi_getCurrentItems($cfs.children(),opts);return is_function(t)&&t.call($tt0,n),n}),$cfs.bind(cf_e("slice",conf),function(e,t,n,r){if(e.stopPropagation(),0==itms.total)return!1;var i=[t,n,r],s=["number","number","function"],o=cf_sortParams(i,s);if(t=is_number(o[0])?o[0]:0,n=is_number(o[1])?o[1]:itms.total,r=o[2],t+=itms.first,n+=itms.first,items.total>0){for(;t>itms.total;)t-=itms.total;for(;n>itms.total;)n-=itms.total;for(;0>t;)t+=itms.total;for(;0>n;)n+=itms.total}var u,a=$cfs.children();return u=n>t?a.slice(t,n):$(a.slice(t,itms.total).get().concat(a.slice(0,n).get())),is_function(r)&&r.call($tt0,u),u}),$cfs.bind(cf_e("isPaused",conf)+" "+cf_e("isStopped",conf)+" "+cf_e("isScrolling",conf),function(e,t){e.stopPropagation();var n=e.type.slice(conf.events.prefix.length),r=crsl[n];return is_function(t)&&t.call($tt0,r),r}),$cfs.bind(cf_e("configuration",conf),function(e,a,b,c){e.stopPropagation();var reInit=!1;if(is_function(a))a.call($tt0,opts);else if(is_object(a))opts_orig=$.extend(!0,{},opts_orig,a),b!==!1?reInit=!0:opts=$.extend(!0,{},opts,a);else if(!is_undefined(a))if(is_function(b)){var val=eval("opts."+a);is_undefined(val)&&(val=""),b.call($tt0,val)}else{if(is_undefined(b))return eval("opts."+a);"boolean"!=typeof c&&(c=!0),eval("opts_orig."+a+" = b"),c!==!1?reInit=!0:eval("opts."+a+" = b")}if(reInit){sz_resetMargin($cfs.children(),opts),FN._init(opts_orig),FN._bind_buttons();var sz=sz_setSizes($cfs,opts);$cfs.trigger(cf_e("updatePageStatus",conf),[!0,sz])}return opts}),$cfs.bind(cf_e("linkAnchors",conf),function(e,t,n){return e.stopPropagation(),is_undefined(t)?t=$("body"):is_string(t)&&(t=$(t)),is_jquery(t)&&0!=t.length?(is_string(n)||(n="a.caroufredsel"),t.find(n).each(function(){var e=this.hash||"";e.length>0&&-1!=$cfs.children().index($(e))&&$(this).unbind("click").click(function(t){t.preventDefault(),$cfs.trigger(cf_e("slideTo",conf),e)})}),!0):debug(conf,"Not a valid object.")}),$cfs.bind(cf_e("updatePageStatus",conf),function(e,t){if(e.stopPropagation(),opts.pagination.container){var n=opts.pagination.items||opts.items.visible,r=Math.ceil(itms.total/n);t&&(opts.pagination.anchorBuilder&&(opts.pagination.container.children().remove(),opts.pagination.container.each(function(){for(var e=0;r>e;e++){var t=$cfs.children().eq(gn_getItemIndex(e*n,0,!0,itms,$cfs));$(this).append(opts.pagination.anchorBuilder.call(t[0],e+1))}})),opts.pagination.container.each(function(){$(this).children().unbind(opts.pagination.event).each(function(e){$(this).bind(opts.pagination.event,function(t){t.preventDefault(),$cfs.trigger(cf_e("slideTo",conf),[e*n,-opts.pagination.deviation,!0,opts.pagination])})})}));var i=$cfs.triggerHandler(cf_e("currentPage",conf))+opts.pagination.deviation;return i>=r&&(i=0),0>i&&(i=r-1),opts.pagination.container.each(function(){$(this).children().removeClass(cf_c("selected",conf)).eq(i).addClass(cf_c("selected",conf))}),!0}}),$cfs.bind(cf_e("updateSizes",conf),function(){var e=opts.items.visible,t=$cfs.children(),n=ms_getParentSize($wrp,opts,"width");if(itms.total=t.length,crsl.primarySizePercentage?(opts.maxDimension=n,opts[opts.d.width]=ms_getPercentage(n,crsl.primarySizePercentage)):opts.maxDimension=ms_getMaxDimension(opts,n),opts.responsive?(opts.items.width=opts.items.sizesConf.width,opts.items.height=opts.items.sizesConf.height,opts=in_getResponsiveValues(opts,t,n),e=opts.items.visible,sz_setResponsiveSizes(opts,t)):opts.items.visibleConf.variable?e=gn_getVisibleItemsNext(t,opts,0):"*"!=opts.items.filter&&(e=gn_getVisibleItemsNextFilter(t,opts,0)),!opts.circular&&0!=itms.first&&e>itms.first){if(opts.items.visibleConf.variable)var r=gn_getVisibleItemsPrev(t,opts,itms.first)-itms.first;else if("*"!=opts.items.filter)var r=gn_getVisibleItemsPrevFilter(t,opts,itms.first)-itms.first;else var r=opts.items.visible-itms.first;debug(conf,"Preventing non-circular: sliding "+r+" items backward."),$cfs.trigger(cf_e("prev",conf),r)}opts.items.visible=cf_getItemsAdjust(e,opts,opts.items.visibleConf.adjust,$tt0),opts.items.visibleConf.old=opts.items.visible,opts=in_getAlignPadding(opts,t);var i=sz_setSizes($cfs,opts);return $cfs.trigger(cf_e("updatePageStatus",conf),[!0,i]),nv_showNavi(opts,itms.total,conf),nv_enableNavi(opts,itms.first,conf),i}),$cfs.bind(cf_e("destroy",conf),function(e,t){return e.stopPropagation(),tmrs=sc_clearTimers(tmrs),$cfs.data("_cfs_isCarousel",!1),$cfs.trigger(cf_e("finish",conf)),t&&$cfs.trigger(cf_e("jumpToStart",conf)),sz_restoreOrigCss($cfs.children()),sz_restoreOrigCss($cfs),FN._unbind_events(),FN._unbind_buttons(),"parent"==conf.wrapper?sz_restoreOrigCss($wrp):$wrp.replaceWith($cfs),!0}),$cfs.bind(cf_e("debug",conf),function(){return debug(conf,"Carousel width: "+opts.width),debug(conf,"Carousel height: "+opts.height),debug(conf,"Item widths: "+opts.items.width),debug(conf,"Item heights: "+opts.items.height),debug(conf,"Number of items visible: "+opts.items.visible),opts.auto.play&&debug(conf,"Number of items scrolled automatically: "+opts.auto.items),opts.prev.button&&debug(conf,"Number of items scrolled backward: "+opts.prev.items),opts.next.button&&debug(conf,"Number of items scrolled forward: "+opts.next.items),conf.debug}),$cfs.bind("_cfs_triggerEvent",function(e,t,n){return e.stopPropagation(),$cfs.triggerHandler(cf_e(t,conf),n)})},FN._unbind_events=function(){$cfs.unbind(cf_e("",conf)),$cfs.unbind(cf_e("",conf,!1)),$cfs.unbind("_cfs_triggerEvent")},FN._bind_buttons=function(){if(FN._unbind_buttons(),nv_showNavi(opts,itms.total,conf),nv_enableNavi(opts,itms.first,conf),opts.auto.pauseOnHover){var e=bt_pauseOnHoverConfig(opts.auto.pauseOnHover);$wrp.bind(cf_e("mouseenter",conf,!1),function(){$cfs.trigger(cf_e("pause",conf),e)}).bind(cf_e("mouseleave",conf,!1),function(){$cfs.trigger(cf_e("resume",conf))})}if(opts.auto.button&&opts.auto.button.bind(cf_e(opts.auto.event,conf,!1),function(e){e.preventDefault();var t=!1,n=null;crsl.isPaused?t="play":opts.auto.pauseOnEvent&&(t="pause",n=bt_pauseOnHoverConfig(opts.auto.pauseOnEvent)),t&&$cfs.trigger(cf_e(t,conf),n)}),opts.prev.button&&(opts.prev.button.bind(cf_e(opts.prev.event,conf,!1),function(e){e.preventDefault(),$cfs.trigger(cf_e("prev",conf))}),opts.prev.pauseOnHover)){var e=bt_pauseOnHoverConfig(opts.prev.pauseOnHover);opts.prev.button.bind(cf_e("mouseenter",conf,!1),function(){$cfs.trigger(cf_e("pause",conf),e)}).bind(cf_e("mouseleave",conf,!1),function(){$cfs.trigger(cf_e("resume",conf))})}if(opts.next.button&&(opts.next.button.bind(cf_e(opts.next.event,conf,!1),function(e){e.preventDefault(),$cfs.trigger(cf_e("next",conf))}),opts.next.pauseOnHover)){var e=bt_pauseOnHoverConfig(opts.next.pauseOnHover);opts.next.button.bind(cf_e("mouseenter",conf,!1),function(){$cfs.trigger(cf_e("pause",conf),e)}).bind(cf_e("mouseleave",conf,!1),function(){$cfs.trigger(cf_e("resume",conf))})}if(opts.pagination.container&&opts.pagination.pauseOnHover){var e=bt_pauseOnHoverConfig(opts.pagination.pauseOnHover);opts.pagination.container.bind(cf_e("mouseenter",conf,!1),function(){$cfs.trigger(cf_e("pause",conf),e)}).bind(cf_e("mouseleave",conf,!1),function(){$cfs.trigger(cf_e("resume",conf))})}if((opts.prev.key||opts.next.key)&&$(document).bind(cf_e("keyup",conf,!1,!0,!0),function(e){var t=e.keyCode;t==opts.next.key&&(e.preventDefault(),$cfs.trigger(cf_e("next",conf))),t==opts.prev.key&&(e.preventDefault(),$cfs.trigger(cf_e("prev",conf)))}),opts.pagination.keys&&$(document).bind(cf_e("keyup",conf,!1,!0,!0),function(e){var t=e.keyCode;t>=49&&58>t&&(t=(t-49)*opts.items.visible,itms.total>=t&&(e.preventDefault(),$cfs.trigger(cf_e("slideTo",conf),[t,0,!0,opts.pagination])))}),$.fn.swipe){var t="ontouchstart"in window;if(t&&opts.swipe.onTouch||!t&&opts.swipe.onMouse){var n=$.extend(!0,{},opts.prev,opts.swipe),r=$.extend(!0,{},opts.next,opts.swipe),i=function(){$cfs.trigger(cf_e("prev",conf),[n])},s=function(){$cfs.trigger(cf_e("next",conf),[r])};switch(opts.direction){case"up":case"down":opts.swipe.options.swipeUp=s,opts.swipe.options.swipeDown=i;break;default:opts.swipe.options.swipeLeft=s,opts.swipe.options.swipeRight=i}crsl.swipe&&$cfs.swipe("destroy"),$wrp.swipe(opts.swipe.options),$wrp.css("cursor","move"),crsl.swipe=!0}}if($.fn.mousewheel&&opts.mousewheel){var o=$.extend(!0,{},opts.prev,opts.mousewheel),u=$.extend(!0,{},opts.next,opts.mousewheel);crsl.mousewheel&&$wrp.unbind(cf_e("mousewheel",conf,!1)),$wrp.bind(cf_e("mousewheel",conf,!1),function(e,t){e.preventDefault(),t>0?$cfs.trigger(cf_e("prev",conf),[o]):$cfs.trigger(cf_e("next",conf),[u])}),crsl.mousewheel=!0}if(opts.auto.play&&$cfs.trigger(cf_e("play",conf),opts.auto.delay),crsl.upDateOnWindowResize){var a=function(){$cfs.trigger(cf_e("finish",conf)),opts.auto.pauseOnResize&&!crsl.isPaused&&$cfs.trigger(cf_e("play",conf)),sz_resetMargin($cfs.children(),opts),$cfs.trigger(cf_e("updateSizes",conf))},f=$(window),l=null;if($.debounce&&"debounce"==conf.onWindowResize)l=$.debounce(200,a);else if($.throttle&&"throttle"==conf.onWindowResize)l=$.throttle(300,a);else{var c=0,h=0;l=function(){var e=f.width(),t=f.height();(e!=c||t!=h)&&(a(),c=e,h=t)}}f.bind(cf_e("resize",conf,!1,!0,!0),l)}},FN._unbind_buttons=function(){var e=(cf_e("",conf),cf_e("",conf,!1));ns3=cf_e("",conf,!1,!0,!0),$(document).unbind(ns3),$(window).unbind(ns3),$wrp.unbind(e),opts.auto.button&&opts.auto.button.unbind(e),opts.prev.button&&opts.prev.button.unbind(e),opts.next.button&&opts.next.button.unbind(e),opts.pagination.container&&(opts.pagination.container.unbind(e),opts.pagination.anchorBuilder&&opts.pagination.container.children().remove()),crsl.swipe&&($cfs.swipe("destroy"),$wrp.css("cursor","default"),crsl.swipe=!1),crsl.mousewheel&&(crsl.mousewheel=!1),nv_showNavi(opts,"hide",conf),nv_enableNavi(opts,"removeClass",conf)},is_boolean(configs)&&(configs={debug:configs});var crsl={direction:"next",isPaused:!0,isScrolling:!1,isStopped:!1,mousewheel:!1,swipe:!1},itms={total:$cfs.children().length,first:0},tmrs={auto:null,progress:null,startTime:getTime(),timePassed:0},scrl={isStopped:!1,duration:0,startTime:0,easing:"",anims:[]},clbk={onBefore:[],onAfter:[]},queu=[],conf=$.extend(!0,{},$.fn.carouFredSel.configs,configs),opts={},opts_orig=$.extend(!0,{},options),$wrp="parent"==conf.wrapper?$cfs.parent():$cfs.wrap("<"+conf.wrapper.element+' class="'+conf.wrapper.classname+'" />').parent();if(conf.selector=$cfs.selector,conf.serialNumber=$.fn.carouFredSel.serialNumber++,conf.transition=conf.transition&&$.fn.transition?"transition":"animate",FN._init(opts_orig,!0,starting_position),FN._build(),FN._bind_events(),FN._bind_buttons(),is_array(opts.items.start))var start_arr=opts.items.start;else{var start_arr=[];0!=opts.items.start&&start_arr.push(opts.items.start)}if(opts.cookie&&start_arr.unshift(parseInt(cf_getCookie(opts.cookie),10)),start_arr.length>0)for(var a=0,l=start_arr.length;l>a;a++){var s=start_arr[a];if(0!=s){if(s===!0){if(s=window.location.hash,1>s.length)continue}else"random"===s&&(s=Math.floor(Math.random()*itms.total));if($cfs.triggerHandler(cf_e("slideTo",conf),[s,0,!0,{fx:"none"}]))break}}var siz=sz_setSizes($cfs,opts),itm=gi_getCurrentItems($cfs.children(),opts);return opts.onCreate&&opts.onCreate.call($tt0,{width:siz.width,height:siz.height,items:itm}),$cfs.trigger(cf_e("updatePageStatus",conf),[!0,siz]),$cfs.trigger(cf_e("linkAnchors",conf)),conf.debug&&$cfs.trigger(cf_e("debug",conf)),$cfs},$.fn.carouFredSel.serialNumber=1,$.fn.carouFredSel.defaults={synchronise:!1,infinite:!0,circular:!0,responsive:!1,direction:"left",items:{start:0},scroll:{easing:"swing",duration:500,pauseOnHover:!1,event:"click",queue:!1}},$.fn.carouFredSel.configs={debug:!1,transition:!1,onWindowResize:"throttle",events:{prefix:"",namespace:"cfs"},wrapper:{element:"div",classname:"caroufredsel_wrapper"},classnames:{}},$.fn.carouFredSel.pageAnchorBuilder=function(e){return'<a href="#"><span>'+e+"</span></a>"},$.fn.carouFredSel.progressbarUpdater=function(e){$(this).css("width",e+"%")},$.fn.carouFredSel.cookie={get:function(e){e+="=";for(var t=document.cookie.split(";"),n=0,r=t.length;r>n;n++){for(var i=t[n];" "==i.charAt(0);)i=i.slice(1);if(0==i.indexOf(e))return i.slice(e.length)}return 0},set:function(e,t,n){var r="";if(n){var i=new Date;i.setTime(i.getTime()+1e3*60*60*24*n),r="; expires="+i.toGMTString()}document.cookie=e+"="+t+r+"; path=/"},remove:function(e){$.fn.carouFredSel.cookie.set(e,"",-1)}},$.extend($.easing,{quadratic:function(e){var t=e*e;return e*(-t*e+4*t-6*e+4)},cubic:function(e){return e*(4*e*e-9*e+6)},elastic:function(e){var t=e*e;return e*(33*t*t-106*t*e+126*t-67*e+15)}}))})(jQuery);(function(e){var t=-1,n=-1,r=function(t){var n=null,r=[];e(t).each(function(){var t=e(this),s=t.offset().top-i(t.css("margin-top")),o=0<r.length?r[r.length-1]:null;null===o?r.push(t):1>=Math.floor(Math.abs(n-s))?r[r.length-1]=o.add(t):r.push(t);n=s});return r},i=function(e){return parseFloat(e)||0};e.fn.matchHeight=function(t){if("remove"===t){var n=this;this.css("height","");e.each(e.fn.matchHeight._groups,function(e,t){t.elements=t.elements.not(n)});return this}if(1>=this.length)return this;t="undefined"!==typeof t?t:!0;e.fn.matchHeight._groups.push({elements:this,byRow:t});e.fn.matchHeight._apply(this,t);return this};e.fn.matchHeight._groups=[];e.fn.matchHeight._throttle=80;e.fn.matchHeight._maintainScroll=!1;e.fn.matchHeight._apply=function(t,n){var s=e(t),o=[s],u=e(window).scrollTop(),a=e("html").outerHeight(!0),f=s.parents().filter(":hidden");f.css("display","block");n&&(s.each(function(){var t=e(this),n="inline-block"===t.css("display")?"inline-block":"block";t.data("style-cache",t.attr("style"));t.css({display:n,"padding-top":"0","padding-bottom":"0","margin-top":"0","margin-bottom":"0","border-top-width":"0","border-bottom-width":"0",height:"100px"})}),o=r(s),s.each(function(){var t=e(this);t.attr("style",t.data("style-cache")||"").css("height","")}));e.each(o,function(t,r){var s=e(r),o=0;n&&1>=s.length||(s.each(function(){var t=e(this),n="inline-block"===t.css("display")?"inline-block":"block";t.css({display:n,height:""});t.outerHeight(!1)>o&&(o=t.outerHeight(!1));t.css("display","")}),s.each(function(){var t=e(this),n=0;"border-box"!==t.css("box-sizing")&&(n+=i(t.css("border-top-width"))+i(t.css("border-bottom-width")),n+=i(t.css("padding-top"))+i(t.css("padding-bottom")));t.css("height",o-n)}))});f.css("display","");e.fn.matchHeight._maintainScroll&&e(window).scrollTop(u/a*e("html").outerHeight(!0));return this};e.fn.matchHeight._applyDataApi=function(){var t={};e("[data-match-height], [data-mh]").each(function(){var n=e(this),r=n.attr("data-match-height")||n.attr("data-mh");t[r]=r in t?t[r].add(n):n});e.each(t,function(){this.matchHeight(!0)})};var s=function(){e.each(e.fn.matchHeight._groups,function(){e.fn.matchHeight._apply(this.elements,this.byRow)})};e.fn.matchHeight._update=function(r,i){if(i&&"resize"===i.type){var o=e(window).width();if(o===t)return;t=o}r?-1===n&&(n=setTimeout(function(){s();n=-1},e.fn.matchHeight._throttle)):s()};e(e.fn.matchHeight._applyDataApi);e(window).bind("load",function(t){e.fn.matchHeight._update()});e(window).bind("resize orientationchange",function(t){e.fn.matchHeight._update(!0,t)})})(jQuery);(function(e,t,n,r){function i(t,n){this.el=t;this.$el=e(this.el);this.options=e.extend({},o,n);this._defaults=o;this._name=s;this.init()}var s="nivoLightbox",o={effect:"fade",theme:"default",keyboardNav:true,clickOverlayToClose:true,onInit:function(){},beforeShowLightbox:function(){},afterShowLightbox:function(e){},beforeHideLightbox:function(){},afterHideLightbox:function(){},onPrev:function(e){},onNext:function(e){},errorMessage:"The requested content cannot be loaded. Please try again later."};i.prototype={init:function(){var t=this;if(!e("html").hasClass("nivo-lightbox-notouch"))e("html").addClass("nivo-lightbox-notouch");if("ontouchstart"in n)e("html").removeClass("nivo-lightbox-notouch");this.$el.on("click",function(e){t.showLightbox(e)});if(this.options.keyboardNav){e("body").off("keyup").on("keyup",function(n){var r=n.keyCode?n.keyCode:n.which;if(r==27)t.destructLightbox();if(r==37)e(".nivo-lightbox-prev").trigger("click");if(r==39)e(".nivo-lightbox-next").trigger("click")})}this.options.onInit.call(this)},showLightbox:function(t){var n=this,r=this.$el;var i=this.checkContent(r);if(!i)return;t.preventDefault();this.options.beforeShowLightbox.call(this);var s=this.constructLightbox();if(!s)return;var o=s.find(".nivo-lightbox-content");if(!o)return;e("body").addClass("nivo-lightbox-body-effect-"+this.options.effect);this.processContent(o,r);if(this.$el.attr("data-lightbox-gallery")){var u=e('[data-lightbox-gallery="'+this.$el.attr("data-lightbox-gallery")+'"]');e(".nivo-lightbox-nav").show();e(".nivo-lightbox-prev").off("click").on("click",function(t){t.preventDefault();var i=u.index(r);r=u.eq(i-1);if(!e(r).length)r=u.last();n.processContent(o,r);n.options.onPrev.call(this,[r])});e(".nivo-lightbox-next").off("click").on("click",function(t){t.preventDefault();var i=u.index(r);r=u.eq(i+1);if(!e(r).length)r=u.first();n.processContent(o,r);n.options.onNext.call(this,[r])})}setTimeout(function(){s.addClass("nivo-lightbox-open");n.options.afterShowLightbox.call(this,[s])},1)},checkContent:function(e){var t=this,n=e.attr("href"),r=n.match(/(youtube|youtu|vimeo)\.(com|be)\/(watch\?v=([\w-]+)|([\w-]+))/);if(n.match(/\.(jpeg|jpg|gif|png)$/i)!==null){return true}else if(r){return true}else if(e.attr("data-lightbox-type")=="ajax"){return true}else if(n.substring(0,1)=="#"&&e.attr("data-lightbox-type")=="inline"){return true}else if(e.attr("data-lightbox-type")=="iframe"){return true}return false},processContent:function(n,r){var i=this,s=r.attr("href"),o=s.match(/(youtube|youtu|vimeo)\.(com|be)\/(watch\?v=([\w-]+)|([\w-]+))/);n.html("").addClass("nivo-lightbox-loading");if(this.isHidpi()&&r.attr("data-lightbox-hidpi")){s=r.attr("data-lightbox-hidpi")}if(s.match(/\.(jpeg|jpg|gif|png)$/i)!==null){var u=e("<img>",{src:s});u.one("load",function(){var r=e('<div class="nivo-lightbox-image" />');r.append(u);n.html(r).removeClass("nivo-lightbox-loading");r.css({"line-height":e(".nivo-lightbox-content").height()+"px",height:e(".nivo-lightbox-content").height()+"px"});e(t).resize(function(){r.css({"line-height":e(".nivo-lightbox-content").height()+"px",height:e(".nivo-lightbox-content").height()+"px"})})}).each(function(){if(this.complete)e(this).load()});u.error(function(){var t=e('<div class="nivo-lightbox-error"><p>'+i.options.errorMessage+"</p></div>");n.html(t).removeClass("nivo-lightbox-loading")})}else if(o){var a="",f="nivo-lightbox-video";if(o[1]=="youtube"){a="http://www.youtube.com/embed/"+o[4];f="nivo-lightbox-youtube"}if(o[1]=="youtu"){a="http://www.youtube.com/embed/"+o[3];f="nivo-lightbox-youtube"}if(o[1]=="vimeo"){a="http://player.vimeo.com/video/"+o[3];f="nivo-lightbox-vimeo"}if(a){var l=e("<iframe>",{src:a,"class":f,frameborder:0,vspace:0,hspace:0,scrolling:"auto"});n.html(l);l.load(function(){n.removeClass("nivo-lightbox-loading")})}}else if(r.attr("data-lightbox-type")=="ajax"){e.ajax({url:s,cache:false,success:function(r){var i=e('<div class="nivo-lightbox-ajax" />');i.append(r);n.html(i).removeClass("nivo-lightbox-loading");if(i.outerHeight()<n.height()){i.css({position:"relative",top:"50%","margin-top":-(i.outerHeight()/2)+"px"})}e(t).resize(function(){if(i.outerHeight()<n.height()){i.css({position:"relative",top:"50%","margin-top":-(i.outerHeight()/2)+"px"})}})},error:function(){var t=e('<div class="nivo-lightbox-error"><p>'+i.options.errorMessage+"</p></div>");n.html(t).removeClass("nivo-lightbox-loading")}})}else if(s.substring(0,1)=="#"&&r.attr("data-lightbox-type")=="inline"){if(e(s).length){var c=e('<div class="nivo-lightbox-inline" />');c.append(e(s).clone().show());n.html(c).removeClass("nivo-lightbox-loading");if(c.outerHeight()<n.height()){c.css({position:"relative",top:"50%","margin-top":-(c.outerHeight()/2)+"px"})}e(t).resize(function(){if(c.outerHeight()<n.height()){c.css({position:"relative",top:"50%","margin-top":-(c.outerHeight()/2)+"px"})}})}else{var h=e('<div class="nivo-lightbox-error"><p>'+i.options.errorMessage+"</p></div>");n.html(h).removeClass("nivo-lightbox-loading")}}else if(r.attr("data-lightbox-type")=="iframe"){var p=e("<iframe>",{src:s,"class":"nivo-lightbox-item",frameborder:0,vspace:0,hspace:0,scrolling:"auto"});n.html(p);p.load(function(){n.removeClass("nivo-lightbox-loading")})}else{return false}if(r.attr("title")){var d=e("<span>",{"class":"nivo-lightbox-title"});d.text(r.attr("title"));e(".nivo-lightbox-title-wrap").html(d)}else{e(".nivo-lightbox-title-wrap").html("")}},constructLightbox:function(){if(e(".nivo-lightbox-overlay").length)return e(".nivo-lightbox-overlay");var t=e("<div>",{"class":"nivo-lightbox-overlay nivo-lightbox-theme-"+this.options.theme+" nivo-lightbox-effect-"+this.options.effect});var n=e("<div>",{"class":"nivo-lightbox-wrap"});var r=e("<div>",{"class":"nivo-lightbox-content"});var i=e('<a href="#" class="nivo-lightbox-nav nivo-lightbox-prev">Previous</a><a href="#" class="nivo-lightbox-nav nivo-lightbox-next">Next</a>');var s=e('<a href="#" class="nivo-lightbox-close" title="Close">Close</a>');var o=e("<div>",{"class":"nivo-lightbox-title-wrap"});var u=0;if(u)t.addClass("nivo-lightbox-ie");n.append(r);n.append(o);t.append(n);t.append(i);t.append(s);e("body").append(t);var a=this;if(a.options.clickOverlayToClose){t.on("click",function(t){if(t.target===this||e(t.target).hasClass("nivo-lightbox-content")||e(t.target).hasClass("nivo-lightbox-image")){a.destructLightbox()}})}s.on("click",function(e){e.preventDefault();a.destructLightbox()});return t},destructLightbox:function(){var t=this;this.options.beforeHideLightbox.call(this);e(".nivo-lightbox-overlay").removeClass("nivo-lightbox-open");e(".nivo-lightbox-nav").hide();e("body").removeClass("nivo-lightbox-body-effect-"+t.options.effect);var n=0;if(n){e(".nivo-lightbox-overlay iframe").attr("src"," ");e(".nivo-lightbox-overlay iframe").remove()}e(".nivo-lightbox-prev").off("click");e(".nivo-lightbox-next").off("click");e(".nivo-lightbox-content").empty();this.options.afterHideLightbox.call(this)},isHidpi:function(){var e="(-webkit-min-device-pixel-ratio: 1.5),                              (min--moz-device-pixel-ratio: 1.5),                              (-o-min-device-pixel-ratio: 3/2),                              (min-resolution: 1.5dppx)";if(t.devicePixelRatio>1)return true;if(t.matchMedia&&t.matchMedia(e).matches)return true;return false}};e.fn[s]=function(t){return this.each(function(){if(!e.data(this,s)){e.data(this,s,new i(this,t))}})}})(jQuery,window,document)
+/*
+ * Nivo Lightbox v1.2.0
+ * http://dev7studios.com/nivo-lightbox
+ *
+ * Copyright 2013, Dev7studios
+ * Free to use and abuse under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+
+;(function($, window, document, undefined){
+
+    var pluginName = 'nivoLightbox',
+        defaults = {
+            effect: 'fade',
+            theme: 'default',
+            keyboardNav: true,
+            clickOverlayToClose: true,
+            onInit: function(){},
+            beforeShowLightbox: function(){},
+            afterShowLightbox: function(lightbox){},
+            beforeHideLightbox: function(){},
+            afterHideLightbox: function(){},
+            onPrev: function(element){},
+            onNext: function(element){},
+            errorMessage: 'The requested content cannot be loaded. Please try again later.'
+        };
+
+    function NivoLightbox(element, options){
+        this.el = element;
+        this.$el = $(this.el);
+
+        this.options = $.extend({}, defaults, options);
+
+        this._defaults = defaults;
+        this._name = pluginName;
+
+        this.init();
+    }
+
+    NivoLightbox.prototype = {
+
+        init: function(){
+			var $this = this;
+
+			// Need this so we don't use CSS transitions in mobile
+			if(!$('html').hasClass('nivo-lightbox-notouch')) $('html').addClass('nivo-lightbox-notouch');
+			if('ontouchstart' in document) $('html').removeClass('nivo-lightbox-notouch');
+
+			// Setup the click
+            this.$el.on('click', function(e){
+                $this.showLightbox(e);
+            });
+
+            // keyboardNav
+            if(this.options.keyboardNav){
+                $('body').off('keyup').on('keyup', function(e){
+                    var code = (e.keyCode ? e.keyCode : e.which);
+                    // Escape
+                    if(code == 27) $this.destructLightbox();
+                    // Left
+                    if(code == 37) $('.nivo-lightbox-prev').trigger('click');
+                    // Right
+                    if(code == 39) $('.nivo-lightbox-next').trigger('click');
+				});
+			}
+
+			this.options.onInit.call(this);
+
+        },
+
+        showLightbox: function(e){
+            var $this = this,
+                currentLink = this.$el;
+
+			// Check content
+			var check = this.checkContent(currentLink);
+			if(!check) return;
+
+			e.preventDefault();
+            this.options.beforeShowLightbox.call(this);
+            var lightbox = this.constructLightbox();
+            if(!lightbox) return;
+            var content = lightbox.find('.nivo-lightbox-content');
+            if(!content) return;
+
+            $('body').addClass('nivo-lightbox-body-effect-'+ this.options.effect);
+
+			this.processContent( content, currentLink );
+
+            // Nav
+            if(this.$el.attr('data-lightbox-gallery')){
+                var galleryItems = $('[data-lightbox-gallery="'+ this.$el.attr('data-lightbox-gallery') +'"]');
+
+                $('.nivo-lightbox-nav').show();
+
+				// Prev
+                $('.nivo-lightbox-prev').off('click').on('click', function(e){
+                    e.preventDefault();
+                    var index = galleryItems.index(currentLink);
+                    currentLink = galleryItems.eq(index - 1);
+                    if(!$(currentLink).length) currentLink = galleryItems.last();
+                    $this.processContent(content, currentLink);
+                    $this.options.onPrev.call(this, [ currentLink ]);
+                });
+
+                // Next
+                $('.nivo-lightbox-next').off('click').on('click', function(e){
+                    e.preventDefault();
+                    var index = galleryItems.index(currentLink);
+                    currentLink = galleryItems.eq(index + 1);
+                    if(!$(currentLink).length) currentLink = galleryItems.first();
+                    $this.processContent(content, currentLink);
+                    $this.options.onNext.call(this, [ currentLink ]);
+                });
+            }
+
+            setTimeout(function(){
+                lightbox.addClass('nivo-lightbox-open');
+                $this.options.afterShowLightbox.call(this, [ lightbox ]);
+            }, 1); // For CSS transitions
+        },
+
+		checkContent: function( link ) {
+			var $this = this,
+                href = link.attr('href'),
+                video = href.match(/(youtube|youtu|vimeo)\.(com|be)\/(watch\?v=([\w-]+)|([\w-]+))/);
+
+            if(href.match(/\.(jpeg|jpg|gif|png)$/i) !== null){
+				return true;
+			}
+			// Video (Youtube/Vimeo)
+            else if(video){
+				return true;
+			}
+			// AJAX
+			else if(link.attr('data-lightbox-type') == 'ajax'){
+				return true;
+			}
+			// Inline HTML
+			else if(href.substring(0, 1) == '#' && link.attr('data-lightbox-type') == 'inline'){
+				return true;
+			}
+			// iFrame (default)
+			else if(link.attr('data-lightbox-type') == 'iframe'){
+				return true;
+			}
+
+			return false;
+		},
+
+        processContent: function(content, link){
+            var $this = this,
+                href = link.attr('href'),
+                video = href.match(/(youtube|youtu|vimeo)\.(com|be)\/(watch\?v=([\w-]+)|([\w-]+))/);
+
+            content.html('').addClass('nivo-lightbox-loading');
+
+            // Is HiDPI?
+            if(this.isHidpi() && link.attr('data-lightbox-hidpi')){
+                href = link.attr('data-lightbox-hidpi');
+            }
+
+            // Image
+            if(href.match(/\.(jpeg|jpg|gif|png)$/i) !== null){
+                var img = $('<img>', { src: href });
+                img.one('load', function() {
+					var wrap = $('<div class="nivo-lightbox-image" />');
+                    wrap.append(img);
+					content.html(wrap).removeClass('nivo-lightbox-loading');
+
+					// Vertically center images
+					wrap.css({
+						'line-height': $('.nivo-lightbox-content').height() +'px',
+						'height': $('.nivo-lightbox-content').height() +'px' // For Firefox
+					});
+					$(window).resize(function() {
+						wrap.css({
+							'line-height': $('.nivo-lightbox-content').height() +'px',
+							'height': $('.nivo-lightbox-content').height() +'px' // For Firefox
+						});
+					});
+				}).each(function() {
+					if(this.complete) $(this).load();
+				});
+
+				img.error(function() {
+					var wrap = $('<div class="nivo-lightbox-error"><p>'+ $this.options.errorMessage +'</p></div>');
+                    content.html(wrap).removeClass('nivo-lightbox-loading');
+				});
+            }
+            // Video (Youtube/Vimeo)
+            else if(video){
+                var src = '',
+                    classTerm = 'nivo-lightbox-video';
+
+                if(video[1] == 'youtube'){
+                    src = 'http://www.youtube.com/embed/'+ video[4];
+                    classTerm = 'nivo-lightbox-youtube';
+                }
+                if(video[1] == 'youtu'){
+                    src = 'http://www.youtube.com/embed/'+ video[3];
+                    classTerm = 'nivo-lightbox-youtube';
+                }
+                if(video[1] == 'vimeo'){
+                    src = 'http://player.vimeo.com/video/'+ video[3];
+                    classTerm = 'nivo-lightbox-vimeo';
+                }
+
+                if(src){
+                    var iframeVideo = $('<iframe>', {
+                        src: src,
+                        'class': classTerm,
+                        frameborder: 0,
+                        vspace: 0,
+                        hspace: 0,
+                        scrolling: 'auto'
+                    });
+                    content.html(iframeVideo);
+                    iframeVideo.load(function(){ content.removeClass('nivo-lightbox-loading'); });
+                }
+            }
+            // AJAX
+            else if(link.attr('data-lightbox-type') == 'ajax'){
+				$.ajax({
+					url: href,
+					cache: false,
+					success: function(data) {
+						var wrap = $('<div class="nivo-lightbox-ajax" />');
+						wrap.append(data);
+						content.html(wrap).removeClass('nivo-lightbox-loading');
+
+						// Vertically center html
+						if(wrap.outerHeight() < content.height()){
+							wrap.css({
+								'position': 'relative',
+								'top': '50%',
+								'margin-top': -(wrap.outerHeight()/2) +'px'
+							});
+						}
+						$(window).resize(function() {
+							if(wrap.outerHeight() < content.height()){
+								wrap.css({
+									'position': 'relative',
+									'top': '50%',
+									'margin-top': -(wrap.outerHeight()/2) +'px'
+								});
+							}
+						});
+					},
+					error: function(){
+						var wrap = $('<div class="nivo-lightbox-error"><p>'+ $this.options.errorMessage +'</p></div>');
+                        content.html(wrap).removeClass('nivo-lightbox-loading');
+					}
+				});
+            }
+            // Inline HTML
+            else if(href.substring(0, 1) == '#' && link.attr('data-lightbox-type') == 'inline'){
+                if($(href).length){
+                    var wrap = $('<div class="nivo-lightbox-inline" />');
+					wrap.append($(href).clone().show());
+                    content.html(wrap).removeClass('nivo-lightbox-loading');
+
+                    // Vertically center html
+					if(wrap.outerHeight() < content.height()){
+						wrap.css({
+							'position': 'relative',
+							'top': '50%',
+							'margin-top': -(wrap.outerHeight()/2) +'px'
+						});
+					}
+					$(window).resize(function() {
+						if(wrap.outerHeight() < content.height()){
+							wrap.css({
+								'position': 'relative',
+								'top': '50%',
+								'margin-top': -(wrap.outerHeight()/2) +'px'
+							});
+						}
+					});
+				} else {
+					var wrapError = $('<div class="nivo-lightbox-error"><p>'+ $this.options.errorMessage +'</p></div>');
+                    content.html(wrapError).removeClass('nivo-lightbox-loading');
+				}
+            }
+            // iFrame (default)
+            else if(link.attr('data-lightbox-type') == 'iframe'){
+                var iframe = $('<iframe>', {
+                    src: href,
+                    'class': 'nivo-lightbox-item',
+                    frameborder: 0,
+                    vspace: 0,
+                    hspace: 0,
+                    scrolling: 'auto'
+                });
+                content.html(iframe);
+                iframe.load(function(){ content.removeClass('nivo-lightbox-loading'); });
+            } else {
+				return false;
+			}
+
+            // Set the title
+            if(link.attr('title')){
+                var titleWrap = $('<span>', { 'class': 'nivo-lightbox-title' });
+                titleWrap.text(link.attr('title'));
+                $('.nivo-lightbox-title-wrap').html(titleWrap);
+            } else {
+                $('.nivo-lightbox-title-wrap').html('');
+            }
+        },
+
+        constructLightbox: function(){
+            if($('.nivo-lightbox-overlay').length) return $('.nivo-lightbox-overlay');
+
+            var overlay = $('<div>', { 'class': 'nivo-lightbox-overlay nivo-lightbox-theme-'+ this.options.theme +' nivo-lightbox-effect-'+ this.options.effect });
+            var wrap = $('<div>', { 'class': 'nivo-lightbox-wrap' });
+            var content = $('<div>', { 'class': 'nivo-lightbox-content' });
+            var nav = $('<a href="#" class="nivo-lightbox-nav nivo-lightbox-prev">Previous</a><a href="#" class="nivo-lightbox-nav nivo-lightbox-next">Next</a>');
+            var close = $('<a href="#" class="nivo-lightbox-close" title="Close">Close</a>');
+            var title = $('<div>', { 'class': 'nivo-lightbox-title-wrap' });
+
+            var isMSIE = /*@cc_on!@*/0;
+            if(isMSIE) overlay.addClass('nivo-lightbox-ie');
+
+            wrap.append(content);
+            wrap.append(title);
+            overlay.append(wrap);
+            overlay.append(nav);
+            overlay.append(close);
+            $('body').append(overlay);
+
+            var $this = this;
+            if($this.options.clickOverlayToClose){
+                overlay.on('click', function(e){
+                    if(e.target === this || $(e.target).hasClass('nivo-lightbox-content') || $(e.target).hasClass('nivo-lightbox-image')){
+                        $this.destructLightbox();
+                    }
+                });
+            }
+
+            close.on('click', function(e){
+                e.preventDefault();
+                $this.destructLightbox();
+            });
+
+            return overlay;
+        },
+
+        destructLightbox: function(){
+            var $this = this;
+            this.options.beforeHideLightbox.call(this);
+
+            $('.nivo-lightbox-overlay').removeClass('nivo-lightbox-open');
+            $('.nivo-lightbox-nav').hide();
+            $('body').removeClass('nivo-lightbox-body-effect-'+ $this.options.effect);
+
+            // For IE
+            var isMSIE = /*@cc_on!@*/0;
+            if(isMSIE){
+                $('.nivo-lightbox-overlay iframe').attr("src", " ");
+                $('.nivo-lightbox-overlay iframe').remove();
+            }
+
+            // Remove click handlers
+            $('.nivo-lightbox-prev').off('click');
+            $('.nivo-lightbox-next').off('click');
+
+            // Empty content (for videos)
+            $('.nivo-lightbox-content').empty();
+
+            this.options.afterHideLightbox.call(this);
+        },
+
+        isHidpi: function(){
+			var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\
+                              (min--moz-device-pixel-ratio: 1.5),\
+                              (-o-min-device-pixel-ratio: 3/2),\
+                              (min-resolution: 1.5dppx)";
+			if(window.devicePixelRatio > 1) return true;
+			if(window.matchMedia && window.matchMedia(mediaQuery).matches) return true;
+			return false;
+		}
+
+    };
+
+    $.fn[pluginName] = function(options){
+        return this.each(function(){
+            if(!$.data(this, pluginName)){
+                $.data(this, pluginName, new NivoLightbox(this, options));
+            }
+        });
+    };
+
+})(jQuery, window, document);
+
+/**
+* jquery.matchHeight.js v0.5.2
+* http://brm.io/jquery-match-height/
+* License: MIT
+*/
+
+;(function($) {
+    /*
+    *  internal
+    */
+
+    var _previousResizeWidth = -1,
+        _updateTimeout = -1;
+
+    /*
+    *  _rows
+    *  utility function returns array of jQuery selections representing each row
+    *  (as displayed after float wrapping applied by browser)
+    */
+
+    var _rows = function(elements) {
+        var tolerance = 1,
+            $elements = $(elements),
+            lastTop = null,
+            rows = [];
+
+        // group elements by their top position
+        $elements.each(function(){
+            var $that = $(this),
+                top = $that.offset().top - _parse($that.css('margin-top')),
+                lastRow = rows.length > 0 ? rows[rows.length - 1] : null;
+
+            if (lastRow === null) {
+                // first item on the row, so just push it
+                rows.push($that);
+            } else {
+                // if the row top is the same, add to the row group
+                if (Math.floor(Math.abs(lastTop - top)) <= tolerance) {
+                    rows[rows.length - 1] = lastRow.add($that);
+                } else {
+                    // otherwise start a new row group
+                    rows.push($that);
+                }
+            }
+
+            // keep track of the last row top
+            lastTop = top;
+        });
+
+        return rows;
+    };
+
+    /*
+    *  _parse
+    *  value parse utility function
+    */
+
+    var _parse = function(value) {
+        // parse value and convert NaN to 0
+        return parseFloat(value) || 0;
+    };
+
+    /*
+    *  _parseOptions
+    *  handle plugin options
+    */
+
+    var _parseOptions = function(options) {
+        var opts = {
+            byRow: true,
+            remove: false,
+            property: 'height'
+        };
+
+        if (typeof options === 'object') {
+            return $.extend(opts, options);
+        }
+
+        if (typeof options === 'boolean') {
+            opts.byRow = options;
+        } else if (options === 'remove') {
+            opts.remove = true;
+        }
+
+        return opts;
+    };
+
+    /*
+    *  matchHeight
+    *  plugin definition
+    */
+
+    var matchHeight = $.fn.matchHeight = function(options) {
+        var opts = _parseOptions(options);
+
+        // handle remove
+        if (opts.remove) {
+            var that = this;
+
+            // remove fixed height from all selected elements
+            this.css(opts.property, '');
+
+            // remove selected elements from all groups
+            $.each(matchHeight._groups, function(key, group) {
+                group.elements = group.elements.not(that);
+            });
+
+            // TODO: cleanup empty groups
+
+            return this;
+        }
+
+        if (this.length <= 1)
+            return this;
+
+        // keep track of this group so we can re-apply later on load and resize events
+        matchHeight._groups.push({
+            elements: this,
+            options: opts
+        });
+
+        // match each element's height to the tallest element in the selection
+        matchHeight._apply(this, opts);
+
+        return this;
+    };
+
+    /*
+    *  plugin global options
+    */
+
+    matchHeight._groups = [];
+    matchHeight._throttle = 80;
+    matchHeight._maintainScroll = false;
+    matchHeight._beforeUpdate = null;
+    matchHeight._afterUpdate = null;
+
+    /*
+    *  matchHeight._apply
+    *  apply matchHeight to given elements
+    */
+
+    matchHeight._apply = function(elements, options) {
+        var opts = _parseOptions(options),
+            $elements = $(elements),
+            rows = [$elements];
+
+        // take note of scroll position
+        var scrollTop = $(window).scrollTop(),
+            htmlHeight = $('html').outerHeight(true);
+
+        // get hidden parents
+        var $hiddenParents = $elements.parents().filter(':hidden');
+
+        // cache the original inline style
+        $hiddenParents.each(function() {
+            var $that = $(this);
+            $that.data('style-cache', $that.attr('style'));
+        });
+
+        // temporarily must force hidden parents visible
+        $hiddenParents.css('display', 'block');
+
+        // get rows if using byRow, otherwise assume one row
+        if (opts.byRow) {
+
+            // must first force an arbitrary equal height so floating elements break evenly
+            $elements.each(function() {
+                var $that = $(this),
+                    display = $that.css('display') === 'inline-block' ? 'inline-block' : 'block';
+
+                // cache the original inline style
+                $that.data('style-cache', $that.attr('style'));
+
+                $that.css({
+                    'display': display,
+                    'padding-top': '0',
+                    'padding-bottom': '0',
+                    'margin-top': '0',
+                    'margin-bottom': '0',
+                    'border-top-width': '0',
+                    'border-bottom-width': '0',
+                    'height': '100px'
+                });
+            });
+
+            // get the array of rows (based on element top position)
+            rows = _rows($elements);
+
+            // revert original inline styles
+            $elements.each(function() {
+                var $that = $(this);
+                $that.attr('style', $that.data('style-cache') || '');
+            });
+        }
+
+        $.each(rows, function(key, row) {
+            var $row = $(row),
+                maxHeight = 0;
+
+            // skip apply to rows with only one item
+            if (opts.byRow && $row.length <= 1)
+                return;
+
+            // iterate the row and find the max height
+            $row.each(function(){
+                var $that = $(this),
+                    display = $that.css('display') === 'inline-block' ? 'inline-block' : 'block';
+
+                // ensure we get the correct actual height (and not a previously set height value)
+                var css = { 'display': display };
+                css[opts.property] = '';
+                $that.css(css);
+
+                // find the max height (including padding, but not margin)
+                if ($that.outerHeight(false) > maxHeight)
+                    maxHeight = $that.outerHeight(false);
+
+                // revert display block
+                $that.css('display', '');
+            });
+
+            // iterate the row and apply the height to all elements
+            $row.each(function(){
+                var $that = $(this),
+                    verticalPadding = 0;
+
+                // handle padding and border correctly (required when not using border-box)
+                if ($that.css('box-sizing') !== 'border-box') {
+                    verticalPadding += _parse($that.css('border-top-width')) + _parse($that.css('border-bottom-width'));
+                    verticalPadding += _parse($that.css('padding-top')) + _parse($that.css('padding-bottom'));
+                }
+
+                // set the height (accounting for padding and border)
+                $that.css(opts.property, maxHeight - verticalPadding);
+            });
+        });
+
+        // revert hidden parents
+        $hiddenParents.each(function() {
+            var $that = $(this);
+            $that.attr('style', $that.data('style-cache') || null);
+        });
+
+        // restore scroll position if enabled
+        if (matchHeight._maintainScroll)
+            $(window).scrollTop((scrollTop / htmlHeight) * $('html').outerHeight(true));
+
+        return this;
+    };
+
+    /*
+    *  matchHeight._applyDataApi
+    *  applies matchHeight to all elements with a data-match-height attribute
+    */
+
+    matchHeight._applyDataApi = function() {
+        var groups = {};
+
+        // generate groups by their groupId set by elements using data-match-height
+        $('[data-match-height], [data-mh]').each(function() {
+            var $this = $(this),
+                groupId = $this.attr('data-match-height') || $this.attr('data-mh');
+            if (groupId in groups) {
+                groups[groupId] = groups[groupId].add($this);
+            } else {
+                groups[groupId] = $this;
+            }
+        });
+
+        // apply matchHeight to each group
+        $.each(groups, function() {
+            this.matchHeight(true);
+        });
+    };
+
+    /*
+    *  matchHeight._update
+    *  updates matchHeight on all current groups with their correct options
+    */
+
+    var _update = function(event) {
+        if (matchHeight._beforeUpdate)
+            matchHeight._beforeUpdate(event, matchHeight._groups);
+
+        $.each(matchHeight._groups, function() {
+            matchHeight._apply(this.elements, this.options);
+        });
+
+        if (matchHeight._afterUpdate)
+            matchHeight._afterUpdate(event, matchHeight._groups);
+    };
+
+    matchHeight._update = function(throttle, event) {
+        // prevent update if fired from a resize event
+        // where the viewport width hasn't actually changed
+        // fixes an event looping bug in IE8
+        if (event && event.type === 'resize') {
+            var windowWidth = $(window).width();
+            if (windowWidth === _previousResizeWidth)
+                return;
+            _previousResizeWidth = windowWidth;
+        }
+
+        // throttle updates
+        if (!throttle) {
+            _update(event);
+        } else if (_updateTimeout === -1) {
+            _updateTimeout = setTimeout(function() {
+                _update(event);
+                _updateTimeout = -1;
+            }, matchHeight._throttle);
+        }
+    };
+
+    /*
+    *  bind events
+    */
+
+    // apply on DOM ready event
+    $(matchHeight._applyDataApi);
+
+    // update heights on load and resize events
+    $(window).bind('load', function(event) {
+        matchHeight._update(false, event);
+    });
+
+    // throttled update heights on resize events
+    $(window).bind('resize orientationchange', function(event) {
+        matchHeight._update(true, event);
+    });
+
+})(jQuery);
+
+/*
+ *	jQuery carouFredSel 6.2.1
+ *	Demo's and documentation:
+ *	caroufredsel.dev7studios.com
+ *
+ *	Copyright (c) 2013 Fred Heusschen
+ *	www.frebsite.nl
+ *
+ *	Dual licensed under the MIT and GPL licenses.
+ *	http://en.wikipedia.org/wiki/MIT_License
+ *	http://en.wikipedia.org/wiki/GNU_General_Public_License
+ */
+
+
+(function($) {
+
+
+	//	LOCAL
+
+	if ( $.fn.carouFredSel )
+	{
+		return;
+	}
+
+	$.fn.caroufredsel = $.fn.carouFredSel = function(options, configs)
+	{
+
+		//	no element
+		if (this.length == 0)
+		{
+			debug( true, 'No element found for "' + this.selector + '".' );
+			return this;
+		}
+
+		//	multiple elements
+		if (this.length > 1)
+		{
+			return this.each(function() {
+				$(this).carouFredSel(options, configs);
+			});
+		}
+
+
+		var $cfs = this,
+			$tt0 = this[0],
+			starting_position = false;
+
+		if ($cfs.data('_cfs_isCarousel'))
+		{
+			starting_position = $cfs.triggerHandler('_cfs_triggerEvent', 'currentPosition');
+			$cfs.trigger('_cfs_triggerEvent', ['destroy', true]);
+		}
+
+		var FN = {};
+
+		FN._init = function(o, setOrig, start)
+		{
+			o = go_getObject($tt0, o);
+
+			o.items = go_getItemsObject($tt0, o.items);
+			o.scroll = go_getScrollObject($tt0, o.scroll);
+			o.auto = go_getAutoObject($tt0, o.auto);
+			o.prev = go_getPrevNextObject($tt0, o.prev);
+			o.next = go_getPrevNextObject($tt0, o.next);
+			o.pagination = go_getPaginationObject($tt0, o.pagination);
+			o.swipe = go_getSwipeObject($tt0, o.swipe);
+			o.mousewheel = go_getMousewheelObject($tt0, o.mousewheel);
+
+			if (setOrig)
+			{
+				opts_orig = $.extend(true, {}, $.fn.carouFredSel.defaults, o);
+			}
+
+			opts = $.extend(true, {}, $.fn.carouFredSel.defaults, o);
+			opts.d = cf_getDimensions(opts);
+
+			crsl.direction = (opts.direction == 'up' || opts.direction == 'left') ? 'next' : 'prev';
+
+			var	a_itm = $cfs.children(),
+				avail_primary = ms_getParentSize($wrp, opts, 'width');
+
+			if (is_true(opts.cookie))
+			{
+				opts.cookie = 'caroufredsel_cookie_' + conf.serialNumber;
+			}
+
+			opts.maxDimension = ms_getMaxDimension(opts, avail_primary);
+
+			//	complement items and sizes
+			opts.items = in_complementItems(opts.items, opts, a_itm, start);
+			opts[opts.d['width']] = in_complementPrimarySize(opts[opts.d['width']], opts, a_itm);
+			opts[opts.d['height']] = in_complementSecondarySize(opts[opts.d['height']], opts, a_itm);
+
+			//	primary size not set for a responsive carousel
+			if (opts.responsive)
+			{
+				if (!is_percentage(opts[opts.d['width']]))
+				{
+					opts[opts.d['width']] = '100%';
+				}
+			}
+
+			//	primary size is percentage
+			if (is_percentage(opts[opts.d['width']]))
+			{
+				crsl.upDateOnWindowResize = true;
+				crsl.primarySizePercentage = opts[opts.d['width']];
+				opts[opts.d['width']] = ms_getPercentage(avail_primary, crsl.primarySizePercentage);
+				if (!opts.items.visible)
+				{
+					opts.items.visibleConf.variable = true;
+				}
+			}
+
+			if (opts.responsive)
+			{
+				opts.usePadding = false;
+				opts.padding = [0, 0, 0, 0];
+				opts.align = false;
+				opts.items.visibleConf.variable = false;
+			}
+			else
+			{
+				//	visible-items not set
+				if (!opts.items.visible)
+				{
+					opts = in_complementVisibleItems(opts, avail_primary);
+				}
+
+				//	primary size not set -> calculate it or set to "variable"
+				if (!opts[opts.d['width']])
+				{
+					if (!opts.items.visibleConf.variable && is_number(opts.items[opts.d['width']]) && opts.items.filter == '*')
+					{
+						opts[opts.d['width']] = opts.items.visible * opts.items[opts.d['width']];
+						opts.align = false;
+					}
+					else
+					{
+						opts[opts.d['width']] = 'variable';
+					}
+				}
+				//	align not set -> set to center if primary size is number
+				if (is_undefined(opts.align))
+				{
+					opts.align = (is_number(opts[opts.d['width']]))
+						? 'center'
+						: false;
+				}
+				//	set variabe visible-items
+				if (opts.items.visibleConf.variable)
+				{
+					opts.items.visible = gn_getVisibleItemsNext(a_itm, opts, 0);
+				}
+			}
+
+			//	set visible items by filter
+			if (opts.items.filter != '*' && !opts.items.visibleConf.variable)
+			{
+				opts.items.visibleConf.org = opts.items.visible;
+				opts.items.visible = gn_getVisibleItemsNextFilter(a_itm, opts, 0);
+			}
+
+			opts.items.visible = cf_getItemsAdjust(opts.items.visible, opts, opts.items.visibleConf.adjust, $tt0);
+			opts.items.visibleConf.old = opts.items.visible;
+
+			if (opts.responsive)
+			{
+				if (!opts.items.visibleConf.min)
+				{
+					opts.items.visibleConf.min = opts.items.visible;
+				}
+				if (!opts.items.visibleConf.max)
+				{
+					opts.items.visibleConf.max = opts.items.visible;
+				}
+				opts = in_getResponsiveValues(opts, a_itm, avail_primary);
+			}
+			else
+			{
+				opts.padding = cf_getPadding(opts.padding);
+
+				if (opts.align == 'top')
+				{
+					opts.align = 'left';
+				}
+				else if (opts.align == 'bottom')
+				{
+					opts.align = 'right';
+				}
+
+				switch (opts.align)
+				{
+					//	align: center, left or right
+					case 'center':
+					case 'left':
+					case 'right':
+						if (opts[opts.d['width']] != 'variable')
+						{
+							opts = in_getAlignPadding(opts, a_itm);
+							opts.usePadding = true;
+						}
+						break;
+
+					//	padding
+					default:
+						opts.align = false;
+						opts.usePadding = (
+							opts.padding[0] == 0 &&
+							opts.padding[1] == 0 &&
+							opts.padding[2] == 0 &&
+							opts.padding[3] == 0
+						) ? false : true;
+						break;
+				}
+			}
+
+			if (!is_number(opts.scroll.duration))
+			{
+				opts.scroll.duration = 500;
+			}
+			if (is_undefined(opts.scroll.items))
+			{
+				opts.scroll.items = (opts.responsive || opts.items.visibleConf.variable || opts.items.filter != '*')
+					? 'visible'
+					: opts.items.visible;
+			}
+
+			opts.auto = $.extend(true, {}, opts.scroll, opts.auto);
+			opts.prev = $.extend(true, {}, opts.scroll, opts.prev);
+			opts.next = $.extend(true, {}, opts.scroll, opts.next);
+			opts.pagination = $.extend(true, {}, opts.scroll, opts.pagination);
+			//	swipe and mousewheel extend later on, per direction
+
+			opts.auto = go_complementAutoObject($tt0, opts.auto);
+			opts.prev = go_complementPrevNextObject($tt0, opts.prev);
+			opts.next = go_complementPrevNextObject($tt0, opts.next);
+			opts.pagination = go_complementPaginationObject($tt0, opts.pagination);
+			opts.swipe = go_complementSwipeObject($tt0, opts.swipe);
+			opts.mousewheel = go_complementMousewheelObject($tt0, opts.mousewheel);
+
+			if (opts.synchronise)
+			{
+				opts.synchronise = cf_getSynchArr(opts.synchronise);
+			}
+
+
+			//	DEPRECATED
+			if (opts.auto.onPauseStart)
+			{
+				opts.auto.onTimeoutStart = opts.auto.onPauseStart;
+				deprecated('auto.onPauseStart', 'auto.onTimeoutStart');
+			}
+			if (opts.auto.onPausePause)
+			{
+				opts.auto.onTimeoutPause = opts.auto.onPausePause;
+				deprecated('auto.onPausePause', 'auto.onTimeoutPause');
+			}
+			if (opts.auto.onPauseEnd)
+			{
+				opts.auto.onTimeoutEnd = opts.auto.onPauseEnd;
+				deprecated('auto.onPauseEnd', 'auto.onTimeoutEnd');
+			}
+			if (opts.auto.pauseDuration)
+			{
+				opts.auto.timeoutDuration = opts.auto.pauseDuration;
+				deprecated('auto.pauseDuration', 'auto.timeoutDuration');
+			}
+			//	/DEPRECATED
+
+
+		};	//	/init
+
+
+		FN._build = function() {
+			$cfs.data('_cfs_isCarousel', true);
+
+			var a_itm = $cfs.children(),
+				orgCSS = in_mapCss($cfs, ['textAlign', 'float', 'position', 'top', 'right', 'bottom', 'left', 'zIndex', 'width', 'height', 'marginTop', 'marginRight', 'marginBottom', 'marginLeft']),
+				newPosition = 'relative';
+
+			switch (orgCSS.position)
+			{
+				case 'absolute':
+				case 'fixed':
+					newPosition = orgCSS.position;
+					break;
+			}
+
+			if (conf.wrapper == 'parent')
+			{
+				sz_storeOrigCss($wrp);
+			}
+			else
+			{
+				$wrp.css(orgCSS);
+			}
+			$wrp.css({
+				'overflow'		: 'hidden',
+				'position'		: newPosition
+			});
+
+			sz_storeOrigCss($cfs);
+			$cfs.data('_cfs_origCssZindex', orgCSS.zIndex);
+			$cfs.css({
+				'textAlign'		: 'left',
+				'float'			: 'none',
+				'position'		: 'absolute',
+				'top'			: 0,
+				'right'			: 'auto',
+				'bottom'		: 'auto',
+				'left'			: 0,
+				'marginTop'		: 0,
+				'marginRight'	: 0,
+				'marginBottom'	: 0,
+				'marginLeft'	: 0
+			});
+
+			sz_storeMargin(a_itm, opts);
+			sz_storeOrigCss(a_itm);
+			if (opts.responsive)
+			{
+				sz_setResponsiveSizes(opts, a_itm);
+			}
+
+		};	//	/build
+
+
+		FN._bind_events = function() {
+			FN._unbind_events();
+
+
+			//	stop event
+			$cfs.bind(cf_e('stop', conf), function(e, imm) {
+				e.stopPropagation();
+
+				//	button
+				if (!crsl.isStopped)
+				{
+					if (opts.auto.button)
+					{
+						opts.auto.button.addClass(cf_c('stopped', conf));
+					}
+				}
+
+				//	set stopped
+				crsl.isStopped = true;
+
+				if (opts.auto.play)
+				{
+					opts.auto.play = false;
+					$cfs.trigger(cf_e('pause', conf), imm);
+				}
+				return true;
+			});
+
+
+			//	finish event
+			$cfs.bind(cf_e('finish', conf), function(e) {
+				e.stopPropagation();
+				if (crsl.isScrolling)
+				{
+					sc_stopScroll(scrl);
+				}
+				return true;
+			});
+
+
+			//	pause event
+			$cfs.bind(cf_e('pause', conf), function(e, imm, res) {
+				e.stopPropagation();
+				tmrs = sc_clearTimers(tmrs);
+
+				//	immediately pause
+				if (imm && crsl.isScrolling)
+				{
+					scrl.isStopped = true;
+					var nst = getTime() - scrl.startTime;
+					scrl.duration -= nst;
+					if (scrl.pre)
+					{
+						scrl.pre.duration -= nst;
+					}
+					if (scrl.post)
+					{
+						scrl.post.duration -= nst;
+					}
+					sc_stopScroll(scrl, false);
+				}
+
+				//	update remaining pause-time
+				if (!crsl.isPaused && !crsl.isScrolling)
+				{
+					if (res)
+					{
+						tmrs.timePassed += getTime() - tmrs.startTime;
+					}
+				}
+
+				//	button
+				if (!crsl.isPaused)
+				{
+					if (opts.auto.button)
+					{
+						opts.auto.button.addClass(cf_c('paused', conf));
+					}
+				}
+
+				//	set paused
+				crsl.isPaused = true;
+
+				//	pause pause callback
+				if (opts.auto.onTimeoutPause)
+				{
+					var dur1 = opts.auto.timeoutDuration - tmrs.timePassed,
+						perc = 100 - Math.ceil( dur1 * 100 / opts.auto.timeoutDuration );
+
+					opts.auto.onTimeoutPause.call($tt0, perc, dur1);
+				}
+				return true;
+			});
+
+
+			//	play event
+			$cfs.bind(cf_e('play', conf), function(e, dir, del, res) {
+				e.stopPropagation();
+				tmrs = sc_clearTimers(tmrs);
+
+				//	sort params
+				var v = [dir, del, res],
+					t = ['string', 'number', 'boolean'],
+					a = cf_sortParams(v, t);
+
+				dir = a[0];
+				del = a[1];
+				res = a[2];
+
+				if (dir != 'prev' && dir != 'next')
+				{
+					dir = crsl.direction;
+				}
+				if (!is_number(del))
+				{
+					del = 0;
+				}
+				if (!is_boolean(res))
+				{
+					res = false;
+				}
+
+				//	stopped?
+				if (res)
+				{
+					crsl.isStopped = false;
+					opts.auto.play = true;
+				}
+				if (!opts.auto.play)
+				{
+					e.stopImmediatePropagation();
+					return debug(conf, 'Carousel stopped: Not scrolling.');
+				}
+
+				//	button
+				if (crsl.isPaused)
+				{
+					if (opts.auto.button)
+					{
+						opts.auto.button.removeClass(cf_c('stopped', conf));
+						opts.auto.button.removeClass(cf_c('paused', conf));
+					}
+				}
+
+				//	set playing
+				crsl.isPaused = false;
+				tmrs.startTime = getTime();
+
+				//	timeout the scrolling
+				var dur1 = opts.auto.timeoutDuration + del;
+					dur2 = dur1 - tmrs.timePassed;
+					perc = 100 - Math.ceil(dur2 * 100 / dur1);
+
+				if (opts.auto.progress)
+				{
+					tmrs.progress = setInterval(function() {
+						var pasd = getTime() - tmrs.startTime + tmrs.timePassed,
+							perc = Math.ceil(pasd * 100 / dur1);
+						opts.auto.progress.updater.call(opts.auto.progress.bar[0], perc);
+					}, opts.auto.progress.interval);
+				}
+
+				tmrs.auto = setTimeout(function() {
+					if (opts.auto.progress)
+					{
+						opts.auto.progress.updater.call(opts.auto.progress.bar[0], 100);
+					}
+					if (opts.auto.onTimeoutEnd)
+					{
+						opts.auto.onTimeoutEnd.call($tt0, perc, dur2);
+					}
+					if (crsl.isScrolling)
+					{
+						$cfs.trigger(cf_e('play', conf), dir);
+					}
+					else
+					{
+						$cfs.trigger(cf_e(dir, conf), opts.auto);
+					}
+				}, dur2);
+
+				//	pause start callback
+				if (opts.auto.onTimeoutStart)
+				{
+					opts.auto.onTimeoutStart.call($tt0, perc, dur2);
+				}
+
+				return true;
+			});
+
+
+			//	resume event
+			$cfs.bind(cf_e('resume', conf), function(e) {
+				e.stopPropagation();
+				if (scrl.isStopped)
+				{
+					scrl.isStopped = false;
+					crsl.isPaused = false;
+					crsl.isScrolling = true;
+					scrl.startTime = getTime();
+					sc_startScroll(scrl, conf);
+				}
+				else
+				{
+					$cfs.trigger(cf_e('play', conf));
+				}
+				return true;
+			});
+
+
+			//	prev + next events
+			$cfs.bind(cf_e('prev', conf)+' '+cf_e('next', conf), function(e, obj, num, clb, que) {
+				e.stopPropagation();
+
+				//	stopped or hidden carousel, don't scroll, don't queue
+				if (crsl.isStopped || $cfs.is(':hidden'))
+				{
+					e.stopImmediatePropagation();
+					return debug(conf, 'Carousel stopped or hidden: Not scrolling.');
+				}
+
+				//	not enough items
+				var minimum = (is_number(opts.items.minimum)) ? opts.items.minimum : opts.items.visible + 1;
+				if (minimum > itms.total)
+				{
+					e.stopImmediatePropagation();
+					return debug(conf, 'Not enough items ('+itms.total+' total, '+minimum+' needed): Not scrolling.');
+				}
+
+				//	get config
+				var v = [obj, num, clb, que],
+					t = ['object', 'number/string', 'function', 'boolean'],
+					a = cf_sortParams(v, t);
+
+				obj = a[0];
+				num = a[1];
+				clb = a[2];
+				que = a[3];
+
+				var eType = e.type.slice(conf.events.prefix.length);
+
+				if (!is_object(obj))
+				{
+					obj = {};
+				}
+				if (is_function(clb))
+				{
+					obj.onAfter = clb;
+				}
+				if (is_boolean(que))
+				{
+					obj.queue = que;
+				}
+				obj = $.extend(true, {}, opts[eType], obj);
+
+				//	test conditions callback
+				if (obj.conditions && !obj.conditions.call($tt0, eType))
+				{
+					e.stopImmediatePropagation();
+					return debug(conf, 'Callback "conditions" returned false.');
+				}
+
+				if (!is_number(num))
+				{
+					if (opts.items.filter != '*')
+					{
+						num = 'visible';
+					}
+					else
+					{
+						var arr = [num, obj.items, opts[eType].items];
+						for (var a = 0, l = arr.length; a < l; a++)
+						{
+							if (is_number(arr[a]) || arr[a] == 'page' || arr[a] == 'visible') {
+								num = arr[a];
+								break;
+							}
+						}
+					}
+					switch(num) {
+						case 'page':
+							e.stopImmediatePropagation();
+							return $cfs.triggerHandler(cf_e(eType+'Page', conf), [obj, clb]);
+							break;
+
+						case 'visible':
+							if (!opts.items.visibleConf.variable && opts.items.filter == '*')
+							{
+								num = opts.items.visible;
+							}
+							break;
+					}
+				}
+
+				//	resume animation, add current to queue
+				if (scrl.isStopped)
+				{
+					$cfs.trigger(cf_e('resume', conf));
+					$cfs.trigger(cf_e('queue', conf), [eType, [obj, num, clb]]);
+					e.stopImmediatePropagation();
+					return debug(conf, 'Carousel resumed scrolling.');
+				}
+
+				//	queue if scrolling
+				if (obj.duration > 0)
+				{
+					if (crsl.isScrolling)
+					{
+						if (obj.queue)
+						{
+							if (obj.queue == 'last')
+							{
+								queu = [];
+							}
+							if (obj.queue != 'first' || queu.length == 0)
+							{
+								$cfs.trigger(cf_e('queue', conf), [eType, [obj, num, clb]]);
+							}
+						}
+						e.stopImmediatePropagation();
+						return debug(conf, 'Carousel currently scrolling.');
+					}
+				}
+
+				tmrs.timePassed = 0;
+				$cfs.trigger(cf_e('slide_'+eType, conf), [obj, num]);
+
+				//	synchronise
+				if (opts.synchronise)
+				{
+					var s = opts.synchronise,
+						c = [obj, num];
+
+					for (var j = 0, l = s.length; j < l; j++) {
+						var d = eType;
+						if (!s[j][2])
+						{
+							d = (d == 'prev') ? 'next' : 'prev';
+						}
+						if (!s[j][1])
+						{
+							c[0] = s[j][0].triggerHandler('_cfs_triggerEvent', ['configuration', d]);
+						}
+						c[1] = num + s[j][3];
+						s[j][0].trigger('_cfs_triggerEvent', ['slide_'+d, c]);
+					}
+				}
+				return true;
+			});
+
+
+			//	prev event
+			$cfs.bind(cf_e('slide_prev', conf), function(e, sO, nI) {
+				e.stopPropagation();
+				var a_itm = $cfs.children();
+
+				//	non-circular at start, scroll to end
+				if (!opts.circular)
+				{
+					if (itms.first == 0)
+					{
+						if (opts.infinite)
+						{
+							$cfs.trigger(cf_e('next', conf), itms.total-1);
+						}
+						return e.stopImmediatePropagation();
+					}
+				}
+
+				sz_resetMargin(a_itm, opts);
+
+				//	find number of items to scroll
+				if (!is_number(nI))
+				{
+					if (opts.items.visibleConf.variable)
+					{
+						nI = gn_getVisibleItemsPrev(a_itm, opts, itms.total-1);
+					}
+					else if (opts.items.filter != '*')
+					{
+						var xI = (is_number(sO.items)) ? sO.items : gn_getVisibleOrg($cfs, opts);
+						nI = gn_getScrollItemsPrevFilter(a_itm, opts, itms.total-1, xI);
+					}
+					else
+					{
+						nI = opts.items.visible;
+					}
+					nI = cf_getAdjust(nI, opts, sO.items, $tt0);
+				}
+
+				//	prevent non-circular from scrolling to far
+				if (!opts.circular)
+				{
+					if (itms.total - nI < itms.first)
+					{
+						nI = itms.total - itms.first;
+					}
+				}
+
+				//	set new number of visible items
+				opts.items.visibleConf.old = opts.items.visible;
+				if (opts.items.visibleConf.variable)
+				{
+					var vI = cf_getItemsAdjust(gn_getVisibleItemsNext(a_itm, opts, itms.total-nI), opts, opts.items.visibleConf.adjust, $tt0);
+					if (opts.items.visible+nI <= vI && nI < itms.total)
+					{
+						nI++;
+						vI = cf_getItemsAdjust(gn_getVisibleItemsNext(a_itm, opts, itms.total-nI), opts, opts.items.visibleConf.adjust, $tt0);
+					}
+					opts.items.visible = vI;
+				}
+				else if (opts.items.filter != '*')
+				{
+					var vI = gn_getVisibleItemsNextFilter(a_itm, opts, itms.total-nI);
+					opts.items.visible = cf_getItemsAdjust(vI, opts, opts.items.visibleConf.adjust, $tt0);
+				}
+
+				sz_resetMargin(a_itm, opts, true);
+
+				//	scroll 0, don't scroll
+				if (nI == 0)
+				{
+					e.stopImmediatePropagation();
+					return debug(conf, '0 items to scroll: Not scrolling.');
+				}
+				debug(conf, 'Scrolling '+nI+' items backward.');
+
+
+				//	save new config
+				itms.first += nI;
+				while (itms.first >= itms.total)
+				{
+					itms.first -= itms.total;
+				}
+
+				//	non-circular callback
+				if (!opts.circular)
+				{
+					if (itms.first == 0 && sO.onEnd)
+					{
+						sO.onEnd.call($tt0, 'prev');
+					}
+					if (!opts.infinite)
+					{
+						nv_enableNavi(opts, itms.first, conf);
+					}
+				}
+
+				//	rearrange items
+				$cfs.children().slice(itms.total-nI, itms.total).prependTo($cfs);
+				if (itms.total < opts.items.visible + nI)
+				{
+					$cfs.children().slice(0, (opts.items.visible+nI)-itms.total).clone(true).appendTo($cfs);
+				}
+
+				//	the needed items
+				var a_itm = $cfs.children(),
+					i_old = gi_getOldItemsPrev(a_itm, opts, nI),
+					i_new = gi_getNewItemsPrev(a_itm, opts),
+					i_cur_l = a_itm.eq(nI-1),
+					i_old_l = i_old.last(),
+					i_new_l = i_new.last();
+
+				sz_resetMargin(a_itm, opts);
+
+				var pL = 0,
+					pR = 0;
+
+				if (opts.align)
+				{
+					var p = cf_getAlignPadding(i_new, opts);
+					pL = p[0];
+					pR = p[1];
+				}
+				var oL = (pL < 0) ? opts.padding[opts.d[3]] : 0;
+
+				//	hide items for fx directscroll
+				var hiddenitems = false,
+					i_skp = $();
+				if (opts.items.visible < nI)
+				{
+					i_skp = a_itm.slice(opts.items.visibleConf.old, nI);
+					if (sO.fx == 'directscroll')
+					{
+						var orgW = opts.items[opts.d['width']];
+						hiddenitems = i_skp;
+						i_cur_l = i_new_l;
+						sc_hideHiddenItems(hiddenitems);
+						opts.items[opts.d['width']] = 'variable';
+					}
+				}
+
+				//	save new sizes
+				var $cf2 = false,
+					i_siz = ms_getTotalSize(a_itm.slice(0, nI), opts, 'width'),
+					w_siz = cf_mapWrapperSizes(ms_getSizes(i_new, opts, true), opts, !opts.usePadding),
+					i_siz_vis = 0,
+					a_cfs = {},
+					a_wsz = {},
+					a_cur = {},
+					a_old = {},
+					a_new = {},
+					a_lef = {},
+					a_lef_vis = {},
+					a_dur = sc_getDuration(sO, opts, nI, i_siz);
+
+				switch(sO.fx)
+				{
+					case 'cover':
+					case 'cover-fade':
+						i_siz_vis = ms_getTotalSize(a_itm.slice(0, opts.items.visible), opts, 'width');
+						break;
+				}
+
+				if (hiddenitems)
+				{
+					opts.items[opts.d['width']] = orgW;
+				}
+
+				sz_resetMargin(a_itm, opts, true);
+				if (pR >= 0)
+				{
+					sz_resetMargin(i_old_l, opts, opts.padding[opts.d[1]]);
+				}
+				if (pL >= 0)
+				{
+					sz_resetMargin(i_cur_l, opts, opts.padding[opts.d[3]]);
+				}
+
+				if (opts.align)
+				{
+					opts.padding[opts.d[1]] = pR;
+					opts.padding[opts.d[3]] = pL;
+				}
+
+				a_lef[opts.d['left']] = -(i_siz - oL);
+				a_lef_vis[opts.d['left']] = -(i_siz_vis - oL);
+				a_wsz[opts.d['left']] = w_siz[opts.d['width']];
+
+				//	scrolling functions
+				var _s_wrapper = function() {},
+					_a_wrapper = function() {},
+					_s_paddingold = function() {},
+					_a_paddingold = function() {},
+					_s_paddingnew = function() {},
+					_a_paddingnew = function() {},
+					_s_paddingcur = function() {},
+					_a_paddingcur = function() {},
+					_onafter = function() {},
+					_moveitems = function() {},
+					_position = function() {};
+
+				//	clone carousel
+				switch(sO.fx)
+				{
+					case 'crossfade':
+					case 'cover':
+					case 'cover-fade':
+					case 'uncover':
+					case 'uncover-fade':
+						$cf2 = $cfs.clone(true).appendTo($wrp);
+						break;
+				}
+				switch(sO.fx)
+				{
+					case 'crossfade':
+					case 'uncover':
+					case 'uncover-fade':
+						$cf2.children().slice(0, nI).remove();
+						$cf2.children().slice(opts.items.visibleConf.old).remove();
+						break;
+
+					case 'cover':
+					case 'cover-fade':
+						$cf2.children().slice(opts.items.visible).remove();
+						$cf2.css(a_lef_vis);
+						break;
+				}
+
+				$cfs.css(a_lef);
+
+				//	reset all scrolls
+				scrl = sc_setScroll(a_dur, sO.easing, conf);
+
+				//	animate / set carousel
+				a_cfs[opts.d['left']] = (opts.usePadding) ? opts.padding[opts.d[3]] : 0;
+
+				//	animate / set wrapper
+				if (opts[opts.d['width']] == 'variable' || opts[opts.d['height']] == 'variable')
+				{
+					_s_wrapper = function() {
+						$wrp.css(w_siz);
+					};
+					_a_wrapper = function() {
+						scrl.anims.push([$wrp, w_siz]);
+					};
+				}
+
+				//	animate / set items
+				if (opts.usePadding)
+				{
+					if (i_new_l.not(i_cur_l).length)
+					{
+			 			a_cur[opts.d['marginRight']] = i_cur_l.data('_cfs_origCssMargin');
+
+						if (pL < 0)
+						{
+							i_cur_l.css(a_cur);
+						}
+						else
+						{
+							_s_paddingcur = function() {
+								i_cur_l.css(a_cur);
+							};
+							_a_paddingcur = function() {
+								scrl.anims.push([i_cur_l, a_cur]);
+							};
+						}
+					}
+					switch(sO.fx)
+					{
+						case 'cover':
+						case 'cover-fade':
+							$cf2.children().eq(nI-1).css(a_cur);
+							break;
+					}
+
+					if (i_new_l.not(i_old_l).length)
+					{
+						a_old[opts.d['marginRight']] = i_old_l.data('_cfs_origCssMargin');
+						_s_paddingold = function() {
+							i_old_l.css(a_old);
+						};
+						_a_paddingold = function() {
+							scrl.anims.push([i_old_l, a_old]);
+						};
+					}
+
+					if (pR >= 0)
+					{
+						a_new[opts.d['marginRight']] = i_new_l.data('_cfs_origCssMargin') + opts.padding[opts.d[1]];
+						_s_paddingnew = function() {
+							i_new_l.css(a_new);
+						};
+						_a_paddingnew = function() {
+							scrl.anims.push([i_new_l, a_new]);
+						};
+					}
+				}
+
+				//	set position
+				_position = function() {
+					$cfs.css(a_cfs);
+				};
+
+
+				var overFill = opts.items.visible+nI-itms.total;
+
+				//	rearrange items
+				_moveitems = function() {
+					if (overFill > 0)
+					{
+						$cfs.children().slice(itms.total).remove();
+						i_old = $( $cfs.children().slice(itms.total-(opts.items.visible-overFill)).get().concat( $cfs.children().slice(0, overFill).get() ) );
+					}
+					sc_showHiddenItems(hiddenitems);
+
+					if (opts.usePadding)
+					{
+						var l_itm = $cfs.children().eq(opts.items.visible+nI-1);
+						l_itm.css(opts.d['marginRight'], l_itm.data('_cfs_origCssMargin'));
+					}
+				};
+
+
+				var cb_arguments = sc_mapCallbackArguments(i_old, i_skp, i_new, nI, 'prev', a_dur, w_siz);
+
+				//	fire onAfter callbacks
+				_onafter = function() {
+					sc_afterScroll($cfs, $cf2, sO);
+					crsl.isScrolling = false;
+					clbk.onAfter = sc_fireCallbacks($tt0, sO, 'onAfter', cb_arguments, clbk);
+					queu = sc_fireQueue($cfs, queu, conf);
+
+					if (!crsl.isPaused)
+					{
+						$cfs.trigger(cf_e('play', conf));
+					}
+				};
+
+				//	fire onBefore callback
+				crsl.isScrolling = true;
+				tmrs = sc_clearTimers(tmrs);
+				clbk.onBefore = sc_fireCallbacks($tt0, sO, 'onBefore', cb_arguments, clbk);
+
+				switch(sO.fx)
+				{
+					case 'none':
+						$cfs.css(a_cfs);
+						_s_wrapper();
+						_s_paddingold();
+						_s_paddingnew();
+						_s_paddingcur();
+						_position();
+						_moveitems();
+						_onafter();
+						break;
+
+					case 'fade':
+						scrl.anims.push([$cfs, { 'opacity': 0 }, function() {
+							_s_wrapper();
+							_s_paddingold();
+							_s_paddingnew();
+							_s_paddingcur();
+							_position();
+							_moveitems();
+							scrl = sc_setScroll(a_dur, sO.easing, conf);
+							scrl.anims.push([$cfs, { 'opacity': 1 }, _onafter]);
+							sc_startScroll(scrl, conf);
+						}]);
+						break;
+
+					case 'crossfade':
+						$cfs.css({ 'opacity': 0 });
+						scrl.anims.push([$cf2, { 'opacity': 0 }]);
+						scrl.anims.push([$cfs, { 'opacity': 1 }, _onafter]);
+						_a_wrapper();
+						_s_paddingold();
+						_s_paddingnew();
+						_s_paddingcur();
+						_position();
+						_moveitems();
+						break;
+
+					case 'cover':
+						scrl.anims.push([$cf2, a_cfs, function() {
+							_s_paddingold();
+							_s_paddingnew();
+							_s_paddingcur();
+							_position();
+							_moveitems();
+							_onafter();
+						}]);
+						_a_wrapper();
+						break;
+
+					case 'cover-fade':
+						scrl.anims.push([$cfs, { 'opacity': 0 }]);
+						scrl.anims.push([$cf2, a_cfs, function() {
+							_s_paddingold();
+							_s_paddingnew();
+							_s_paddingcur();
+							_position();
+							_moveitems();
+							_onafter();
+						}]);
+						_a_wrapper();
+						break;
+
+					case 'uncover':
+						scrl.anims.push([$cf2, a_wsz, _onafter]);
+						_a_wrapper();
+						_s_paddingold();
+						_s_paddingnew();
+						_s_paddingcur();
+						_position();
+						_moveitems();
+						break;
+
+					case 'uncover-fade':
+						$cfs.css({ 'opacity': 0 });
+						scrl.anims.push([$cfs, { 'opacity': 1 }]);
+						scrl.anims.push([$cf2, a_wsz, _onafter]);
+						_a_wrapper();
+						_s_paddingold();
+						_s_paddingnew();
+						_s_paddingcur();
+						_position();
+						_moveitems();
+						break;
+
+					default:
+						scrl.anims.push([$cfs, a_cfs, function() {
+							_moveitems();
+							_onafter();
+						}]);
+						_a_wrapper();
+						_a_paddingold();
+						_a_paddingnew();
+						_a_paddingcur();
+						break;
+				}
+
+				sc_startScroll(scrl, conf);
+				cf_setCookie(opts.cookie, $cfs, conf);
+
+				$cfs.trigger(cf_e('updatePageStatus', conf), [false, w_siz]);
+
+				return true;
+			});
+
+
+			//	next event
+			$cfs.bind(cf_e('slide_next', conf), function(e, sO, nI) {
+				e.stopPropagation();
+				var a_itm = $cfs.children();
+
+				//	non-circular at end, scroll to start
+				if (!opts.circular)
+				{
+					if (itms.first == opts.items.visible)
+					{
+						if (opts.infinite)
+						{
+							$cfs.trigger(cf_e('prev', conf), itms.total-1);
+						}
+						return e.stopImmediatePropagation();
+					}
+				}
+
+				sz_resetMargin(a_itm, opts);
+
+				//	find number of items to scroll
+				if (!is_number(nI))
+				{
+					if (opts.items.filter != '*')
+					{
+						var xI = (is_number(sO.items)) ? sO.items : gn_getVisibleOrg($cfs, opts);
+						nI = gn_getScrollItemsNextFilter(a_itm, opts, 0, xI);
+					}
+					else
+					{
+						nI = opts.items.visible;
+					}
+					nI = cf_getAdjust(nI, opts, sO.items, $tt0);
+				}
+
+				var lastItemNr = (itms.first == 0) ? itms.total : itms.first;
+
+				//	prevent non-circular from scrolling to far
+				if (!opts.circular)
+				{
+					if (opts.items.visibleConf.variable)
+					{
+						var vI = gn_getVisibleItemsNext(a_itm, opts, nI),
+							xI = gn_getVisibleItemsPrev(a_itm, opts, lastItemNr-1);
+					}
+					else
+					{
+						var vI = opts.items.visible,
+							xI = opts.items.visible;
+					}
+
+					if (nI + vI > lastItemNr)
+					{
+						nI = lastItemNr - xI;
+					}
+				}
+
+				//	set new number of visible items
+				opts.items.visibleConf.old = opts.items.visible;
+				if (opts.items.visibleConf.variable)
+				{
+					var vI = cf_getItemsAdjust(gn_getVisibleItemsNextTestCircular(a_itm, opts, nI, lastItemNr), opts, opts.items.visibleConf.adjust, $tt0);
+					while (opts.items.visible-nI >= vI && nI < itms.total)
+					{
+						nI++;
+						vI = cf_getItemsAdjust(gn_getVisibleItemsNextTestCircular(a_itm, opts, nI, lastItemNr), opts, opts.items.visibleConf.adjust, $tt0);
+					}
+					opts.items.visible = vI;
+				}
+				else if (opts.items.filter != '*')
+				{
+					var vI = gn_getVisibleItemsNextFilter(a_itm, opts, nI);
+					opts.items.visible = cf_getItemsAdjust(vI, opts, opts.items.visibleConf.adjust, $tt0);
+				}
+
+				sz_resetMargin(a_itm, opts, true);
+
+				//	scroll 0, don't scroll
+				if (nI == 0)
+				{
+					e.stopImmediatePropagation();
+					return debug(conf, '0 items to scroll: Not scrolling.');
+				}
+				debug(conf, 'Scrolling '+nI+' items forward.');
+
+
+				//	save new config
+				itms.first -= nI;
+				while (itms.first < 0)
+				{
+					itms.first += itms.total;
+				}
+
+				//	non-circular callback
+				if (!opts.circular)
+				{
+					if (itms.first == opts.items.visible && sO.onEnd)
+					{
+						sO.onEnd.call($tt0, 'next');
+					}
+					if (!opts.infinite)
+					{
+						nv_enableNavi(opts, itms.first, conf);
+					}
+				}
+
+				//	rearrange items
+				if (itms.total < opts.items.visible+nI)
+				{
+					$cfs.children().slice(0, (opts.items.visible+nI)-itms.total).clone(true).appendTo($cfs);
+				}
+
+				//	the needed items
+				var a_itm = $cfs.children(),
+					i_old = gi_getOldItemsNext(a_itm, opts),
+					i_new = gi_getNewItemsNext(a_itm, opts, nI),
+					i_cur_l = a_itm.eq(nI-1),
+					i_old_l = i_old.last(),
+					i_new_l = i_new.last();
+
+				sz_resetMargin(a_itm, opts);
+
+				var pL = 0,
+					pR = 0;
+
+				if (opts.align)
+				{
+					var p = cf_getAlignPadding(i_new, opts);
+					pL = p[0];
+					pR = p[1];
+				}
+
+				//	hide items for fx directscroll
+				var hiddenitems = false,
+					i_skp = $();
+				if (opts.items.visibleConf.old < nI)
+				{
+					i_skp = a_itm.slice(opts.items.visibleConf.old, nI);
+					if (sO.fx == 'directscroll')
+					{
+						var orgW = opts.items[opts.d['width']];
+						hiddenitems = i_skp;
+						i_cur_l = i_old_l;
+						sc_hideHiddenItems(hiddenitems);
+						opts.items[opts.d['width']] = 'variable';
+					}
+				}
+
+				//	save new sizes
+				var $cf2 = false,
+					i_siz = ms_getTotalSize(a_itm.slice(0, nI), opts, 'width'),
+					w_siz = cf_mapWrapperSizes(ms_getSizes(i_new, opts, true), opts, !opts.usePadding),
+					i_siz_vis = 0,
+					a_cfs = {},
+					a_cfs_vis = {},
+					a_cur = {},
+					a_old = {},
+					a_lef = {},
+					a_dur = sc_getDuration(sO, opts, nI, i_siz);
+
+				switch(sO.fx)
+				{
+					case 'uncover':
+					case 'uncover-fade':
+						i_siz_vis = ms_getTotalSize(a_itm.slice(0, opts.items.visibleConf.old), opts, 'width');
+						break;
+				}
+
+				if (hiddenitems)
+				{
+					opts.items[opts.d['width']] = orgW;
+				}
+
+				if (opts.align)
+				{
+					if (opts.padding[opts.d[1]] < 0)
+					{
+						opts.padding[opts.d[1]] = 0;
+					}
+				}
+				sz_resetMargin(a_itm, opts, true);
+				sz_resetMargin(i_old_l, opts, opts.padding[opts.d[1]]);
+
+				if (opts.align)
+				{
+					opts.padding[opts.d[1]] = pR;
+					opts.padding[opts.d[3]] = pL;
+				}
+
+				a_lef[opts.d['left']] = (opts.usePadding) ? opts.padding[opts.d[3]] : 0;
+
+				//	scrolling functions
+				var _s_wrapper = function() {},
+					_a_wrapper = function() {},
+					_s_paddingold = function() {},
+					_a_paddingold = function() {},
+					_s_paddingcur = function() {},
+					_a_paddingcur = function() {},
+					_onafter = function() {},
+					_moveitems = function() {},
+					_position = function() {};
+
+				//	clone carousel
+				switch(sO.fx)
+				{
+					case 'crossfade':
+					case 'cover':
+					case 'cover-fade':
+					case 'uncover':
+					case 'uncover-fade':
+						$cf2 = $cfs.clone(true).appendTo($wrp);
+						$cf2.children().slice(opts.items.visibleConf.old).remove();
+						break;
+				}
+				switch(sO.fx)
+				{
+					case 'crossfade':
+					case 'cover':
+					case 'cover-fade':
+						$cfs.css('zIndex', 1);
+						$cf2.css('zIndex', 0);
+						break;
+				}
+
+				//	reset all scrolls
+				scrl = sc_setScroll(a_dur, sO.easing, conf);
+
+				//	animate / set carousel
+				a_cfs[opts.d['left']] = -i_siz;
+				a_cfs_vis[opts.d['left']] = -i_siz_vis;
+
+				if (pL < 0)
+				{
+					a_cfs[opts.d['left']] += pL;
+				}
+
+				//	animate / set wrapper
+				if (opts[opts.d['width']] == 'variable' || opts[opts.d['height']] == 'variable')
+				{
+					_s_wrapper = function() {
+						$wrp.css(w_siz);
+					};
+					_a_wrapper = function() {
+						scrl.anims.push([$wrp, w_siz]);
+					};
+				}
+
+				//	animate / set items
+				if (opts.usePadding)
+				{
+					var i_new_l_m = i_new_l.data('_cfs_origCssMargin');
+
+					if (pR >= 0)
+					{
+						i_new_l_m += opts.padding[opts.d[1]];
+					}
+					i_new_l.css(opts.d['marginRight'], i_new_l_m);
+
+					if (i_cur_l.not(i_old_l).length)
+					{
+						a_old[opts.d['marginRight']] = i_old_l.data('_cfs_origCssMargin');
+					}
+					_s_paddingold = function() {
+						i_old_l.css(a_old);
+					};
+					_a_paddingold = function() {
+						scrl.anims.push([i_old_l, a_old]);
+					};
+
+					var i_cur_l_m = i_cur_l.data('_cfs_origCssMargin');
+					if (pL > 0)
+					{
+						i_cur_l_m += opts.padding[opts.d[3]];
+					}
+
+					a_cur[opts.d['marginRight']] = i_cur_l_m;
+
+					_s_paddingcur = function() {
+						i_cur_l.css(a_cur);
+					};
+					_a_paddingcur = function() {
+						scrl.anims.push([i_cur_l, a_cur]);
+					};
+				}
+
+				//	set position
+				_position = function() {
+					$cfs.css(a_lef);
+				};
+
+
+				var overFill = opts.items.visible+nI-itms.total;
+
+				//	rearrange items
+				_moveitems = function() {
+					if (overFill > 0)
+					{
+						$cfs.children().slice(itms.total).remove();
+					}
+					var l_itm = $cfs.children().slice(0, nI).appendTo($cfs).last();
+					if (overFill > 0)
+					{
+						i_new = gi_getCurrentItems(a_itm, opts);
+					}
+					sc_showHiddenItems(hiddenitems);
+
+					if (opts.usePadding)
+					{
+						if (itms.total < opts.items.visible+nI) {
+							var i_cur_l = $cfs.children().eq(opts.items.visible-1);
+							i_cur_l.css(opts.d['marginRight'], i_cur_l.data('_cfs_origCssMargin') + opts.padding[opts.d[1]]);
+						}
+						l_itm.css(opts.d['marginRight'], l_itm.data('_cfs_origCssMargin'));
+					}
+				};
+
+
+				var cb_arguments = sc_mapCallbackArguments(i_old, i_skp, i_new, nI, 'next', a_dur, w_siz);
+
+				//	fire onAfter callbacks
+				_onafter = function() {
+					$cfs.css('zIndex', $cfs.data('_cfs_origCssZindex'));
+					sc_afterScroll($cfs, $cf2, sO);
+					crsl.isScrolling = false;
+					clbk.onAfter = sc_fireCallbacks($tt0, sO, 'onAfter', cb_arguments, clbk);
+					queu = sc_fireQueue($cfs, queu, conf);
+
+					if (!crsl.isPaused)
+					{
+						$cfs.trigger(cf_e('play', conf));
+					}
+				};
+
+				//	fire onBefore callbacks
+				crsl.isScrolling = true;
+				tmrs = sc_clearTimers(tmrs);
+				clbk.onBefore = sc_fireCallbacks($tt0, sO, 'onBefore', cb_arguments, clbk);
+
+				switch(sO.fx)
+				{
+					case 'none':
+						$cfs.css(a_cfs);
+						_s_wrapper();
+						_s_paddingold();
+						_s_paddingcur();
+						_position();
+						_moveitems();
+						_onafter();
+						break;
+
+					case 'fade':
+						scrl.anims.push([$cfs, { 'opacity': 0 }, function() {
+							_s_wrapper();
+							_s_paddingold();
+							_s_paddingcur();
+							_position();
+							_moveitems();
+							scrl = sc_setScroll(a_dur, sO.easing, conf);
+							scrl.anims.push([$cfs, { 'opacity': 1 }, _onafter]);
+							sc_startScroll(scrl, conf);
+						}]);
+						break;
+
+					case 'crossfade':
+						$cfs.css({ 'opacity': 0 });
+						scrl.anims.push([$cf2, { 'opacity': 0 }]);
+						scrl.anims.push([$cfs, { 'opacity': 1 }, _onafter]);
+						_a_wrapper();
+						_s_paddingold();
+						_s_paddingcur();
+						_position();
+						_moveitems();
+						break;
+
+					case 'cover':
+						$cfs.css(opts.d['left'], $wrp[opts.d['width']]());
+						scrl.anims.push([$cfs, a_lef, _onafter]);
+						_a_wrapper();
+						_s_paddingold();
+						_s_paddingcur();
+						_moveitems();
+						break;
+
+					case 'cover-fade':
+						$cfs.css(opts.d['left'], $wrp[opts.d['width']]());
+						scrl.anims.push([$cf2, { 'opacity': 0 }]);
+						scrl.anims.push([$cfs, a_lef, _onafter]);
+						_a_wrapper();
+						_s_paddingold();
+						_s_paddingcur();
+						_moveitems();
+						break;
+
+					case 'uncover':
+						scrl.anims.push([$cf2, a_cfs_vis, _onafter]);
+						_a_wrapper();
+						_s_paddingold();
+						_s_paddingcur();
+						_position();
+						_moveitems();
+						break;
+
+					case 'uncover-fade':
+						$cfs.css({ 'opacity': 0 });
+						scrl.anims.push([$cfs, { 'opacity': 1 }]);
+						scrl.anims.push([$cf2, a_cfs_vis, _onafter]);
+						_a_wrapper();
+						_s_paddingold();
+						_s_paddingcur();
+						_position();
+						_moveitems();
+						break;
+
+					default:
+						scrl.anims.push([$cfs, a_cfs, function() {
+							_position();
+							_moveitems();
+							_onafter();
+						}]);
+						_a_wrapper();
+						_a_paddingold();
+						_a_paddingcur();
+						break;
+				}
+
+				sc_startScroll(scrl, conf);
+				cf_setCookie(opts.cookie, $cfs, conf);
+
+				$cfs.trigger(cf_e('updatePageStatus', conf), [false, w_siz]);
+
+				return true;
+			});
+
+
+			//	slideTo event
+			$cfs.bind(cf_e('slideTo', conf), function(e, num, dev, org, obj, dir, clb) {
+				e.stopPropagation();
+
+				var v = [num, dev, org, obj, dir, clb],
+					t = ['string/number/object', 'number', 'boolean', 'object', 'string', 'function'],
+					a = cf_sortParams(v, t);
+
+				obj = a[3];
+				dir = a[4];
+				clb = a[5];
+
+				num = gn_getItemIndex(a[0], a[1], a[2], itms, $cfs);
+
+				if (num == 0)
+				{
+					return false;
+				}
+				if (!is_object(obj))
+				{
+					obj = false;
+				}
+
+				if (dir != 'prev' && dir != 'next')
+				{
+					if (opts.circular)
+					{
+						dir = (num <= itms.total / 2) ? 'next' : 'prev';
+					}
+					else
+					{
+						dir = (itms.first == 0 || itms.first > num) ? 'next' : 'prev';
+					}
+				}
+
+				if (dir == 'prev')
+				{
+					num = itms.total-num;
+				}
+				$cfs.trigger(cf_e(dir, conf), [obj, num, clb]);
+
+				return true;
+			});
+
+
+			//	prevPage event
+			$cfs.bind(cf_e('prevPage', conf), function(e, obj, clb) {
+				e.stopPropagation();
+				var cur = $cfs.triggerHandler(cf_e('currentPage', conf));
+				return $cfs.triggerHandler(cf_e('slideToPage', conf), [cur-1, obj, 'prev', clb]);
+			});
+
+
+			//	nextPage event
+			$cfs.bind(cf_e('nextPage', conf), function(e, obj, clb) {
+				e.stopPropagation();
+				var cur = $cfs.triggerHandler(cf_e('currentPage', conf));
+				return $cfs.triggerHandler(cf_e('slideToPage', conf), [cur+1, obj, 'next', clb]);
+			});
+
+
+			//	slideToPage event
+			$cfs.bind(cf_e('slideToPage', conf), function(e, pag, obj, dir, clb) {
+				e.stopPropagation();
+				if (!is_number(pag))
+				{
+					pag = $cfs.triggerHandler(cf_e('currentPage', conf));
+				}
+				var ipp = opts.pagination.items || opts.items.visible,
+					max = Math.ceil(itms.total / ipp)-1;
+
+				if (pag < 0)
+				{
+					pag = max;
+				}
+				if (pag > max)
+				{
+					pag = 0;
+				}
+				return $cfs.triggerHandler(cf_e('slideTo', conf), [pag*ipp, 0, true, obj, dir, clb]);
+			});
+
+			//	jumpToStart event
+			$cfs.bind(cf_e('jumpToStart', conf), function(e, s) {
+				e.stopPropagation();
+				if (s)
+				{
+					s = gn_getItemIndex(s, 0, true, itms, $cfs);
+				}
+				else
+				{
+					s = 0;
+				}
+
+				s += itms.first;
+				if (s != 0)
+				{
+					if (itms.total > 0)
+					{
+						while (s > itms.total)
+						{
+							s -= itms.total;
+						}
+					}
+					$cfs.prepend($cfs.children().slice(s, itms.total));
+				}
+				return true;
+			});
+
+
+			//	synchronise event
+			$cfs.bind(cf_e('synchronise', conf), function(e, s) {
+				e.stopPropagation();
+				if (s)
+				{
+					s = cf_getSynchArr(s);
+				}
+				else if (opts.synchronise)
+				{
+					s = opts.synchronise;
+				}
+				else
+				{
+					return debug(conf, 'No carousel to synchronise.');
+				}
+
+				var n = $cfs.triggerHandler(cf_e('currentPosition', conf)),
+					x = true;
+
+				for (var j = 0, l = s.length; j < l; j++)
+				{
+					if (!s[j][0].triggerHandler(cf_e('slideTo', conf), [n, s[j][3], true]))
+					{
+						x = false;
+					}
+				}
+				return x;
+			});
+
+
+			//	queue event
+			$cfs.bind(cf_e('queue', conf), function(e, dir, opt) {
+				e.stopPropagation();
+				if (is_function(dir))
+				{
+					dir.call($tt0, queu);
+				}
+				else if (is_array(dir))
+				{
+					queu = dir;
+				}
+				else if (!is_undefined(dir))
+				{
+					queu.push([dir, opt]);
+				}
+				return queu;
+			});
+
+
+			//	insertItem event
+			$cfs.bind(cf_e('insertItem', conf), function(e, itm, num, org, dev) {
+				e.stopPropagation();
+
+				var v = [itm, num, org, dev],
+					t = ['string/object', 'string/number/object', 'boolean', 'number'],
+					a = cf_sortParams(v, t);
+
+				itm = a[0];
+				num = a[1];
+				org = a[2];
+				dev = a[3];
+
+				if (is_object(itm) && !is_jquery(itm))
+				{
+					itm = $(itm);
+				}
+				else if (is_string(itm))
+				{
+					itm = $(itm);
+				}
+				if (!is_jquery(itm) || itm.length == 0)
+				{
+					return debug(conf, 'Not a valid object.');
+				}
+
+				if (is_undefined(num))
+				{
+					num = 'end';
+				}
+
+				sz_storeMargin(itm, opts);
+				sz_storeOrigCss(itm);
+
+				var orgNum = num,
+					before = 'before';
+
+				if (num == 'end')
+				{
+					if (org)
+					{
+						if (itms.first == 0)
+						{
+							num = itms.total-1;
+							before = 'after';
+						}
+						else
+						{
+							num = itms.first;
+							itms.first += itm.length;
+						}
+						if (num < 0)
+						{
+							num = 0;
+						}
+					}
+					else
+					{
+						num = itms.total-1;
+						before = 'after';
+					}
+				}
+				else
+				{
+					num = gn_getItemIndex(num, dev, org, itms, $cfs);
+				}
+
+				var $cit = $cfs.children().eq(num);
+				if ($cit.length)
+				{
+					$cit[before](itm);
+				}
+				else
+				{
+					debug(conf, 'Correct insert-position not found! Appending item to the end.');
+					$cfs.append(itm);
+				}
+
+				if (orgNum != 'end' && !org)
+				{
+					if (num < itms.first)
+					{
+						itms.first += itm.length;
+					}
+				}
+				itms.total = $cfs.children().length;
+				if (itms.first >= itms.total)
+				{
+					itms.first -= itms.total;
+				}
+
+				$cfs.trigger(cf_e('updateSizes', conf));
+				$cfs.trigger(cf_e('linkAnchors', conf));
+
+				return true;
+			});
+
+
+			//	removeItem event
+			$cfs.bind(cf_e('removeItem', conf), function(e, num, org, dev) {
+				e.stopPropagation();
+
+				var v = [num, org, dev],
+					t = ['string/number/object', 'boolean', 'number'],
+					a = cf_sortParams(v, t);
+
+				num = a[0];
+				org = a[1];
+				dev = a[2];
+
+				var removed = false;
+
+				if (num instanceof $ && num.length > 1)
+				{
+					$removed = $();
+					num.each(function(i, el) {
+						var $rem = $cfs.trigger(cf_e('removeItem', conf), [$(this), org, dev]);
+						if ( $rem )
+						{
+							$removed = $removed.add($rem);
+						}
+					});
+					return $removed;
+				}
+
+				if (is_undefined(num) || num == 'end')
+				{
+					$removed = $cfs.children().last();
+				}
+				else
+				{
+					num = gn_getItemIndex(num, dev, org, itms, $cfs);
+					var $removed = $cfs.children().eq(num);
+					if ( $removed.length )
+					{
+						if (num < itms.first)
+						{
+							itms.first -= $removed.length;
+						}
+					}
+				}
+				if ( $removed && $removed.length )
+				{
+					$removed.detach();
+					itms.total = $cfs.children().length;
+					$cfs.trigger(cf_e('updateSizes', conf));
+				}
+
+				return $removed;
+			});
+
+
+			//	onBefore and onAfter event
+			$cfs.bind(cf_e('onBefore', conf)+' '+cf_e('onAfter', conf), function(e, fn) {
+				e.stopPropagation();
+				var eType = e.type.slice(conf.events.prefix.length);
+				if (is_array(fn))
+				{
+					clbk[eType] = fn;
+				}
+				if (is_function(fn))
+				{
+					clbk[eType].push(fn);
+				}
+				return clbk[eType];
+			});
+
+
+			//	currentPosition event
+			$cfs.bind(cf_e('currentPosition', conf), function(e, fn) {
+				e.stopPropagation();
+				if (itms.first == 0)
+				{
+					var val = 0;
+				}
+				else
+				{
+					var val = itms.total - itms.first;
+				}
+				if (is_function(fn))
+				{
+					fn.call($tt0, val);
+				}
+				return val;
+			});
+
+
+			//	currentPage event
+			$cfs.bind(cf_e('currentPage', conf), function(e, fn) {
+				e.stopPropagation();
+				var ipp = opts.pagination.items || opts.items.visible,
+					max = Math.ceil(itms.total/ipp-1),
+					nr;
+				if (itms.first == 0)
+				{
+					nr = 0;
+				}
+				else if (itms.first < itms.total % ipp)
+				{
+					nr = 0;
+				}
+				else if (itms.first == ipp && !opts.circular)
+				{
+					nr = max;
+				}
+				else
+				{
+					 nr = Math.round((itms.total-itms.first)/ipp);
+				}
+				if (nr < 0)
+				{
+					nr = 0;
+				}
+				if (nr > max)
+				{
+					nr = max;
+				}
+				if (is_function(fn))
+				{
+					fn.call($tt0, nr);
+				}
+				return nr;
+			});
+
+
+			//	currentVisible event
+			$cfs.bind(cf_e('currentVisible', conf), function(e, fn) {
+				e.stopPropagation();
+				var $i = gi_getCurrentItems($cfs.children(), opts);
+				if (is_function(fn))
+				{
+					fn.call($tt0, $i);
+				}
+				return $i;
+			});
+
+
+			//	slice event
+			$cfs.bind(cf_e('slice', conf), function(e, f, l, fn) {
+				e.stopPropagation();
+
+				if (itms.total == 0)
+				{
+					return false;
+				}
+
+				var v = [f, l, fn],
+					t = ['number', 'number', 'function'],
+					a = cf_sortParams(v, t);
+
+				f = (is_number(a[0])) ? a[0] : 0;
+				l = (is_number(a[1])) ? a[1] : itms.total;
+				fn = a[2];
+
+				f += itms.first;
+				l += itms.first;
+
+				if (items.total > 0)
+				{
+					while (f > itms.total)
+					{
+						f -= itms.total;
+					}
+					while (l > itms.total)
+					{
+						l -= itms.total;
+					}
+					while (f < 0)
+					{
+						f += itms.total;
+					}
+					while (l < 0)
+					{
+						l += itms.total;
+					}
+				}
+				var $iA = $cfs.children(),
+					$i;
+
+				if (l > f)
+				{
+					$i = $iA.slice(f, l);
+				}
+				else
+				{
+					$i = $( $iA.slice(f, itms.total).get().concat( $iA.slice(0, l).get() ) );
+				}
+
+				if (is_function(fn))
+				{
+					fn.call($tt0, $i);
+				}
+				return $i;
+			});
+
+
+			//	isPaused, isStopped and isScrolling events
+			$cfs.bind(cf_e('isPaused', conf)+' '+cf_e('isStopped', conf)+' '+cf_e('isScrolling', conf), function(e, fn) {
+				e.stopPropagation();
+				var eType = e.type.slice(conf.events.prefix.length),
+					value = crsl[eType];
+				if (is_function(fn))
+				{
+					fn.call($tt0, value);
+				}
+				return value;
+			});
+
+
+			//	configuration event
+			$cfs.bind(cf_e('configuration', conf), function(e, a, b, c) {
+				e.stopPropagation();
+				var reInit = false;
+
+				//	return entire configuration-object
+				if (is_function(a))
+				{
+					a.call($tt0, opts);
+				}
+				//	set multiple options via object
+				else if (is_object(a))
+				{
+					opts_orig = $.extend(true, {}, opts_orig, a);
+					if (b !== false) reInit = true;
+					else opts = $.extend(true, {}, opts, a);
+
+				}
+				else if (!is_undefined(a))
+				{
+
+					//	callback function for specific option
+					if (is_function(b))
+					{
+						var val = eval('opts.'+a);
+						if (is_undefined(val))
+						{
+							val = '';
+						}
+						b.call($tt0, val);
+					}
+					//	set individual option
+					else if (!is_undefined(b))
+					{
+						if (typeof c !== 'boolean') c = true;
+						eval('opts_orig.'+a+' = b');
+						if (c !== false) reInit = true;
+						else eval('opts.'+a+' = b');
+					}
+					//	return value for specific option
+					else
+					{
+						return eval('opts.'+a);
+					}
+				}
+				if (reInit)
+				{
+					sz_resetMargin($cfs.children(), opts);
+					FN._init(opts_orig);
+					FN._bind_buttons();
+					var sz = sz_setSizes($cfs, opts);
+					$cfs.trigger(cf_e('updatePageStatus', conf), [true, sz]);
+				}
+				return opts;
+			});
+
+
+			//	linkAnchors event
+			$cfs.bind(cf_e('linkAnchors', conf), function(e, $con, sel) {
+				e.stopPropagation();
+
+				if (is_undefined($con))
+				{
+					$con = $('body');
+				}
+				else if (is_string($con))
+				{
+					$con = $($con);
+				}
+				if (!is_jquery($con) || $con.length == 0)
+				{
+					return debug(conf, 'Not a valid object.');
+				}
+				if (!is_string(sel))
+				{
+					sel = 'a.caroufredsel';
+				}
+
+				$con.find(sel).each(function() {
+					var h = this.hash || '';
+					if (h.length > 0 && $cfs.children().index($(h)) != -1)
+					{
+						$(this).unbind('click').click(function(e) {
+							e.preventDefault();
+							$cfs.trigger(cf_e('slideTo', conf), h);
+						});
+					}
+				});
+				return true;
+			});
+
+
+			//	updatePageStatus event
+			$cfs.bind(cf_e('updatePageStatus', conf), function(e, build, sizes) {
+				e.stopPropagation();
+				if (!opts.pagination.container)
+				{
+					return;
+				}
+
+				var ipp = opts.pagination.items || opts.items.visible,
+					pgs = Math.ceil(itms.total/ipp);
+
+				if (build)
+				{
+					if (opts.pagination.anchorBuilder)
+					{
+						opts.pagination.container.children().remove();
+						opts.pagination.container.each(function() {
+							for (var a = 0; a < pgs; a++)
+							{
+								var i = $cfs.children().eq( gn_getItemIndex(a*ipp, 0, true, itms, $cfs) );
+								$(this).append(opts.pagination.anchorBuilder.call(i[0], a+1));
+							}
+						});
+					}
+					opts.pagination.container.each(function() {
+						$(this).children().unbind(opts.pagination.event).each(function(a) {
+							$(this).bind(opts.pagination.event, function(e) {
+								e.preventDefault();
+								$cfs.trigger(cf_e('slideTo', conf), [a*ipp, -opts.pagination.deviation, true, opts.pagination]);
+							});
+						});
+					});
+				}
+
+				var selected = $cfs.triggerHandler(cf_e('currentPage', conf)) + opts.pagination.deviation;
+				if (selected >= pgs)
+				{
+					selected = 0;
+				}
+				if (selected < 0)
+				{
+					selected = pgs-1;
+				}
+				opts.pagination.container.each(function() {
+					$(this).children().removeClass(cf_c('selected', conf)).eq(selected).addClass(cf_c('selected', conf));
+				});
+				return true;
+			});
+
+
+			//	updateSizes event
+			$cfs.bind(cf_e('updateSizes', conf), function(e) {
+				var vI = opts.items.visible,
+					a_itm = $cfs.children(),
+					avail_primary = ms_getParentSize($wrp, opts, 'width');
+
+				itms.total = a_itm.length;
+
+				if (crsl.primarySizePercentage)
+				{
+					opts.maxDimension = avail_primary;
+					opts[opts.d['width']] = ms_getPercentage(avail_primary, crsl.primarySizePercentage);
+				}
+				else
+				{
+					opts.maxDimension = ms_getMaxDimension(opts, avail_primary);
+				}
+
+				if (opts.responsive)
+				{
+					opts.items.width = opts.items.sizesConf.width;
+					opts.items.height = opts.items.sizesConf.height;
+					opts = in_getResponsiveValues(opts, a_itm, avail_primary);
+					vI = opts.items.visible;
+					sz_setResponsiveSizes(opts, a_itm);
+				}
+				else if (opts.items.visibleConf.variable)
+				{
+					vI = gn_getVisibleItemsNext(a_itm, opts, 0);
+				}
+				else if (opts.items.filter != '*')
+				{
+					vI = gn_getVisibleItemsNextFilter(a_itm, opts, 0);
+				}
+
+				if (!opts.circular && itms.first != 0 && vI > itms.first) {
+					if (opts.items.visibleConf.variable)
+					{
+						var nI = gn_getVisibleItemsPrev(a_itm, opts, itms.first) - itms.first;
+					}
+					else if (opts.items.filter != '*')
+					{
+						var nI = gn_getVisibleItemsPrevFilter(a_itm, opts, itms.first) - itms.first;
+					}
+					else
+					{
+						var nI = opts.items.visible - itms.first;
+					}
+					debug(conf, 'Preventing non-circular: sliding '+nI+' items backward.');
+					$cfs.trigger(cf_e('prev', conf), nI);
+				}
+
+				opts.items.visible = cf_getItemsAdjust(vI, opts, opts.items.visibleConf.adjust, $tt0);
+				opts.items.visibleConf.old = opts.items.visible;
+				opts = in_getAlignPadding(opts, a_itm);
+
+				var sz = sz_setSizes($cfs, opts);
+				$cfs.trigger(cf_e('updatePageStatus', conf), [true, sz]);
+				nv_showNavi(opts, itms.total, conf);
+				nv_enableNavi(opts, itms.first, conf);
+
+				return sz;
+			});
+
+
+			//	destroy event
+			$cfs.bind(cf_e('destroy', conf), function(e, orgOrder) {
+				e.stopPropagation();
+				tmrs = sc_clearTimers(tmrs);
+
+				$cfs.data('_cfs_isCarousel', false);
+				$cfs.trigger(cf_e('finish', conf));
+				if (orgOrder)
+				{
+					$cfs.trigger(cf_e('jumpToStart', conf));
+				}
+				sz_restoreOrigCss($cfs.children());
+				sz_restoreOrigCss($cfs);
+				FN._unbind_events();
+				FN._unbind_buttons();
+				if (conf.wrapper == 'parent')
+				{
+					sz_restoreOrigCss($wrp);
+				}
+				else
+				{
+					$wrp.replaceWith($cfs);
+				}
+
+				return true;
+			});
+
+
+			//	debug event
+			$cfs.bind(cf_e('debug', conf), function(e) {
+				debug(conf, 'Carousel width: ' + opts.width);
+				debug(conf, 'Carousel height: ' + opts.height);
+				debug(conf, 'Item widths: ' + opts.items.width);
+				debug(conf, 'Item heights: ' + opts.items.height);
+				debug(conf, 'Number of items visible: ' + opts.items.visible);
+				if (opts.auto.play)
+				{
+					debug(conf, 'Number of items scrolled automatically: ' + opts.auto.items);
+				}
+				if (opts.prev.button)
+				{
+					debug(conf, 'Number of items scrolled backward: ' + opts.prev.items);
+				}
+				if (opts.next.button)
+				{
+					debug(conf, 'Number of items scrolled forward: ' + opts.next.items);
+				}
+				return conf.debug;
+			});
+
+
+			//	triggerEvent, making prefixed and namespaced events accessible from outside
+			$cfs.bind('_cfs_triggerEvent', function(e, n, o) {
+				e.stopPropagation();
+				return $cfs.triggerHandler(cf_e(n, conf), o);
+			});
+		};	//	/bind_events
+
+
+		FN._unbind_events = function() {
+			$cfs.unbind(cf_e('', conf));
+			$cfs.unbind(cf_e('', conf, false));
+			$cfs.unbind('_cfs_triggerEvent');
+		};	//	/unbind_events
+
+
+		FN._bind_buttons = function() {
+			FN._unbind_buttons();
+			nv_showNavi(opts, itms.total, conf);
+			nv_enableNavi(opts, itms.first, conf);
+
+			if (opts.auto.pauseOnHover)
+			{
+				var pC = bt_pauseOnHoverConfig(opts.auto.pauseOnHover);
+				$wrp.bind(cf_e('mouseenter', conf, false), function() { $cfs.trigger(cf_e('pause', conf), pC);	})
+					.bind(cf_e('mouseleave', conf, false), function() { $cfs.trigger(cf_e('resume', conf));		});
+			}
+
+			//	play button
+			if (opts.auto.button)
+			{
+				opts.auto.button.bind(cf_e(opts.auto.event, conf, false), function(e) {
+					e.preventDefault();
+					var ev = false,
+						pC = null;
+
+					if (crsl.isPaused)
+					{
+						ev = 'play';
+					}
+					else if (opts.auto.pauseOnEvent)
+					{
+						ev = 'pause';
+						pC = bt_pauseOnHoverConfig(opts.auto.pauseOnEvent);
+					}
+					if (ev)
+					{
+						$cfs.trigger(cf_e(ev, conf), pC);
+					}
+				});
+			}
+
+			//	prev button
+			if (opts.prev.button)
+			{
+				opts.prev.button.bind(cf_e(opts.prev.event, conf, false), function(e) {
+					e.preventDefault();
+					$cfs.trigger(cf_e('prev', conf));
+				});
+				if (opts.prev.pauseOnHover)
+				{
+					var pC = bt_pauseOnHoverConfig(opts.prev.pauseOnHover);
+					opts.prev.button.bind(cf_e('mouseenter', conf, false), function() { $cfs.trigger(cf_e('pause', conf), pC);	})
+									.bind(cf_e('mouseleave', conf, false), function() { $cfs.trigger(cf_e('resume', conf));		});
+				}
+			}
+
+			//	next butotn
+			if (opts.next.button)
+			{
+				opts.next.button.bind(cf_e(opts.next.event, conf, false), function(e) {
+					e.preventDefault();
+					$cfs.trigger(cf_e('next', conf));
+				});
+				if (opts.next.pauseOnHover)
+				{
+					var pC = bt_pauseOnHoverConfig(opts.next.pauseOnHover);
+					opts.next.button.bind(cf_e('mouseenter', conf, false), function() { $cfs.trigger(cf_e('pause', conf), pC); 	})
+									.bind(cf_e('mouseleave', conf, false), function() { $cfs.trigger(cf_e('resume', conf));		});
+				}
+			}
+
+			//	pagination
+			if (opts.pagination.container)
+			{
+				if (opts.pagination.pauseOnHover)
+				{
+					var pC = bt_pauseOnHoverConfig(opts.pagination.pauseOnHover);
+					opts.pagination.container.bind(cf_e('mouseenter', conf, false), function() { $cfs.trigger(cf_e('pause', conf), pC);	})
+											 .bind(cf_e('mouseleave', conf, false), function() { $cfs.trigger(cf_e('resume', conf));	});
+				}
+			}
+
+			//	prev/next keys
+			if (opts.prev.key || opts.next.key)
+			{
+				$(document).bind(cf_e('keyup', conf, false, true, true), function(e) {
+					var k = e.keyCode;
+					if (k == opts.next.key)
+					{
+						e.preventDefault();
+						$cfs.trigger(cf_e('next', conf));
+					}
+					if (k == opts.prev.key)
+					{
+						e.preventDefault();
+						$cfs.trigger(cf_e('prev', conf));
+					}
+				});
+			}
+
+			//	pagination keys
+			if (opts.pagination.keys)
+			{
+				$(document).bind(cf_e('keyup', conf, false, true, true), function(e) {
+					var k = e.keyCode;
+					if (k >= 49 && k < 58)
+					{
+						k = (k-49) * opts.items.visible;
+						if (k <= itms.total)
+						{
+							e.preventDefault();
+							$cfs.trigger(cf_e('slideTo', conf), [k, 0, true, opts.pagination]);
+						}
+					}
+				});
+			}
+
+			//	swipe
+			if ($.fn.swipe)
+			{
+				var isTouch = 'ontouchstart' in window;
+				if ((isTouch && opts.swipe.onTouch) || (!isTouch && opts.swipe.onMouse))
+				{
+					var scP = $.extend(true, {}, opts.prev, opts.swipe),
+						scN = $.extend(true, {}, opts.next, opts.swipe),
+						swP = function() { $cfs.trigger(cf_e('prev', conf), [scP]) },
+						swN = function() { $cfs.trigger(cf_e('next', conf), [scN]) };
+
+					switch (opts.direction)
+					{
+						case 'up':
+						case 'down':
+							opts.swipe.options.swipeUp = swN;
+							opts.swipe.options.swipeDown = swP;
+							break;
+						default:
+							opts.swipe.options.swipeLeft = swN;
+							opts.swipe.options.swipeRight = swP;
+					}
+					if (crsl.swipe)
+					{
+						$cfs.swipe('destroy');
+					}
+					$wrp.swipe(opts.swipe.options);
+					$wrp.css('cursor', 'move');
+					crsl.swipe = true;
+				}
+			}
+
+			//	mousewheel
+			if ($.fn.mousewheel)
+			{
+
+				if (opts.mousewheel)
+				{
+					var mcP = $.extend(true, {}, opts.prev, opts.mousewheel),
+						mcN = $.extend(true, {}, opts.next, opts.mousewheel);
+
+					if (crsl.mousewheel)
+					{
+						$wrp.unbind(cf_e('mousewheel', conf, false));
+					}
+					$wrp.bind(cf_e('mousewheel', conf, false), function(e, delta) {
+						e.preventDefault();
+						if (delta > 0)
+						{
+							$cfs.trigger(cf_e('prev', conf), [mcP]);
+						}
+						else
+						{
+							$cfs.trigger(cf_e('next', conf), [mcN]);
+						}
+					});
+					crsl.mousewheel = true;
+				}
+			}
+
+			if (opts.auto.play)
+			{
+				$cfs.trigger(cf_e('play', conf), opts.auto.delay);
+			}
+
+			if (crsl.upDateOnWindowResize)
+			{
+				var resizeFn = function(e) {
+					$cfs.trigger(cf_e('finish', conf));
+					if (opts.auto.pauseOnResize && !crsl.isPaused)
+					{
+						$cfs.trigger(cf_e('play', conf));
+					}
+					sz_resetMargin($cfs.children(), opts);
+					$cfs.trigger(cf_e('updateSizes', conf));
+				};
+
+				var $w = $(window),
+					onResize = null;
+
+				if ($.debounce && conf.onWindowResize == 'debounce')
+				{
+					onResize = $.debounce(200, resizeFn);
+				}
+				else if ($.throttle && conf.onWindowResize == 'throttle')
+				{
+					onResize = $.throttle(300, resizeFn);
+				}
+				else
+				{
+					var _windowWidth = 0,
+						_windowHeight = 0;
+
+					onResize = function() {
+						var nw = $w.width(),
+							nh = $w.height();
+
+						if (nw != _windowWidth || nh != _windowHeight)
+						{
+							resizeFn();
+							_windowWidth = nw;
+							_windowHeight = nh;
+						}
+					};
+				}
+				$w.bind(cf_e('resize', conf, false, true, true), onResize);
+			}
+		};	//	/bind_buttons
+
+
+		FN._unbind_buttons = function() {
+			var ns1 = cf_e('', conf),
+				ns2 = cf_e('', conf, false);
+				ns3 = cf_e('', conf, false, true, true);
+
+			$(document).unbind(ns3);
+			$(window).unbind(ns3);
+			$wrp.unbind(ns2);
+
+			if (opts.auto.button)
+			{
+				opts.auto.button.unbind(ns2);
+			}
+			if (opts.prev.button)
+			{
+				opts.prev.button.unbind(ns2);
+			}
+			if (opts.next.button)
+			{
+				opts.next.button.unbind(ns2);
+			}
+			if (opts.pagination.container)
+			{
+				opts.pagination.container.unbind(ns2);
+				if (opts.pagination.anchorBuilder)
+				{
+					opts.pagination.container.children().remove();
+				}
+			}
+			if (crsl.swipe)
+			{
+				$cfs.swipe('destroy');
+				$wrp.css('cursor', 'default');
+				crsl.swipe = false;
+			}
+			if (crsl.mousewheel)
+			{
+				crsl.mousewheel = false;
+			}
+
+			nv_showNavi(opts, 'hide', conf);
+			nv_enableNavi(opts, 'removeClass', conf);
+
+		};	//	/unbind_buttons
+
+
+
+		//	START
+
+		if (is_boolean(configs))
+		{
+			configs = {
+				'debug': configs
+			};
+		}
+
+		//	set vars
+		var crsl = {
+				'direction'		: 'next',
+				'isPaused'		: true,
+				'isScrolling'	: false,
+				'isStopped'		: false,
+				'mousewheel'	: false,
+				'swipe'			: false
+			},
+			itms = {
+				'total'			: $cfs.children().length,
+				'first'			: 0
+			},
+			tmrs = {
+				'auto'			: null,
+				'progress'		: null,
+				'startTime'		: getTime(),
+				'timePassed'	: 0
+			},
+			scrl = {
+				'isStopped'		: false,
+				'duration'		: 0,
+				'startTime'		: 0,
+				'easing'		: '',
+				'anims'			: []
+			},
+			clbk = {
+				'onBefore'		: [],
+				'onAfter'		: []
+			},
+			queu = [],
+			conf = $.extend(true, {}, $.fn.carouFredSel.configs, configs),
+			opts = {},
+			opts_orig = $.extend(true, {}, options),
+			$wrp = (conf.wrapper == 'parent')
+				? $cfs.parent()
+				: $cfs.wrap('<'+conf.wrapper.element+' class="'+conf.wrapper.classname+'" />').parent();
+
+
+		conf.selector		= $cfs.selector;
+		conf.serialNumber	= $.fn.carouFredSel.serialNumber++;
+
+		conf.transition = (conf.transition && $.fn.transition) ? 'transition' : 'animate';
+
+		//	create carousel
+		FN._init(opts_orig, true, starting_position);
+		FN._build();
+		FN._bind_events();
+		FN._bind_buttons();
+
+		//	find item to start
+		if (is_array(opts.items.start))
+		{
+			var start_arr = opts.items.start;
+		}
+		else
+		{
+			var start_arr = [];
+			if (opts.items.start != 0)
+			{
+				start_arr.push(opts.items.start);
+			}
+		}
+		if (opts.cookie)
+		{
+			start_arr.unshift(parseInt(cf_getCookie(opts.cookie), 10));
+		}
+
+		if (start_arr.length > 0)
+		{
+			for (var a = 0, l = start_arr.length; a < l; a++)
+			{
+				var s = start_arr[a];
+				if (s == 0)
+				{
+					continue;
+				}
+				if (s === true)
+				{
+					s = window.location.hash;
+					if (s.length < 1)
+					{
+						continue;
+					}
+				}
+				else if (s === 'random')
+				{
+					s = Math.floor(Math.random()*itms.total);
+				}
+				if ($cfs.triggerHandler(cf_e('slideTo', conf), [s, 0, true, { fx: 'none' }]))
+				{
+					break;
+				}
+			}
+		}
+		var siz = sz_setSizes($cfs, opts),
+			itm = gi_getCurrentItems($cfs.children(), opts);
+
+		if (opts.onCreate)
+		{
+			opts.onCreate.call($tt0, {
+				'width': siz.width,
+				'height': siz.height,
+				'items': itm
+			});
+		}
+
+		$cfs.trigger(cf_e('updatePageStatus', conf), [true, siz]);
+		$cfs.trigger(cf_e('linkAnchors', conf));
+
+		if (conf.debug)
+		{
+			$cfs.trigger(cf_e('debug', conf));
+		}
+
+		return $cfs;
+	};
+
+
+
+	//	GLOBAL PUBLIC
+
+	$.fn.carouFredSel.serialNumber = 1;
+	$.fn.carouFredSel.defaults = {
+		'synchronise'	: false,
+		'infinite'		: true,
+		'circular'		: true,
+		'responsive'	: false,
+		'direction'		: 'left',
+		'items'			: {
+			'start'			: 0
+		},
+		'scroll'		: {
+			'easing'		: 'swing',
+			'duration'		: 500,
+			'pauseOnHover'	: false,
+			'event'			: 'click',
+			'queue'			: false
+		}
+	};
+	$.fn.carouFredSel.configs = {
+		'debug'			: false,
+		'transition'	: false,
+		'onWindowResize': 'throttle',
+		'events'		: {
+			'prefix'		: '',
+			'namespace'		: 'cfs'
+		},
+		'wrapper'		: {
+			'element'		: 'div',
+			'classname'		: 'caroufredsel_wrapper'
+		},
+		'classnames'	: {}
+	};
+	$.fn.carouFredSel.pageAnchorBuilder = function(nr) {
+		return '<a href="#"><span>'+nr+'</span></a>';
+	};
+	$.fn.carouFredSel.progressbarUpdater = function(perc) {
+		$(this).css('width', perc+'%');
+	};
+
+	$.fn.carouFredSel.cookie = {
+		get: function(n) {
+			n += '=';
+			var ca = document.cookie.split(';');
+			for (var a = 0, l = ca.length; a < l; a++)
+			{
+				var c = ca[a];
+				while (c.charAt(0) == ' ')
+				{
+					c = c.slice(1);
+				}
+				if (c.indexOf(n) == 0)
+				{
+					return c.slice(n.length);
+				}
+			}
+			return 0;
+		},
+		set: function(n, v, d) {
+			var e = "";
+			if (d)
+			{
+				var date = new Date();
+				date.setTime(date.getTime() + (d * 24 * 60 * 60 * 1000));
+				e = "; expires=" + date.toGMTString();
+			}
+			document.cookie = n + '=' + v + e + '; path=/';
+		},
+		remove: function(n) {
+			$.fn.carouFredSel.cookie.set(n, "", -1);
+		}
+	};
+
+
+	//	GLOBAL PRIVATE
+
+	//	scrolling functions
+	function sc_setScroll(d, e, c) {
+		if (c.transition == 'transition')
+		{
+			if (e == 'swing')
+			{
+				e = 'ease';
+			}
+		}
+		return {
+			anims: [],
+			duration: d,
+			orgDuration: d,
+			easing: e,
+			startTime: getTime()
+		};
+	}
+	function sc_startScroll(s, c) {
+		for (var a = 0, l = s.anims.length; a < l; a++)
+		{
+			var b = s.anims[a];
+			if (!b)
+			{
+				continue;
+			}
+			b[0][c.transition](b[1], s.duration, s.easing, b[2]);
+		}
+	}
+	function sc_stopScroll(s, finish) {
+		if (!is_boolean(finish))
+		{
+			finish = true;
+		}
+		if (is_object(s.pre))
+		{
+			sc_stopScroll(s.pre, finish);
+		}
+		for (var a = 0, l = s.anims.length; a < l; a++)
+		{
+			var b = s.anims[a];
+			b[0].stop(true);
+			if (finish)
+			{
+				b[0].css(b[1]);
+				if (is_function(b[2]))
+				{
+					b[2]();
+				}
+			}
+		}
+		if (is_object(s.post))
+		{
+			sc_stopScroll(s.post, finish);
+		}
+	}
+	function sc_afterScroll( $c, $c2, o ) {
+		if ($c2)
+		{
+			$c2.remove();
+		}
+
+		switch(o.fx) {
+			case 'fade':
+			case 'crossfade':
+			case 'cover-fade':
+			case 'uncover-fade':
+				$c.css('opacity', 1);
+				$c.css('filter', '');
+				break;
+		}
+	}
+	function sc_fireCallbacks($t, o, b, a, c) {
+		if (o[b])
+		{
+			o[b].call($t, a);
+		}
+		if (c[b].length)
+		{
+			for (var i = 0, l = c[b].length; i < l; i++)
+			{
+				c[b][i].call($t, a);
+			}
+		}
+		return [];
+	}
+	function sc_fireQueue($c, q, c) {
+
+		if (q.length)
+		{
+			$c.trigger(cf_e(q[0][0], c), q[0][1]);
+			q.shift();
+		}
+		return q;
+	}
+	function sc_hideHiddenItems(hiddenitems) {
+		hiddenitems.each(function() {
+			var hi = $(this);
+			hi.data('_cfs_isHidden', hi.is(':hidden')).hide();
+		});
+	}
+	function sc_showHiddenItems(hiddenitems) {
+		if (hiddenitems)
+		{
+			hiddenitems.each(function() {
+				var hi = $(this);
+				if (!hi.data('_cfs_isHidden'))
+				{
+					hi.show();
+				}
+			});
+		}
+	}
+	function sc_clearTimers(t) {
+		if (t.auto)
+		{
+			clearTimeout(t.auto);
+		}
+		if (t.progress)
+		{
+			clearInterval(t.progress);
+		}
+		return t;
+	}
+	function sc_mapCallbackArguments(i_old, i_skp, i_new, s_itm, s_dir, s_dur, w_siz) {
+		return {
+			'width': w_siz.width,
+			'height': w_siz.height,
+			'items': {
+				'old': i_old,
+				'skipped': i_skp,
+				'visible': i_new
+			},
+			'scroll': {
+				'items': s_itm,
+				'direction': s_dir,
+				'duration': s_dur
+			}
+		};
+	}
+	function sc_getDuration( sO, o, nI, siz ) {
+		var dur = sO.duration;
+		if (sO.fx == 'none')
+		{
+			return 0;
+		}
+		if (dur == 'auto')
+		{
+			dur = o.scroll.duration / o.scroll.items * nI;
+		}
+		else if (dur < 10)
+		{
+			dur = siz / dur;
+		}
+		if (dur < 1)
+		{
+			return 0;
+		}
+		if (sO.fx == 'fade')
+		{
+			dur = dur / 2;
+		}
+		return Math.round(dur);
+	}
+
+	//	navigation functions
+	function nv_showNavi(o, t, c) {
+		var minimum = (is_number(o.items.minimum)) ? o.items.minimum : o.items.visible + 1;
+		if (t == 'show' || t == 'hide')
+		{
+			var f = t;
+		}
+		else if (minimum > t)
+		{
+			debug(c, 'Not enough items ('+t+' total, '+minimum+' needed): Hiding navigation.');
+			var f = 'hide';
+		}
+		else
+		{
+			var f = 'show';
+		}
+		var s = (f == 'show') ? 'removeClass' : 'addClass',
+			h = cf_c('hidden', c);
+
+		if (o.auto.button)
+		{
+			o.auto.button[f]()[s](h);
+		}
+		if (o.prev.button)
+		{
+			o.prev.button[f]()[s](h);
+		}
+		if (o.next.button)
+		{
+			o.next.button[f]()[s](h);
+		}
+		if (o.pagination.container)
+		{
+			o.pagination.container[f]()[s](h);
+		}
+	}
+	function nv_enableNavi(o, f, c) {
+		if (o.circular || o.infinite) return;
+		var fx = (f == 'removeClass' || f == 'addClass') ? f : false,
+			di = cf_c('disabled', c);
+
+		if (o.auto.button && fx)
+		{
+			o.auto.button[fx](di);
+		}
+		if (o.prev.button)
+		{
+			var fn = fx || (f == 0) ? 'addClass' : 'removeClass';
+			o.prev.button[fn](di);
+		}
+		if (o.next.button)
+		{
+			var fn = fx || (f == o.items.visible) ? 'addClass' : 'removeClass';
+			o.next.button[fn](di);
+		}
+	}
+
+	//	get object functions
+	function go_getObject($tt, obj) {
+		if (is_function(obj))
+		{
+			obj = obj.call($tt);
+		}
+		else if (is_undefined(obj))
+		{
+			obj = {};
+		}
+		return obj;
+	}
+	function go_getItemsObject($tt, obj) {
+		obj = go_getObject($tt, obj);
+		if (is_number(obj))
+		{
+			obj	= {
+				'visible': obj
+			};
+		}
+		else if (obj == 'variable')
+		{
+			obj = {
+				'visible': obj,
+				'width': obj,
+				'height': obj
+			};
+		}
+		else if (!is_object(obj))
+		{
+			obj = {};
+		}
+		return obj;
+	}
+	function go_getScrollObject($tt, obj) {
+		obj = go_getObject($tt, obj);
+		if (is_number(obj))
+		{
+			if (obj <= 50)
+			{
+				obj = {
+					'items': obj
+				};
+			}
+			else
+			{
+				obj = {
+					'duration': obj
+				};
+			}
+		}
+		else if (is_string(obj))
+		{
+			obj = {
+				'easing': obj
+			};
+		}
+		else if (!is_object(obj))
+		{
+			obj = {};
+		}
+		return obj;
+	}
+	function go_getNaviObject($tt, obj) {
+		obj = go_getObject($tt, obj);
+		if (is_string(obj))
+		{
+			var temp = cf_getKeyCode(obj);
+			if (temp == -1)
+			{
+				obj = $(obj);
+			}
+			else
+			{
+				obj = temp;
+			}
+		}
+		return obj;
+	}
+
+	function go_getAutoObject($tt, obj) {
+		obj = go_getNaviObject($tt, obj);
+		if (is_jquery(obj))
+		{
+			obj = {
+				'button': obj
+			};
+		}
+		else if (is_boolean(obj))
+		{
+			obj = {
+				'play': obj
+			};
+		}
+		else if (is_number(obj))
+		{
+			obj = {
+				'timeoutDuration': obj
+			};
+		}
+		if (obj.progress)
+		{
+			if (is_string(obj.progress) || is_jquery(obj.progress))
+			{
+				obj.progress = {
+					'bar': obj.progress
+				};
+			}
+		}
+		return obj;
+	}
+	function go_complementAutoObject($tt, obj) {
+		if (is_function(obj.button))
+		{
+			obj.button = obj.button.call($tt);
+		}
+		if (is_string(obj.button))
+		{
+			obj.button = $(obj.button);
+		}
+		if (!is_boolean(obj.play))
+		{
+			obj.play = true;
+		}
+		if (!is_number(obj.delay))
+		{
+			obj.delay = 0;
+		}
+		if (is_undefined(obj.pauseOnEvent))
+		{
+			obj.pauseOnEvent = true;
+		}
+		if (!is_boolean(obj.pauseOnResize))
+		{
+			obj.pauseOnResize = true;
+		}
+		if (!is_number(obj.timeoutDuration))
+		{
+			obj.timeoutDuration = (obj.duration < 10)
+				? 2500
+				: obj.duration * 5;
+		}
+		if (obj.progress)
+		{
+			if (is_function(obj.progress.bar))
+			{
+				obj.progress.bar = obj.progress.bar.call($tt);
+			}
+			if (is_string(obj.progress.bar))
+			{
+				obj.progress.bar = $(obj.progress.bar);
+			}
+			if (obj.progress.bar)
+			{
+				if (!is_function(obj.progress.updater))
+				{
+					obj.progress.updater = $.fn.carouFredSel.progressbarUpdater;
+				}
+				if (!is_number(obj.progress.interval))
+				{
+					obj.progress.interval = 50;
+				}
+			}
+			else
+			{
+				obj.progress = false;
+			}
+		}
+		return obj;
+	}
+
+	function go_getPrevNextObject($tt, obj) {
+		obj = go_getNaviObject($tt, obj);
+		if (is_jquery(obj))
+		{
+			obj = {
+				'button': obj
+			};
+		}
+		else if (is_number(obj))
+		{
+			obj = {
+				'key': obj
+			};
+		}
+		return obj;
+	}
+	function go_complementPrevNextObject($tt, obj) {
+		if (is_function(obj.button))
+		{
+			obj.button = obj.button.call($tt);
+		}
+		if (is_string(obj.button))
+		{
+			obj.button = $(obj.button);
+		}
+		if (is_string(obj.key))
+		{
+			obj.key = cf_getKeyCode(obj.key);
+		}
+		return obj;
+	}
+
+	function go_getPaginationObject($tt, obj) {
+		obj = go_getNaviObject($tt, obj);
+		if (is_jquery(obj))
+		{
+			obj = {
+				'container': obj
+			};
+		}
+		else if (is_boolean(obj))
+		{
+			obj = {
+				'keys': obj
+			};
+		}
+		return obj;
+	}
+	function go_complementPaginationObject($tt, obj) {
+		if (is_function(obj.container))
+		{
+			obj.container = obj.container.call($tt);
+		}
+		if (is_string(obj.container))
+		{
+			obj.container = $(obj.container);
+		}
+		if (!is_number(obj.items))
+		{
+			obj.items = false;
+		}
+		if (!is_boolean(obj.keys))
+		{
+			obj.keys = false;
+		}
+		if (!is_function(obj.anchorBuilder) && !is_false(obj.anchorBuilder))
+		{
+			obj.anchorBuilder = $.fn.carouFredSel.pageAnchorBuilder;
+		}
+		if (!is_number(obj.deviation))
+		{
+			obj.deviation = 0;
+		}
+		return obj;
+	}
+
+	function go_getSwipeObject($tt, obj) {
+		if (is_function(obj))
+		{
+			obj = obj.call($tt);
+		}
+		if (is_undefined(obj))
+		{
+			obj = {
+				'onTouch': false
+			};
+		}
+		if (is_true(obj))
+		{
+			obj = {
+				'onTouch': obj
+			};
+		}
+		else if (is_number(obj))
+		{
+			obj = {
+				'items': obj
+			};
+		}
+		return obj;
+	}
+	function go_complementSwipeObject($tt, obj) {
+		if (!is_boolean(obj.onTouch))
+		{
+			obj.onTouch = true;
+		}
+		if (!is_boolean(obj.onMouse))
+		{
+			obj.onMouse = false;
+		}
+		if (!is_object(obj.options))
+		{
+			obj.options = {};
+		}
+		if (!is_boolean(obj.options.triggerOnTouchEnd))
+		{
+			obj.options.triggerOnTouchEnd = false;
+		}
+		return obj;
+	}
+	function go_getMousewheelObject($tt, obj) {
+		if (is_function(obj))
+		{
+			obj = obj.call($tt);
+		}
+		if (is_true(obj))
+		{
+			obj = {};
+		}
+		else if (is_number(obj))
+		{
+			obj = {
+				'items': obj
+			};
+		}
+		else if (is_undefined(obj))
+		{
+			obj = false;
+		}
+		return obj;
+	}
+	function go_complementMousewheelObject($tt, obj) {
+		return obj;
+	}
+
+	//	get number functions
+	function gn_getItemIndex(num, dev, org, items, $cfs) {
+		if (is_string(num))
+		{
+			num = $(num, $cfs);
+		}
+
+		if (is_object(num))
+		{
+			num = $(num, $cfs);
+		}
+		if (is_jquery(num))
+		{
+			num = $cfs.children().index(num);
+			if (!is_boolean(org))
+			{
+				org = false;
+			}
+		}
+		else
+		{
+			if (!is_boolean(org))
+			{
+				org = true;
+			}
+		}
+		if (!is_number(num))
+		{
+			num = 0;
+		}
+		if (!is_number(dev))
+		{
+			dev = 0;
+		}
+
+		if (org)
+		{
+			num += items.first;
+		}
+		num += dev;
+		if (items.total > 0)
+		{
+			while (num >= items.total)
+			{
+				num -= items.total;
+			}
+			while (num < 0)
+			{
+				num += items.total;
+			}
+		}
+		return num;
+	}
+
+	//	items prev
+	function gn_getVisibleItemsPrev(i, o, s) {
+		var t = 0,
+			x = 0;
+
+		for (var a = s; a >= 0; a--)
+		{
+			var j = i.eq(a);
+			t += (j.is(':visible')) ? j[o.d['outerWidth']](true) : 0;
+			if (t > o.maxDimension)
+			{
+				return x;
+			}
+			if (a == 0)
+			{
+				a = i.length;
+			}
+			x++;
+		}
+	}
+	function gn_getVisibleItemsPrevFilter(i, o, s) {
+		return gn_getItemsPrevFilter(i, o.items.filter, o.items.visibleConf.org, s);
+	}
+	function gn_getScrollItemsPrevFilter(i, o, s, m) {
+		return gn_getItemsPrevFilter(i, o.items.filter, m, s);
+	}
+	function gn_getItemsPrevFilter(i, f, m, s) {
+		var t = 0,
+			x = 0;
+
+		for (var a = s, l = i.length; a >= 0; a--)
+		{
+			x++;
+			if (x == l)
+			{
+				return x;
+			}
+
+			var j = i.eq(a);
+			if (j.is(f))
+			{
+				t++;
+				if (t == m)
+				{
+					return x;
+				}
+			}
+			if (a == 0)
+			{
+				a = l;
+			}
+		}
+	}
+
+	function gn_getVisibleOrg($c, o) {
+		return o.items.visibleConf.org || $c.children().slice(0, o.items.visible).filter(o.items.filter).length;
+	}
+
+	//	items next
+	function gn_getVisibleItemsNext(i, o, s) {
+		var t = 0,
+			x = 0;
+
+		for (var a = s, l = i.length-1; a <= l; a++)
+		{
+			var j = i.eq(a);
+
+			t += (j.is(':visible')) ? j[o.d['outerWidth']](true) : 0;
+			if (t > o.maxDimension)
+			{
+				return x;
+			}
+
+			x++;
+			if (x == l+1)
+			{
+				return x;
+			}
+			if (a == l)
+			{
+				a = -1;
+			}
+		}
+	}
+	function gn_getVisibleItemsNextTestCircular(i, o, s, l) {
+		var v = gn_getVisibleItemsNext(i, o, s);
+		if (!o.circular)
+		{
+			if (s + v > l)
+			{
+				v = l - s;
+			}
+		}
+		return v;
+	}
+	function gn_getVisibleItemsNextFilter(i, o, s) {
+		return gn_getItemsNextFilter(i, o.items.filter, o.items.visibleConf.org, s, o.circular);
+	}
+	function gn_getScrollItemsNextFilter(i, o, s, m) {
+		return gn_getItemsNextFilter(i, o.items.filter, m+1, s, o.circular) - 1;
+	}
+	function gn_getItemsNextFilter(i, f, m, s, c) {
+		var t = 0,
+			x = 0;
+
+		for (var a = s, l = i.length-1; a <= l; a++)
+		{
+			x++;
+			if (x >= l)
+			{
+				return x;
+			}
+
+			var j = i.eq(a);
+			if (j.is(f))
+			{
+				t++;
+				if (t == m)
+				{
+					return x;
+				}
+			}
+			if (a == l)
+			{
+				a = -1;
+			}
+		}
+	}
+
+	//	get items functions
+	function gi_getCurrentItems(i, o) {
+		return i.slice(0, o.items.visible);
+	}
+	function gi_getOldItemsPrev(i, o, n) {
+		return i.slice(n, o.items.visibleConf.old+n);
+	}
+	function gi_getNewItemsPrev(i, o) {
+		return i.slice(0, o.items.visible);
+	}
+	function gi_getOldItemsNext(i, o) {
+		return i.slice(0, o.items.visibleConf.old);
+	}
+	function gi_getNewItemsNext(i, o, n) {
+		return i.slice(n, o.items.visible+n);
+	}
+
+	//	sizes functions
+	function sz_storeMargin(i, o, d) {
+		if (o.usePadding)
+		{
+			if (!is_string(d))
+			{
+				d = '_cfs_origCssMargin';
+			}
+			i.each(function() {
+				var j = $(this),
+					m = parseInt(j.css(o.d['marginRight']), 10);
+				if (!is_number(m))
+				{
+					m = 0;
+				}
+				j.data(d, m);
+			});
+		}
+	}
+	function sz_resetMargin(i, o, m) {
+		if (o.usePadding)
+		{
+			var x = (is_boolean(m)) ? m : false;
+			if (!is_number(m))
+			{
+				m = 0;
+			}
+			sz_storeMargin(i, o, '_cfs_tempCssMargin');
+			i.each(function() {
+				var j = $(this);
+				j.css(o.d['marginRight'], ((x) ? j.data('_cfs_tempCssMargin') : m + j.data('_cfs_origCssMargin')));
+			});
+		}
+	}
+	function sz_storeOrigCss(i) {
+		i.each(function() {
+			var j = $(this);
+			j.data('_cfs_origCss', j.attr('style') || '');
+		});
+	}
+	function sz_restoreOrigCss(i) {
+		i.each(function() {
+			var j = $(this);
+			j.attr('style', j.data('_cfs_origCss') || '');
+		});
+	}
+	function sz_setResponsiveSizes(o, all) {
+		var visb = o.items.visible,
+			newS = o.items[o.d['width']],
+			seco = o[o.d['height']],
+			secp = is_percentage(seco);
+
+		all.each(function() {
+			var $t = $(this),
+				nw = newS - ms_getPaddingBorderMargin($t, o, 'Width');
+
+			$t[o.d['width']](nw);
+			if (secp)
+			{
+				$t[o.d['height']](ms_getPercentage(nw, seco));
+			}
+		});
+	}
+	function sz_setSizes($c, o) {
+		var $w = $c.parent(),
+			$i = $c.children(),
+			$v = gi_getCurrentItems($i, o),
+			sz = cf_mapWrapperSizes(ms_getSizes($v, o, true), o, false);
+
+		$w.css(sz);
+
+		if (o.usePadding)
+		{
+			var p = o.padding,
+				r = p[o.d[1]];
+
+			if (o.align && r < 0)
+			{
+				r = 0;
+			}
+			var $l = $v.last();
+			$l.css(o.d['marginRight'], $l.data('_cfs_origCssMargin') + r);
+			$c.css(o.d['top'], p[o.d[0]]);
+			$c.css(o.d['left'], p[o.d[3]]);
+		}
+
+		$c.css(o.d['width'], sz[o.d['width']]+(ms_getTotalSize($i, o, 'width')*2));
+		$c.css(o.d['height'], ms_getLargestSize($i, o, 'height'));
+		return sz;
+	}
+
+	//	measuring functions
+	function ms_getSizes(i, o, wrapper) {
+		return [ms_getTotalSize(i, o, 'width', wrapper), ms_getLargestSize(i, o, 'height', wrapper)];
+	}
+	function ms_getLargestSize(i, o, dim, wrapper) {
+		if (!is_boolean(wrapper))
+		{
+			wrapper = false;
+		}
+		if (is_number(o[o.d[dim]]) && wrapper)
+		{
+			return o[o.d[dim]];
+		}
+		if (is_number(o.items[o.d[dim]]))
+		{
+			return o.items[o.d[dim]];
+		}
+		dim = (dim.toLowerCase().indexOf('width') > -1) ? 'outerWidth' : 'outerHeight';
+		return ms_getTrueLargestSize(i, o, dim);
+	}
+	function ms_getTrueLargestSize(i, o, dim) {
+		var s = 0;
+
+		for (var a = 0, l = i.length; a < l; a++)
+		{
+			var j = i.eq(a);
+
+			var m = (j.is(':visible')) ? j[o.d[dim]](true) : 0;
+			if (s < m)
+			{
+				s = m;
+			}
+		}
+		return s;
+	}
+
+	function ms_getTotalSize(i, o, dim, wrapper) {
+		if (!is_boolean(wrapper))
+		{
+			wrapper = false;
+		}
+		if (is_number(o[o.d[dim]]) && wrapper)
+		{
+			return o[o.d[dim]];
+		}
+		if (is_number(o.items[o.d[dim]]))
+		{
+			return o.items[o.d[dim]] * i.length;
+		}
+
+		var d = (dim.toLowerCase().indexOf('width') > -1) ? 'outerWidth' : 'outerHeight',
+			s = 0;
+
+		for (var a = 0, l = i.length; a < l; a++)
+		{
+			var j = i.eq(a);
+			s += (j.is(':visible')) ? j[o.d[d]](true) : 0;
+		}
+		return s;
+	}
+	function ms_getParentSize($w, o, d) {
+		var isVisible = $w.is(':visible');
+		if (isVisible)
+		{
+			$w.hide();
+		}
+		var s = $w.parent()[o.d[d]]();
+		if (isVisible)
+		{
+			$w.show();
+		}
+		return s;
+	}
+	function ms_getMaxDimension(o, a) {
+		return (is_number(o[o.d['width']])) ? o[o.d['width']] : a;
+	}
+	function ms_hasVariableSizes(i, o, dim) {
+		var s = false,
+			v = false;
+
+		for (var a = 0, l = i.length; a < l; a++)
+		{
+			var j = i.eq(a);
+
+			var c = (j.is(':visible')) ? j[o.d[dim]](true) : 0;
+			if (s === false)
+			{
+				s = c;
+			}
+			else if (s != c)
+			{
+				v = true;
+			}
+			if (s == 0)
+			{
+				v = true;
+			}
+		}
+		return v;
+	}
+	function ms_getPaddingBorderMargin(i, o, d) {
+		return i[o.d['outer'+d]](true) - i[o.d[d.toLowerCase()]]();
+	}
+	function ms_getPercentage(s, o) {
+		if (is_percentage(o))
+		{
+			o = parseInt( o.slice(0, -1), 10 );
+			if (!is_number(o))
+			{
+				return s;
+			}
+			s *= o/100;
+		}
+		return s;
+	}
+
+	//	config functions
+	function cf_e(n, c, pf, ns, rd) {
+		if (!is_boolean(pf))
+		{
+			pf = true;
+		}
+		if (!is_boolean(ns))
+		{
+			ns = true;
+		}
+		if (!is_boolean(rd))
+		{
+			rd = false;
+		}
+
+		if (pf)
+		{
+			n = c.events.prefix + n;
+		}
+		if (ns)
+		{
+			n = n +'.'+ c.events.namespace;
+		}
+		if (ns && rd)
+		{
+			n += c.serialNumber;
+		}
+
+		return n;
+	}
+	function cf_c(n, c) {
+		return (is_string(c.classnames[n])) ? c.classnames[n] : n;
+	}
+	function cf_mapWrapperSizes(ws, o, p) {
+		if (!is_boolean(p))
+		{
+			p = true;
+		}
+		var pad = (o.usePadding && p) ? o.padding : [0, 0, 0, 0];
+		var wra = {};
+
+		wra[o.d['width']] = ws[0] + pad[1] + pad[3];
+		wra[o.d['height']] = ws[1] + pad[0] + pad[2];
+
+		return wra;
+	}
+	function cf_sortParams(vals, typs) {
+		var arr = [];
+		for (var a = 0, l1 = vals.length; a < l1; a++)
+		{
+			for (var b = 0, l2 = typs.length; b < l2; b++)
+			{
+				if (typs[b].indexOf(typeof vals[a]) > -1 && is_undefined(arr[b]))
+				{
+					arr[b] = vals[a];
+					break;
+				}
+			}
+		}
+		return arr;
+	}
+	function cf_getPadding(p) {
+		if (is_undefined(p))
+		{
+			return [0, 0, 0, 0];
+		}
+		if (is_number(p))
+		{
+			return [p, p, p, p];
+		}
+		if (is_string(p))
+		{
+			p = p.split('px').join('').split('em').join('').split(' ');
+		}
+
+		if (!is_array(p))
+		{
+			return [0, 0, 0, 0];
+		}
+		for (var i = 0; i < 4; i++)
+		{
+			p[i] = parseInt(p[i], 10);
+		}
+		switch (p.length)
+		{
+			case 0:
+				return [0, 0, 0, 0];
+			case 1:
+				return [p[0], p[0], p[0], p[0]];
+			case 2:
+				return [p[0], p[1], p[0], p[1]];
+			case 3:
+				return [p[0], p[1], p[2], p[1]];
+			default:
+				return [p[0], p[1], p[2], p[3]];
+		}
+	}
+	function cf_getAlignPadding(itm, o) {
+		var x = (is_number(o[o.d['width']])) ? Math.ceil(o[o.d['width']] - ms_getTotalSize(itm, o, 'width')) : 0;
+		switch (o.align)
+		{
+			case 'left':
+				return [0, x];
+			case 'right':
+				return [x, 0];
+			case 'center':
+			default:
+				return [Math.ceil(x/2), Math.floor(x/2)];
+		}
+	}
+	function cf_getDimensions(o) {
+		var dm = [
+				['width'	, 'innerWidth'	, 'outerWidth'	, 'height'	, 'innerHeight'	, 'outerHeight'	, 'left', 'top'	, 'marginRight'	, 0, 1, 2, 3],
+				['height'	, 'innerHeight'	, 'outerHeight'	, 'width'	, 'innerWidth'	, 'outerWidth'	, 'top'	, 'left', 'marginBottom', 3, 2, 1, 0]
+			];
+
+		var dl = dm[0].length,
+			dx = (o.direction == 'right' || o.direction == 'left') ? 0 : 1;
+
+		var dimensions = {};
+		for (var d = 0; d < dl; d++)
+		{
+			dimensions[dm[0][d]] = dm[dx][d];
+		}
+		return dimensions;
+	}
+	function cf_getAdjust(x, o, a, $t) {
+		var v = x;
+		if (is_function(a))
+		{
+			v = a.call($t, v);
+
+		}
+		else if (is_string(a))
+		{
+			var p = a.split('+'),
+				m = a.split('-');
+
+			if (m.length > p.length)
+			{
+				var neg = true,
+					sta = m[0],
+					adj = m[1];
+			}
+			else
+			{
+				var neg = false,
+					sta = p[0],
+					adj = p[1];
+			}
+
+			switch(sta)
+			{
+				case 'even':
+					v = (x % 2 == 1) ? x-1 : x;
+					break;
+				case 'odd':
+					v = (x % 2 == 0) ? x-1 : x;
+					break;
+				default:
+					v = x;
+					break;
+			}
+			adj = parseInt(adj, 10);
+			if (is_number(adj))
+			{
+				if (neg)
+				{
+					adj = -adj;
+				}
+				v += adj;
+			}
+		}
+		if (!is_number(v) || v < 1)
+		{
+			v = 1;
+		}
+		return v;
+	}
+	function cf_getItemsAdjust(x, o, a, $t) {
+		return cf_getItemAdjustMinMax(cf_getAdjust(x, o, a, $t), o.items.visibleConf);
+	}
+	function cf_getItemAdjustMinMax(v, i) {
+		if (is_number(i.min) && v < i.min)
+		{
+			v = i.min;
+		}
+		if (is_number(i.max) && v > i.max)
+		{
+			v = i.max;
+		}
+		if (v < 1)
+		{
+			v = 1;
+		}
+		return v;
+	}
+	function cf_getSynchArr(s) {
+		if (!is_array(s))
+		{
+			s = [[s]];
+		}
+		if (!is_array(s[0]))
+		{
+			s = [s];
+		}
+		for (var j = 0, l = s.length; j < l; j++)
+		{
+			if (is_string(s[j][0]))
+			{
+				s[j][0] = $(s[j][0]);
+			}
+			if (!is_boolean(s[j][1]))
+			{
+				s[j][1] = true;
+			}
+			if (!is_boolean(s[j][2]))
+			{
+				s[j][2] = true;
+			}
+			if (!is_number(s[j][3]))
+			{
+				s[j][3] = 0;
+			}
+		}
+		return s;
+	}
+	function cf_getKeyCode(k) {
+		if (k == 'right')
+		{
+			return 39;
+		}
+		if (k == 'left')
+		{
+			return 37;
+		}
+		if (k == 'up')
+		{
+			return 38;
+		}
+		if (k == 'down')
+		{
+			return 40;
+		}
+		return -1;
+	}
+	function cf_setCookie(n, $c, c) {
+		if (n)
+		{
+			var v = $c.triggerHandler(cf_e('currentPosition', c));
+			$.fn.carouFredSel.cookie.set(n, v);
+		}
+	}
+	function cf_getCookie(n) {
+		var c = $.fn.carouFredSel.cookie.get(n);
+		return (c == '') ? 0 : c;
+	}
+
+	//	init function
+	function in_mapCss($elem, props) {
+		var css = {};
+		for (var p = 0, l = props.length; p < l; p++)
+		{
+			css[props[p]] = $elem.css(props[p]);
+		}
+		return css;
+	}
+	function in_complementItems(obj, opt, itm, sta) {
+		if (!is_object(obj.visibleConf))
+		{
+			obj.visibleConf = {};
+		}
+		if (!is_object(obj.sizesConf))
+		{
+			obj.sizesConf = {};
+		}
+
+		if (obj.start == 0 && is_number(sta))
+		{
+			obj.start = sta;
+		}
+
+		//	visible items
+		if (is_object(obj.visible))
+		{
+			obj.visibleConf.min = obj.visible.min;
+			obj.visibleConf.max = obj.visible.max;
+			obj.visible = false;
+		}
+		else if (is_string(obj.visible))
+		{
+			//	variable visible items
+			if (obj.visible == 'variable')
+			{
+				obj.visibleConf.variable = true;
+			}
+			//	adjust string visible items
+			else
+			{
+				obj.visibleConf.adjust = obj.visible;
+			}
+			obj.visible = false;
+		}
+		else if (is_function(obj.visible))
+		{
+			obj.visibleConf.adjust = obj.visible;
+			obj.visible = false;
+		}
+
+		//	set items filter
+		if (!is_string(obj.filter))
+		{
+			obj.filter = (itm.filter(':hidden').length > 0) ? ':visible' : '*';
+		}
+
+		//	primary item-size not set
+		if (!obj[opt.d['width']])
+		{
+			//	responsive carousel -> set to largest
+			if (opt.responsive)
+			{
+				debug(true, 'Set a '+opt.d['width']+' for the items!');
+				obj[opt.d['width']] = ms_getTrueLargestSize(itm, opt, 'outerWidth');
+			}
+			//	 non-responsive -> measure it or set to "variable"
+			else
+			{
+				obj[opt.d['width']] = (ms_hasVariableSizes(itm, opt, 'outerWidth'))
+					? 'variable'
+					: itm[opt.d['outerWidth']](true);
+			}
+		}
+
+		//	secondary item-size not set -> measure it or set to "variable"
+		if (!obj[opt.d['height']])
+		{
+			obj[opt.d['height']] = (ms_hasVariableSizes(itm, opt, 'outerHeight'))
+				? 'variable'
+				: itm[opt.d['outerHeight']](true);
+		}
+
+		obj.sizesConf.width = obj.width;
+		obj.sizesConf.height = obj.height;
+		return obj;
+	}
+	function in_complementVisibleItems(opt, avl) {
+		//	primary item-size variable -> set visible items variable
+		if (opt.items[opt.d['width']] == 'variable')
+		{
+			opt.items.visibleConf.variable = true;
+		}
+		if (!opt.items.visibleConf.variable) {
+			//	primary size is number -> calculate visible-items
+			if (is_number(opt[opt.d['width']]))
+			{
+				opt.items.visible = Math.floor(opt[opt.d['width']] / opt.items[opt.d['width']]);
+			}
+			//	measure and calculate primary size and visible-items
+			else
+			{
+				opt.items.visible = Math.floor(avl / opt.items[opt.d['width']]);
+				opt[opt.d['width']] = opt.items.visible * opt.items[opt.d['width']];
+				if (!opt.items.visibleConf.adjust)
+				{
+					opt.align = false;
+				}
+			}
+			if (opt.items.visible == 'Infinity' || opt.items.visible < 1)
+			{
+				debug(true, 'Not a valid number of visible items: Set to "variable".');
+				opt.items.visibleConf.variable = true;
+			}
+		}
+		return opt;
+	}
+	function in_complementPrimarySize(obj, opt, all) {
+		//	primary size set to auto -> measure largest item-size and set it
+		if (obj == 'auto')
+		{
+			obj = ms_getTrueLargestSize(all, opt, 'outerWidth');
+		}
+		return obj;
+	}
+	function in_complementSecondarySize(obj, opt, all) {
+		//	secondary size set to auto -> measure largest item-size and set it
+		if (obj == 'auto')
+		{
+			obj = ms_getTrueLargestSize(all, opt, 'outerHeight');
+		}
+		//	secondary size not set -> set to secondary item-size
+		if (!obj)
+		{
+			obj = opt.items[opt.d['height']];
+		}
+		return obj;
+	}
+	function in_getAlignPadding(o, all) {
+		var p = cf_getAlignPadding(gi_getCurrentItems(all, o), o);
+		o.padding[o.d[1]] = p[1];
+		o.padding[o.d[3]] = p[0];
+		return o;
+	}
+	function in_getResponsiveValues(o, all, avl) {
+
+		var visb = cf_getItemAdjustMinMax(Math.ceil(o[o.d['width']] / o.items[o.d['width']]), o.items.visibleConf);
+		if (visb > all.length)
+		{
+			visb = all.length;
+		}
+
+		var newS = Math.floor(o[o.d['width']]/visb);
+
+		o.items.visible = visb;
+		o.items[o.d['width']] = newS;
+		o[o.d['width']] = visb * newS;
+		return o;
+	}
+
+
+	//	buttons functions
+	function bt_pauseOnHoverConfig(p) {
+		if (is_string(p))
+		{
+			var i = (p.indexOf('immediate') > -1) ? true : false,
+				r = (p.indexOf('resume') 	> -1) ? true : false;
+		}
+		else
+		{
+			var i = r = false;
+		}
+		return [i, r];
+	}
+	function bt_mousesheelNumber(mw) {
+		return (is_number(mw)) ? mw : null
+	}
+
+	//	helper functions
+	function is_null(a) {
+		return (a === null);
+	}
+	function is_undefined(a) {
+		return (is_null(a) || typeof a == 'undefined' || a === '' || a === 'undefined');
+	}
+	function is_array(a) {
+		return (a instanceof Array);
+	}
+	function is_jquery(a) {
+		return (a instanceof jQuery);
+	}
+	function is_object(a) {
+		return ((a instanceof Object || typeof a == 'object') && !is_null(a) && !is_jquery(a) && !is_array(a) && !is_function(a));
+	}
+	function is_number(a) {
+		return ((a instanceof Number || typeof a == 'number') && !isNaN(a));
+	}
+	function is_string(a) {
+		return ((a instanceof String || typeof a == 'string') && !is_undefined(a) && !is_true(a) && !is_false(a));
+	}
+	function is_function(a) {
+		return (a instanceof Function || typeof a == 'function');
+	}
+	function is_boolean(a) {
+		return (a instanceof Boolean || typeof a == 'boolean' || is_true(a) || is_false(a));
+	}
+	function is_true(a) {
+		return (a === true || a === 'true');
+	}
+	function is_false(a) {
+		return (a === false || a === 'false');
+	}
+	function is_percentage(x) {
+		return (is_string(x) && x.slice(-1) == '%');
+	}
+
+
+	function getTime() {
+		return new Date().getTime();
+	}
+
+	function deprecated( o, n ) {
+		debug(true, o+' is DEPRECATED, support for it will be removed. Use '+n+' instead.');
+	}
+	function debug(d, m) {
+		if (!is_undefined(window.console) && !is_undefined(window.console.log))
+		{
+			if (is_object(d))
+			{
+				var s = ' ('+d.selector+')';
+				d = d.debug;
+			}
+			else
+			{
+				var s = '';
+			}
+			if (!d)
+			{
+				return false;
+			}
+
+			if (is_string(m))
+			{
+				m = 'carouFredSel'+s+': ' + m;
+			}
+			else
+			{
+				m = ['carouFredSel'+s+':', m];
+			}
+			window.console.log(m);
+		}
+		return false;
+	}
+
+
+
+	//	EASING FUNCTIONS
+	$.extend($.easing, {
+		'quadratic': function(t) {
+			var t2 = t * t;
+			return t * (-t2 * t + 4 * t2 - 6 * t + 4);
+		},
+		'cubic': function(t) {
+			return t * (4 * t * t - 9 * t + 6);
+		},
+		'elastic': function(t) {
+			var t2 = t * t;
+			return t * (33 * t2 * t2 - 106 * t2 * t + 126 * t2 - 67 * t + 15);
+		}
+	});
+
+
+})(jQuery);
