@@ -1995,7 +1995,6 @@ h4 {
   font-size: 16px;
   color: #545658;
   text-decoration: none;
-  text-align: center;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   -o-transition: all 0.3s;
@@ -2011,7 +2010,6 @@ h4 {
   line-height: 24px;
   font-size: 14px;
   color: #646464;
-  text-align: center;
   word-break: break-word;
 }
 
