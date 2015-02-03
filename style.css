@@ -269,6 +269,10 @@ header {
   border-bottom: 1px solid #eee;
 }
 
+.home header {
+  margin-bottom: 0;
+}
+
 .top-header {
   width: 100%;
   background: #314b60;
