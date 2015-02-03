@@ -5,72 +5,75 @@
  *	@package ThemeIsle.
  */
 ?>
-<div class="wrap">
-	<section id="features" class="cf">
 
-		<div class="features-box">
-			<?php
-			if ( get_theme_mod( 'denta_lite_features_box1iconclass' ) ) {
-				echo '<i class="features-box-icon fa '. get_theme_mod( 'denta_lite_features_box1iconclass' ) .'"></i>';
-			} else {
-				echo '<i class="features-box-icon fa fa-phone"></i>';
-			}
+<?php
+if ( get_theme_mod( 'denta_lite_featuresboxes_box1iconclass', 'fa-phone' ) || get_theme_mod( 'denta_lite_featuresboxes_box1title', 'Emergy Case' ) || get_theme_mod( 'denta_lite_featuresboxes_box1entry', 'Per ad persius epicuri accusamus, ea usu semper.' ) || get_theme_mod( 'denta_lite_featuresboxes_box2iconclass', 'fa-heart' ) || get_theme_mod( 'denta_lite_featuresboxes_box2title', 'Free Consultation' ) || get_theme_mod( 'denta_lite_featuresboxes_box2entry', 'Per ad persius epicuri accusamus, ea usu semper.' ) || get_theme_mod( 'denta_lite_featuresboxes_box3iconclass', 'fa-users' ) || get_theme_mod( 'denta_lite_featuresboxes_box3title', 'Qualified Doctors' ) || get_theme_mod( 'denta_lite_featuresboxes_box3entry', 'Per ad persius epicuri accusamus, ea usu semper.' ) ) {
 
-			if ( get_theme_mod( 'denta_lite_features_box1title' ) ) {
-				echo '<h5>'. get_theme_mod( 'denta_lite_features_box1title' ) .'</h5>';
-			} else {
-				echo '<h5>'. __( 'Title 1', 'denta_lite' ) .'</h5>';
-			}
+	echo '<div class="wrap">';
+	echo '<section id="features" class="cf">';
 
-			if ( get_theme_mod( 'denta_lite_features_box1entry' ) ) {
-				echo '<p>'. get_theme_mod( 'denta_lite_features_box1entry' ) .'</p>';
-			} else {
-				echo '<p>'. __( 'Go to Appearance - Customize, to add content.', 'denta_lite' ) .'</p>';
-			}
-			?>
-		</div><!--/.features-box-->
+		if ( get_theme_mod( 'denta_lite_featuresboxes_box1iconclass', 'fa-phone' ) || get_theme_mod( 'denta_lite_featuresboxes_box1title', 'Emergy Case' ) || get_theme_mod( 'denta_lite_featuresboxes_box1entry', 'Per ad persius epicuri accusamus, ea usu semper.' ) ) {
 
-		<div class="features-box">
-			<?php
-			if ( get_theme_mod( 'denta_lite_features_box2iconclass' ) ) {
-				echo '<i class="features-box-icon fa '. get_theme_mod( 'denta_lite_features_box2iconclass' ) .'"></i>';
-			} else {
-				echo '<i class="features-box-icon fa fa-heart"></i>';
-			}
+			echo '<div class="features-box">';
 
-			if ( get_theme_mod( 'denta_lite_features_box2title' ) ) {
-				echo '<h5>'. get_theme_mod( 'denta_lite_features_box2title' ) .'</h5>';
-			} else {
-				echo '<h5>'. __( 'Title 2', 'denta_lite' ) .'</h5>';
-			}
+				if ( get_theme_mod( 'denta_lite_featuresboxes_box1iconclass', 'fa-phone' ) ) {
+					echo '<i class="features-box-icon fa '. esc_attr( get_theme_mod( 'denta_lite_featuresboxes_box1iconclass', 'fa-phone' ) ) .'"></i>';
+				}
 
-			if ( get_theme_mod( 'denta_lite_features_box2entry' ) ) {
-				echo '<p>'. get_theme_mod( 'denta_lite_features_box2entry' ) .'</p>';
-			} else {
-				echo '<p>'. __( 'Go to Appearance - Customize, to add content.', 'denta_lite' ) .'</p>';
-			}
-			?>
-		</div><!--/.features-box-->
-		<div class="features-box">
-			<?php
-			if ( get_theme_mod( 'denta_lite_features_box3iconclass' ) ) {
-				echo '<i class="features-box-icon fa '. get_theme_mod( 'denta_lite_features_box3iconclass' ) .'"></i>';
-			} else {
-				echo '<i class="features-box-icon fa fa-users"></i>';
-			}
+				if ( get_theme_mod( 'denta_lite_featuresboxes_box1title', 'Emergy Case' ) ) {
+					echo '<h5>'. esc_attr( get_theme_mod( 'denta_lite_featuresboxes_box1title', 'Emergy Case' ) ) .'</h5>';
+				}
 
-			if ( get_theme_mod( 'denta_lite_features_box3title' ) ) {
-				echo '<h5>'. get_theme_mod( 'denta_lite_features_box3title' ) .'</h5>';
-			} else {
-				echo '<h5>'. __( 'Title 3', 'denta_lite' ) .'</h5>';
-			}
+				if ( get_theme_mod( 'denta_lite_featuresboxes_box1entry', 'Per ad persius epicuri accusamus, ea usu semper.' ) ) {
+					echo '<p>'. esc_textarea( get_theme_mod( 'denta_lite_featuresboxes_box1entry', 'Per ad persius epicuri accusamus, ea usu semper.' ) ) .'</p>';
+				}
 
-			if ( get_theme_mod( 'denta_lite_features_box3entry' ) ) {
-				echo '<p>'. get_theme_mod( 'denta_lite_features_box3entry' ) .'</p>';
-			} else {
-				echo '<p>'. __( 'Go to Appearance - Customize, to add content.', 'denta_lite' ) .'</p>';
-			}
-			?>
-		</div><!--/.features-box-->
-	</section><!--/#features .cf-->
-</div><!--/.wrap-->
+			echo '</div><!--/.features-box-->';
+
+		}
+
+		if ( get_theme_mod( 'denta_lite_featuresboxes_box2iconclass', 'fa-heart' ) || get_theme_mod( 'denta_lite_featuresboxes_box2title', 'Free Consultation' ) || get_theme_mod( 'denta_lite_featuresboxes_box2entry', 'Per ad persius epicuri accusamus, ea usu semper.' ) ) {
+
+			echo '<div class="features-box">';
+
+				if ( get_theme_mod( 'denta_lite_featuresboxes_box2iconclass', 'fa-heart' ) ) {
+					echo '<i class="features-box-icon fa '. esc_attr( get_theme_mod( 'denta_lite_featuresboxes_box2iconclass', 'fa-heart' ) ) .'"></i>';
+				}
+
+				if ( get_theme_mod( 'denta_lite_featuresboxes_box2title', 'Free Consultation' ) ) {
+					echo '<h5>'. esc_attr( get_theme_mod( 'denta_lite_featuresboxes_box2title', 'Free Consultation' ) ) .'</h5>';
+				}
+
+				if ( get_theme_mod( 'denta_lite_featuresboxes_box2entry', 'Per ad persius epicuri accusamus, ea usu semper.' ) ) {
+					echo '<p>'. esc_textarea( get_theme_mod( 'denta_lite_featuresboxes_box2entry', 'Per ad persius epicuri accusamus, ea usu semper.' ) ) .'</p>';
+				}
+
+			echo '</div><!--/.features-box-->';
+
+		}
+
+		if ( get_theme_mod( 'denta_lite_featuresboxes_box3iconclass', 'fa-users' ) || get_theme_mod( 'denta_lite_featuresboxes_box3title', 'Qualified Doctors' ) || get_theme_mod( 'denta_lite_featuresboxes_box3entry', 'Per ad persius epicuri accusamus, ea usu semper.' ) ) {
+
+			echo '<div class="features-box">';
+
+				if ( get_theme_mod( 'denta_lite_featuresboxes_box3iconclass', 'fa-users' ) ) {
+					echo '<i class="features-box-icon fa '. esc_attr( get_theme_mod( 'denta_lite_featuresboxes_box3iconclass', 'fa-users' ) ) .'"></i>';
+				}
+
+				if ( get_theme_mod( 'denta_lite_featuresboxes_box3title', 'Qualified Doctors' ) ) {
+					echo '<h5>'. esc_attr( get_theme_mod( 'denta_lite_featuresboxes_box3title', 'Qualified Doctors' ) ) .'</h5>';
+				}
+
+				if ( get_theme_mod( 'denta_lite_featuresboxes_box3entry', 'Per ad persius epicuri accusamus, ea usu semper.' ) ) {
+					echo '<p>'. esc_textarea( get_theme_mod( 'denta_lite_featuresboxes_box3entry', 'Per ad persius epicuri accusamus, ea usu semper.' ) ) .'</p>';
+				}
+
+			echo '</div><!--/.features-box-->';
+
+		}
+
+	echo '</section><!--/#features.cf-->';
+	echo '</div><!--/.wrap-->';
+
+}
+?>
