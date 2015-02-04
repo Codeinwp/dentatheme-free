@@ -4,14 +4,20 @@
  */
 function denta_lite_customizer( $wp_customize ) {
 
-    $wp_customize->get_setting( 'blogname' )->transport = 'postMessage';
-    $wp_customize->get_setting( 'blogdescription' )->transport = 'postMessage';
-    $wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
-    $wp_customize->get_setting( 'background_color' )->transport = 'postMessage';
+    /**
+     *  Testimonials Page Note
+     */
+    class denta_lite_note extends WP_Customize_Control {
+        public function render_content() {
+            echo __( 'This feature is available in the <a href="'. esc_url( __( 'https://themeisle.com/themes/denta-theme', 'denta_lite' ) ) .'" title="premium version" target="_blank">premium version</a>.', 'denta_lite' );
 
-    function denta_lite_sanitize_callback_text( $input ) {
-        return wp_kses_post( force_balance_tags( $input ) );
+        }
     }
+
+    $wp_customize->get_setting( 'blogname' )->transport = 'refresh';
+    $wp_customize->get_setting( 'blogdescription' )->transport = 'refresh';
+    $wp_customize->get_setting( 'header_textcolor' )->transport = 'refresh';
+    $wp_customize->get_setting( 'background_color' )->transport = 'refresh';
 
     /**
      *  General Panel
@@ -112,14 +118,34 @@ function denta_lite_customizer( $wp_customize ) {
             ) );
 
         /**
-         *  Footer Section
+         *  Top Footer
          */
-        $wp_customize->add_section( 'denta_lite_general_footer_section', array(
+        $wp_customize->add_section( 'denta_lite_general_topfooter_section', array(
             'priority'          => 3,
             'capability'        => 'edit_theme_options',
             'theme_supports'    => '',
+            'title'             => __( 'Top Footer', 'denta_lite' ),
+            'description'       => __( 'Settings for top footer.', 'denta_lite' ),
+            'panel'             => 'denta_lite_general_panel',
+        ) );
+
+            // Note
+            $wp_customize->add_setting( 'denta_lite_general_topfooter_note', array(
+                'sanitize_callback' =>  'denta_lite_sanitize_callback_text'
+            ) );
+            $wp_customize->add_control( new denta_lite_note ( $wp_customize,'denta_lite_general_topfooter_note', array(
+                'section'  => 'denta_lite_general_topfooter_section'
+            ) ) );
+
+        /**
+         *  Footer Section
+         */
+        $wp_customize->add_section( 'denta_lite_general_footer_section', array(
+            'priority'          => 4,
+            'capability'        => 'edit_theme_options',
+            'theme_supports'    => '',
             'title'             => __( 'Footer', 'denta_lite' ),
-            'description'       => __( 'Settings for right header.', 'denta_lite' ),
+            'description'       => __( 'Settings for footer.', 'denta_lite' ),
             'panel'             => 'denta_lite_general_panel',
         ) );
 
@@ -133,7 +159,7 @@ function denta_lite_customizer( $wp_customize ) {
             ) );
             $wp_customize->add_control( 'denta_lite_footer_entry', array(
                 'type'          => 'textarea',
-                'priority'      => 1,
+                'priority'      => 2,
                 'section'       => 'denta_lite_general_footer_section',
                 'label'         => __( 'Entry:', 'denta_lite' )
             ) );
@@ -150,10 +176,27 @@ function denta_lite_customizer( $wp_customize ) {
     ) );
 
         /**
+         *  Subheader Section
+         */
+        $wp_customize->add_section( 'denta_lite_frontpage_subheader_section', array(
+            'title'     => __( 'Subheader', 'denta_lite' ),
+            'priority'  => 1,
+            'panel'     => 'denta_lite_frontpage_panel'
+        ) );
+
+            // Note
+            $wp_customize->add_setting( 'denta_lite_frontpage_subheader_note', array(
+                'sanitize_callback' =>  'denta_lite_sanitize_callback_text'
+            ) );
+            $wp_customize->add_control( new denta_lite_note ( $wp_customize,'denta_lite_frontpage_subheader_note', array(
+                'section'  => 'denta_lite_frontpage_subheader_section'
+            ) ) );
+
+        /**
          *  Features Boxes Section
          */
         $wp_customize->add_section( 'denta_lite_frontpage_featuresboxes_section', array(
-            'priority'          => 1,
+            'priority'          => 2,
             'capability'        => 'edit_theme_options',
             'theme_supports'    => '',
             'title'             => __( 'Features Boxes', 'denta_lite' ),
@@ -309,7 +352,7 @@ function denta_lite_customizer( $wp_customize ) {
          *  Featured Article Section
          */
         $wp_customize->add_section( 'denta_lite_frontpage_featuredarticle_section', array(
-            'priority'          => 2,
+            'priority'          => 3,
             'capability'        => 'edit_theme_options',
             'theme_supports'    => '',
             'title'             => __( 'Featured Article', 'denta_lite' ),
@@ -367,7 +410,7 @@ function denta_lite_customizer( $wp_customize ) {
          *  Latest News Section
          */
         $wp_customize->add_section( 'denta_lite_frontpage_latestnews_section', array(
-            'priority'          => 3,
+            'priority'          => 4,
             'capability'        => 'edit_theme_options',
             'theme_supports'    => '',
             'title'             => __( 'Latest News', 'denta_lite' ),
@@ -538,6 +581,61 @@ function denta_lite_customizer( $wp_customize ) {
                 'type'          => 'text'
             ) );
 
+    /**
+     *  Testimonials Page Section
+     */
+    $wp_customize->add_section( 'denta_lite_testimonialspage_section', array(
+        'title'         => __( 'Testimonials Page', 'denta_lite' ),
+        'description'   => __( 'Settings for testimonials page.', 'denta_lite' ),
+        'priority'      => 350
+    ) );
+
+        // Note
+        $wp_customize->add_setting( 'denta_lite_testimonialspage_note', array(
+            'sanitize_callback' =>  'denta_lite_sanitize_callback_text'
+        ) );
+        $wp_customize->add_control( new denta_lite_note ( $wp_customize,'denta_lite_testimonialspage_note', array(
+            'section'  => 'denta_lite_testimonialspage_section'
+        ) ) );
+
+    /**
+     *  Services Page Section
+     */
+    $wp_customize->add_section( 'denta_lite_servicespage_section', array(
+        'title'         => __( 'Services Page', 'denta_lite' ),
+        'description'   => __( 'Settings for services page.', 'denta_lite' ),
+        'priority'      => 400
+    ) );
+
+        // Note
+        $wp_customize->add_setting( 'denta_lite_servicespage_note', array(
+            'sanitize_callback' =>  'denta_lite_sanitize_callback_text'
+        ) );
+        $wp_customize->add_control( new denta_lite_note ( $wp_customize,'denta_lite_servicespage_note', array(
+            'section'  => 'denta_lite_servicespage_section'
+        ) ) );
+
 }
 add_action( 'customize_register', 'denta_lite_customizer' );
+
+/**
+ *  Sanitize Callback: Text
+ */
+function denta_lite_sanitize_callback_text( $input ) {
+     return wp_kses_post( force_balance_tags( $input ) );
+}
+
+/**
+ *  Registers
+ */
+function denta_lite_registers() {
+    wp_register_script( 'denta_lite_customizer_script', get_template_directory_uri() . '/js/denta_lite_customizer.js', array("jquery"), '20120206', true  );
+    wp_enqueue_script( 'denta_lite_customizer_script' );
+    wp_localize_script( 'denta_lite_customizer_script', 'denta_lite_buttons', array(
+        'doc'       => __( 'Documentation', 'denta_lite' ),
+        'pro'       => __( 'View PRO Version', 'denta_lite' )
+    ) );
+}
+add_action( 'customize_controls_enqueue_scripts', 'denta_lite_registers' );
+
 ?>
