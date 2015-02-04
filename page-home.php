@@ -7,15 +7,13 @@
  *	@package ThemeIsle.
  */
 get_header();
-get_template_part( 'includes/features' );
-get_template_part( 'includes/featured-article' ); ?>
+get_template_part( 'includes/featured-article' );
+get_template_part( 'includes/features' ); ?>
 <section id="latest-news">
 	<div class="wrap cf">
 		<?php
 		if ( get_theme_mod( 'denta_lite_latestnews_title' ) ) {
-			echo '<div class="fullwidth-title">'. get_theme_mod( 'denta_lite_latestnews_title' ) .'</div>';
-		} else {
-			echo '<div class="fullwidth-title">'. __( 'Latest News', 'denta_lite' ) .'</div>';
+			echo '<div class="fullwidth-title">'. esc_attr( get_theme_mod( 'denta_lite_latestnews_title', 'Latest News' ) ) .'</div>';
 		}
 		?>
 		<div class="latest-news-articles cf">

@@ -16,29 +16,29 @@
 		<header>
 
 			<?php
-			if ( get_theme_mod( 'denta_lite_topheader_title1' ) || get_theme_mod( 'denta_lite_topheader_content1' ) || get_theme_mod( 'denta_lite_topheader_title2' ) || get_theme_mod( 'denta_lite_topheader_content2' ) ) { ?>
+			if ( get_theme_mod( 'denta_lite_leftheader_title', 'Opening Hours:' ) || get_theme_mod( 'denta_lite_leftheader_entry', 'Monday to Saturday: 8am - 6pm' ) || get_theme_mod( 'denta_lite_rightheader_title', 'Contact Us:' ) || get_theme_mod( 'denta_lite_rightheader_telephonenumber', '+1 123 7798 33' ) ) { ?>
 
 				<div class="top-header">
 					<div class="wrap cf">
 						<div class="top-header-left">
 							<?php
-							if ( get_theme_mod( 'denta_lite_topheader_title1' ) ) {
-								echo get_theme_mod( 'denta_lite_topheader_title1' ) . '<br />';
+							if ( get_theme_mod( 'denta_lite_leftheader_title', 'Opening Hours:' ) ) {
+								echo esc_attr( get_theme_mod( 'denta_lite_leftheader_title', 'Opening Hours:' ) ) . '<br />';
 							}
 
-							if ( get_theme_mod( 'denta_lite_topheader_content1' ) ) {
-								echo '<span>'. get_theme_mod( 'denta_lite_topheader_content1' ) .'</span>';
+							if ( get_theme_mod( 'denta_lite_leftheader_entry', 'Monday to Saturday: 8am - 6pm' ) ) {
+								echo '<span>'. esc_textarea( get_theme_mod( 'denta_lite_leftheader_entry', 'Monday to Saturday: 8am - 6pm' ) ) .'</span>';
 							}
 							?>
 						</div><!--/.top-header-left-->
 						<div class="top-header-right">
 							<?php
-							if ( get_theme_mod( 'denta_lite_topheader_title2' ) ) {
-								echo get_theme_mod( 'denta_lite_topheader_title2' ) . '<br />';
+							if ( get_theme_mod( 'denta_lite_rightheader_title', 'Contact Us:' ) ) {
+								echo esc_attr( get_theme_mod( 'denta_lite_rightheader_title', 'Contact Us:' ) ) . '<br />';
 							}
 
-							if ( get_theme_mod( 'denta_lite_topheader_content2' ) ) {
-								echo '<span><a href="tel:'. get_theme_mod( 'denta_lite_topheader_content2' ) .'" title="'. get_theme_mod( 'denta_lite_topheader_content2' ) .'">'. get_theme_mod( 'denta_lite_topheader_content2' ) .'</a></span>';
+							if ( get_theme_mod( 'denta_lite_rightheader_telephonenumber', '+1 123 7798 33' ) ) {
+								echo '<span><a href="tel:'. esc_attr( get_theme_mod( 'denta_lite_rightheader_telephonenumber', '+1 123 7798 33' ) ) .'" title="'. esc_attr( get_theme_mod( 'denta_lite_rightheader_telephonenumber', '+1 123 7798 33' ) ) .'">'. esc_attr( get_theme_mod( 'denta_lite_rightheader_telephonenumber', '+1 123 7798 33' ) ) .'</a></span>';
 							}
 							?>
 						</div><!--/.top-header-right-->

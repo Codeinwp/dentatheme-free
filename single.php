@@ -88,7 +88,7 @@ get_header();
 						<?php the_title(); ?>
 					</a>
 					<div class="similar-article-entry">
-						<?php the_excerpt(); ?>
+						<?php echo limitwords( get_the_excerpt(), 30 ); ?>
 					</div><!--/.similar-article-entry-->
 				</div><!--/.similar-article-->
 
