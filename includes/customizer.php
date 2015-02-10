@@ -365,7 +365,8 @@ function denta_lite_customizer( $wp_customize ) {
                 'sanitize_callback' => 'esc_url',
                 'type'              => 'theme_mod',
                 'capability'        => 'edit_theme_options',
-                'transport'         => 'refresh'
+                'transport'         => 'refresh',
+                'default'           => get_template_directory_uri() . '/images/featured-article-image.jpg'
             ) );
             $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'denta_lite_featuredarticle_image', array(
                 'priority'  => 1,
