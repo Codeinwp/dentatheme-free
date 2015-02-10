@@ -159,11 +159,3 @@ if ( ! function_exists( '_wp_render_title_tag' ) ) {
     }
     add_action( 'wp_head', 'denta_lite_render_title' );
 }
-
-/**
- *  Limit words
- */
-function limitwords( $string, $word_limit ) {
-    $words = explode( " ",$string );
-    return implode( " ",array_splice( $words, 0, $word_limit ) );
-}

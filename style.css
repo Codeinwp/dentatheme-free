@@ -269,7 +269,7 @@ header {
   border-bottom: 1px solid #eee;
 }
 
-.home header {
+.page-template-page-home header {
   margin-bottom: 0;
 }
 
@@ -555,7 +555,30 @@ footer .footer-title {
 .footer-top-box3 .linkedin-icon:hover {
   background: #42b3e5 url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDE0IDE0Ij4KPGcgaWQ9Imljb21vb24taWdub3JlIj4KCTxsaW5lIHN0cm9rZS13aWR0aD0iMSIgeDE9IiIgeTE9IiIgeDI9IiIgeTI9IiIgc3Ryb2tlPSIjRkZGRkZGIiBvcGFjaXR5PSIiPjwvbGluZT4KPC9nPgoJPHBhdGggZD0iTTExLjY0OCAwaC05LjI5N2MtMS4yOTMgMC0yLjM1MiAxLjA1OC0yLjM1MiAyLjM1MnY5LjI5N2MwIDEuMjkzIDEuMDU4IDIuMzUyIDIuMzUyIDIuMzUyaDkuMjk3YzEuMjkzIDAgMi4zNTItMS4wNTggMi4zNTItMi4zNTJ2LTkuMjk3YzAtMS4yOTMtMS4wNTgtMi4zNTItMi4zNTItMi4zNTJ6TTUuMjUgMTEuMzc1aC0xLjc1di02LjEyNWgxLjc1djYuMTI1ek00LjM3NSA0LjM3NWMtMC40ODMgMC0wLjg3NS0wLjM5Mi0wLjg3NS0wLjg3NXMwLjM5Mi0wLjg3NSAwLjg3NS0wLjg3NSAwLjg3NSAwLjM5MiAwLjg3NSAwLjg3NS0wLjM5MiAwLjg3NS0wLjg3NSAwLjg3NXpNMTEuMzc1IDExLjM3NWgtMS43NXYtMy41YzAtMC40ODMtMC4zOTItMC44NzUtMC44NzUtMC44NzVzLTAuODc1IDAuMzkyLTAuODc1IDAuODc1djMuNWgtMS43NXYtNi4xMjVoMS43NXYxLjA4N2MwLjM2MS0wLjQ5NiAwLjkxMy0xLjA4NyAxLjUzMS0xLjA4NyAxLjA4NyAwIDEuOTY5IDAuOTc5IDEuOTY5IDIuMTg4djMuOTM4eiIgZmlsbD0iI0ZGRkZGRiI+PC9wYXRoPgo8L3N2Zz4K) no-repeat center;
 }
-
+.footer-left {
+  float: left;
+}
+.footer-right {
+  float: right;
+}
+.footer-left,
+.footer-right {
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  font-style: italic;
+  color: #b2b2b2;
+}
+.footer-left a,
+.footer-right a {
+  color: #b2b2b2;
+  text-decoration: none;
+}
+.footer-left a:hover,
+.footer-right a:hover {
+  text-decoration: underline;
+}
+/*
 .footer-copyright {
   width: 100%;
   height: 30px;
@@ -574,6 +597,7 @@ footer .footer-title {
 .footer-copyright a:hover {
   text-decoration: underline;
 }
+*/
 
 /**
  *	2 - Index
