@@ -7,6 +7,7 @@
  *	@package ThemeIsle.
  */
 get_header();
+get_template_part( 'includes/subheader' );
 get_template_part( 'includes/features' );
 get_template_part( 'includes/featured-article' );
 ?>

@@ -606,6 +606,7 @@ footer .footer-title {
 #subheader {
   width: 100%;
   background: #f1f1f1;
+  padding: 60px 0;
 }
 
 .subheader-center {
@@ -616,11 +617,7 @@ footer .footer-title {
 }
 
 .subheader-content {
-  width: 572px;
-  margin: 120px 0 277px 32px;
-  position: relative;
-  z-index: 1;
-  float: left;
+  width: 100%;
 }
 .subheader-content h3 {
   display: block;
@@ -628,7 +625,7 @@ footer .footer-title {
   font-size: 32px;
 }
 .subheader-content p {
-  margin-top: 60px;
+  margin-top: 30px;
   display: block;
   line-height: 24px;
   font-size: 14px;
@@ -637,12 +634,12 @@ footer .footer-title {
 .subheader-content .subheader-content-more {
   height: 39px;
   background: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIyMiIgaGVpZ2h0PSIyMiIgdmlld0JveD0iMCAwIDIyIDIyIj4KPGcgaWQ9Imljb21vb24taWdub3JlIj4KCTxsaW5lIHN0cm9rZS13aWR0aD0iMSIgeDE9IiIgeTE9IiIgeDI9IiIgeTI9IiIgc3Ryb2tlPSIjMzE0YjYwIiBvcGFjaXR5PSIiPjwvbGluZT4KPC9nPgoJPHBhdGggZD0iTTE2LjUyIDE2LjVsLTAuMDAxLTMuNTUxLTE2LjI5OSAwLjAwMXYtMy45MDhoMTYuM2wtMC4wMDEtMy41NDIgNS4yNjEgNS41eiIgZmlsbD0iIzMxNGI2MCI+PC9wYXRoPgo8L3N2Zz4K) no-repeat 88% center;
-  margin: 67px 0 0 0;
+  margin: 30px 0 0 0;
   padding: 0 58px 0 26px;
   line-height: 39px;
   border: 3px solid #314b60;
   border-radius: 15px;
-  display: block;
+  display: inline-block;
   font-weight: 700;
   text-decoration: none;
   -webkit-transition: all 0.3s;
@@ -650,7 +647,6 @@ footer .footer-title {
   -o-transition: all 0.3s;
   -ms-transition: all 0.3s;
   transition: all 0.3s;
-  float: left;
 }
 .subheader-content .subheader-content-more:hover {
   background: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIyMiIgaGVpZ2h0PSIyMiIgdmlld0JveD0iMCAwIDIyIDIyIj4KPGcgaWQ9Imljb21vb24taWdub3JlIj4KCTxsaW5lIHN0cm9rZS13aWR0aD0iMSIgeDE9IiIgeTE9IiIgeDI9IiIgeTI9IiIgc3Ryb2tlPSIjMzE0YjYwIiBvcGFjaXR5PSIiPjwvbGluZT4KPC9nPgoJPHBhdGggZD0iTTE2LjUyIDE2LjVsLTAuMDAxLTMuNTUxLTE2LjI5OSAwLjAwMXYtMy45MDhoMTYuM2wtMC4wMDEtMy41NDIgNS4yNjEgNS41eiIgZmlsbD0iIzMxNGI2MCI+PC9wYXRoPgo8L3N2Zz4K) no-repeat 90% center;
