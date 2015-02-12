@@ -1,5 +1,96 @@
 
 
+### 1.1.7 - 12/02/2015
+
+ Changes: 
+
+
+ * Issue #48 (screenshot f urat) fixed
+
+asta inca nu arata grozav, ar trebui pus text mai ok + activata
+sectiunea cu about us /article section
+ * Issue #61 (similar article size) fixed
+
+We should limit the similar article text and left-align the text :
+http://awesomescreenshot.com/0624aniv08
+ * Issues: #56 (Default settings), #57 (panelfrontpage) and #59 (Copyright issue) fixed
+
+Issue #56:
+
+oate chestiile din customizer ar trebui sa aibe valori default ( vezi
+zerif ) , adica atunci cand lumea instaleaza tema, site-ul nu numai ca
+arata bine, dar are deja completat customizerul
+
+@robi09 asa ar trebui sa facem la toate temele
+
+Issue #57:
+
+@robi09 @robciucioan
+In customizer frontpage ar trebui sa fie de tip panel, iar apoi setting
+boxes pt feature box 1, 2,3 , featured article, latest news ( de unde sa
+poate modifica si nr default de posturi )
+
+comentariile astea se aplica la toate temele
+
+Issue #59
+
+Tema ar trebui sa contina in dreapta hardcodat : denta lite powered by
+wordpress, iar in stanga sa ramana chestia de copyright care poate fi
+modificata ( dar cu valoare default in customizer cum am zis )
+
+Formatul ar trebui sa fie la fel ca la restul temelor cu link nofollow
+etc.
+@robi09
+ * Issue #64 (Reintroducere sectiune about us) fixed
+
+Reintrodu sectiunea about us in tema pls.
+ * Revert "Issue #64 (Reintroducere sectiune about us) fixed"
+
+This reverts commit 9fd893469614fa9433a8588082bd3fb7de6ef459.
+ * Issue #63 (Reintroducere sectiune about us) fixed
+
+Reintrodu sectiunea about us in tema pls.
+ * Issue #62 (Upsell in customizer) fixed
+
+@robi09 @robciucioan parca am zis asta de cateva ori, lipsesc boxurile
+de upgrade, ca la constructzine lite :
+http://awesomescreenshot.com/0cb4ank2b8
+ * Merge pull request #66 from robciucioan/development
+
+Development
+ * Issue #61 (Adauga prefix la functia limitwords() .) fixed
+ * Update style.css
+ * Issue #59 (Copyright issue) fixed
+
+Tema ar trebui sa contina in dreapta hardcodat : denta lite powered by
+wordpress, iar in stanga sa ramana chestia de copyright care poate fi
+modificata ( dar cu valoare default in customizer cum am zis )
+
+Formatul ar trebui sa fie la fel ca la restul temelor cu link nofollow
+etc.
+ * Issue #64 (Customizer text 1) fixed
+
+ma refer la asta http://awesomescreenshot.com/0524dkhr86, dar uite cum
+ar trebui sa arate default :http://demo.themeisle.com/dentatheme/ ( cu o
+imagine GPL )
+ * Issue #60 (demo issues) fixed
+
+poti pune o imagine blank ca la zerif
+ * Issue #60 (demo issues) fixed
+
+da e mai ok, dar tot trebuiesc widgeturile de jos, 4 posturi cu imagini
+etc. Cine a zis sa scoti partea aia de sus ? adica puteai scoate femeia,
+dar nu si sectiunea, se vede f rau direct alea 3 features nu ?
+ * Issue #59 (Copyright issue) fixed
+ * Merge pull request #68 from robciucioan/development
+
+Issue #61 (Adauga prefix la functia limitwords() .) fixed
+ * Fixed conflict
+ * Merge branch 'robciucioan-development' into development
+ * Fixed front page and other small issues
+ * Added link to the theme in footer
+
+
 ### 1.1.6 - 28/01/2015
 
  Changes: 
