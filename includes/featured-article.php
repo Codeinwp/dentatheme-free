@@ -1,11 +1,11 @@
 <?php
-if ( get_theme_mod( 'denta_lite_featuredarticle_image' ) || get_theme_mod( 'denta_lite_featuredarticle_title', 'Welcome to Our Center' ) || get_theme_mod( 'denta_lite_featuredarticle_entry' ) ) { ?>
+if ( get_theme_mod( 'denta_lite_featuredarticle_image', get_template_directory_uri() . '/images/featured-article-image.jpg' ) || get_theme_mod( 'denta_lite_featuredarticle_title', 'Welcome to Our Center' ) || get_theme_mod( 'denta_lite_featuredarticle_entry' ) ) { ?>
 
 	<section id="featured-article">
 		<div class="wrap cf">
 			<?php
-			if ( get_theme_mod( 'denta_lite_featuredarticle_image' ) ) {
-				echo '<div class="featured-article-image"><img src="'. esc_url( get_theme_mod( 'denta_lite_featuredarticle_image' ) ) .'" alt="'. esc_attr( get_theme_mod( 'denta_lite_featuredarticle_title', 'Welcome to Our Center' ) ) .'" title="'. esc_attr( get_theme_mod( 'denta_lite_featuredarticle_title', 'Welcome to Our Center' ) ) .'" /></div>';
+			if ( get_theme_mod( 'denta_lite_featuredarticle_image', get_template_directory_uri() . '/images/featured-article-image.jpg' ) ) {
+				echo '<div class="featured-article-image"><img src="'. esc_url( get_theme_mod( 'denta_lite_featuredarticle_image', get_template_directory_uri() . '/images/featured-article-image.jpg' ) ) .'" alt="'. esc_attr( get_theme_mod( 'denta_lite_featuredarticle_title', 'Welcome to Our Center' ) ) .'" title="'. esc_attr( get_theme_mod( 'denta_lite_featuredarticle_title', 'Welcome to Our Center' ) ) .'" /></div>';
 			}
 			?>
 			<div class="featured-article-content">

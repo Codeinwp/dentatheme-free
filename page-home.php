@@ -7,8 +7,10 @@
  *	@package ThemeIsle.
  */
 get_header();
+get_template_part( 'includes/subheader' );
+get_template_part( 'includes/features' );
 get_template_part( 'includes/featured-article' );
-get_template_part( 'includes/features' ); ?>
+?>
 <section id="latest-news">
 	<div class="wrap cf">
 		<?php
@@ -33,6 +35,14 @@ get_template_part( 'includes/features' ); ?>
 						<?php
 						if ( $featured_image ) { ?>
 							<a href="<?php the_permalink(); ?>" class="article-featured-image" style="background-image: url(<?php echo $featured_image[0]; ?>);">
+								<div class="article-featured-background-hover">
+								</div><!--/.article-featured-background-hover-->
+								<div class="article-featured-image-hover">
+									<?php _e( 'Read More', 'denta_lite' ); ?>
+								</div><!--/.article-featured-image-hover-->
+							</a><!--/.article-featured-image-->
+						<?php } else { ?>
+							<a href="<?php the_permalink(); ?>" class="article-featured-image" style="background-image: url(<?php echo get_template_directory_uri(); ?>/images/latest-news-blank-image.png);">
 								<div class="article-featured-background-hover">
 								</div><!--/.article-featured-background-hover-->
 								<div class="article-featured-image-hover">
