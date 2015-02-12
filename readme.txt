@@ -60,3 +60,7 @@ The exceptions to this license are as follows:
 	Copyright (c) 2011, Igino Marini. (http://www.ikern.com|mail@iginomarini.com)
 	https://www.google.com/fonts/specimen/Cabin
 	This Font Software is licensed under the SIL Open Font License, Version 1.1.
+
+* images/featured-article-image.jpg
+	Copyright (C) PicJumbo
+	http://picjumbo.com/writing-with-a-graphic-pen/
