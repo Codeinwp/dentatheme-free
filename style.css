@@ -9,7 +9,7 @@ License URI: license.txt
 Tags: white, light, two-columns, right-sidebar, custom-header, custom-menu, featured-images, rtl-language-support, sticky-post, translation-ready
 Text Domain: denta_lite
 Domain Path: /languages/
-Version: 1.1.6
+Version: 1.1.7
 
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
@@ -267,6 +267,10 @@ header {
   width: 100%;
   margin-bottom: 60px;
   border-bottom: 1px solid #eee;
+}
+
+.page-template-page-home header {
+  margin-bottom: 0;
 }
 
 .top-header {
@@ -551,7 +555,30 @@ footer .footer-title {
 .footer-top-box3 .linkedin-icon:hover {
   background: #42b3e5 url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDE0IDE0Ij4KPGcgaWQ9Imljb21vb24taWdub3JlIj4KCTxsaW5lIHN0cm9rZS13aWR0aD0iMSIgeDE9IiIgeTE9IiIgeDI9IiIgeTI9IiIgc3Ryb2tlPSIjRkZGRkZGIiBvcGFjaXR5PSIiPjwvbGluZT4KPC9nPgoJPHBhdGggZD0iTTExLjY0OCAwaC05LjI5N2MtMS4yOTMgMC0yLjM1MiAxLjA1OC0yLjM1MiAyLjM1MnY5LjI5N2MwIDEuMjkzIDEuMDU4IDIuMzUyIDIuMzUyIDIuMzUyaDkuMjk3YzEuMjkzIDAgMi4zNTItMS4wNTggMi4zNTItMi4zNTJ2LTkuMjk3YzAtMS4yOTMtMS4wNTgtMi4zNTItMi4zNTItMi4zNTJ6TTUuMjUgMTEuMzc1aC0xLjc1di02LjEyNWgxLjc1djYuMTI1ek00LjM3NSA0LjM3NWMtMC40ODMgMC0wLjg3NS0wLjM5Mi0wLjg3NS0wLjg3NXMwLjM5Mi0wLjg3NSAwLjg3NS0wLjg3NSAwLjg3NSAwLjM5MiAwLjg3NSAwLjg3NS0wLjM5MiAwLjg3NS0wLjg3NSAwLjg3NXpNMTEuMzc1IDExLjM3NWgtMS43NXYtMy41YzAtMC40ODMtMC4zOTItMC44NzUtMC44NzUtMC44NzVzLTAuODc1IDAuMzkyLTAuODc1IDAuODc1djMuNWgtMS43NXYtNi4xMjVoMS43NXYxLjA4N2MwLjM2MS0wLjQ5NiAwLjkxMy0xLjA4NyAxLjUzMS0xLjA4NyAxLjA4NyAwIDEuOTY5IDAuOTc5IDEuOTY5IDIuMTg4djMuOTM4eiIgZmlsbD0iI0ZGRkZGRiI+PC9wYXRoPgo8L3N2Zz4K) no-repeat center;
 }
-
+.footer-left {
+  float: left;
+}
+.footer-right {
+  float: right;
+}
+.footer-left,
+.footer-right {
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  font-style: italic;
+  color: #b2b2b2;
+}
+.footer-left a,
+.footer-right a {
+  color: #b2b2b2;
+  text-decoration: none;
+}
+.footer-left a:hover,
+.footer-right a:hover {
+  text-decoration: underline;
+}
+/*
 .footer-copyright {
   width: 100%;
   height: 30px;
@@ -570,6 +597,7 @@ footer .footer-title {
 .footer-copyright a:hover {
   text-decoration: underline;
 }
+*/
 
 /**
  *	2 - Index
@@ -578,6 +606,7 @@ footer .footer-title {
 #subheader {
   width: 100%;
   background: #f1f1f1;
+  padding: 60px 0;
 }
 
 .subheader-center {
@@ -588,11 +617,7 @@ footer .footer-title {
 }
 
 .subheader-content {
-  width: 572px;
-  margin: 120px 0 277px 32px;
-  position: relative;
-  z-index: 1;
-  float: left;
+  width: 100%;
 }
 .subheader-content h3 {
   display: block;
@@ -600,7 +625,7 @@ footer .footer-title {
   font-size: 32px;
 }
 .subheader-content p {
-  margin-top: 60px;
+  margin-top: 30px;
   display: block;
   line-height: 24px;
   font-size: 14px;
@@ -609,12 +634,12 @@ footer .footer-title {
 .subheader-content .subheader-content-more {
   height: 39px;
   background: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIyMiIgaGVpZ2h0PSIyMiIgdmlld0JveD0iMCAwIDIyIDIyIj4KPGcgaWQ9Imljb21vb24taWdub3JlIj4KCTxsaW5lIHN0cm9rZS13aWR0aD0iMSIgeDE9IiIgeTE9IiIgeDI9IiIgeTI9IiIgc3Ryb2tlPSIjMzE0YjYwIiBvcGFjaXR5PSIiPjwvbGluZT4KPC9nPgoJPHBhdGggZD0iTTE2LjUyIDE2LjVsLTAuMDAxLTMuNTUxLTE2LjI5OSAwLjAwMXYtMy45MDhoMTYuM2wtMC4wMDEtMy41NDIgNS4yNjEgNS41eiIgZmlsbD0iIzMxNGI2MCI+PC9wYXRoPgo8L3N2Zz4K) no-repeat 88% center;
-  margin: 67px 0 0 0;
+  margin: 30px 0 0 0;
   padding: 0 58px 0 26px;
   line-height: 39px;
   border: 3px solid #314b60;
   border-radius: 15px;
-  display: block;
+  display: inline-block;
   font-weight: 700;
   text-decoration: none;
   -webkit-transition: all 0.3s;
@@ -622,7 +647,6 @@ footer .footer-title {
   -o-transition: all 0.3s;
   -ms-transition: all 0.3s;
   transition: all 0.3s;
-  float: left;
 }
 .subheader-content .subheader-content-more:hover {
   background: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIyMiIgaGVpZ2h0PSIyMiIgdmlld0JveD0iMCAwIDIyIDIyIj4KPGcgaWQ9Imljb21vb24taWdub3JlIj4KCTxsaW5lIHN0cm9rZS13aWR0aD0iMSIgeDE9IiIgeTE9IiIgeDI9IiIgeTI9IiIgc3Ryb2tlPSIjMzE0YjYwIiBvcGFjaXR5PSIiPjwvbGluZT4KPC9nPgoJPHBhdGggZD0iTTE2LjUyIDE2LjVsLTAuMDAxLTMuNTUxLTE2LjI5OSAwLjAwMXYtMy45MDhoMTYuM2wtMC4wMDEtMy41NDIgNS4yNjEgNS41eiIgZmlsbD0iIzMxNGI2MCI+PC9wYXRoPgo8L3N2Zz4K) no-repeat 90% center;
@@ -876,7 +900,7 @@ h4 {
 }
 
 .featured-article-image {
-  width: 494px;
+  /* width: 494px; */
   margin: 0 58px 30px 0;
   float: left;
 }
@@ -1995,7 +2019,6 @@ h4 {
   font-size: 16px;
   color: #545658;
   text-decoration: none;
-  text-align: center;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   -o-transition: all 0.3s;
@@ -2011,7 +2034,6 @@ h4 {
   line-height: 24px;
   font-size: 14px;
   color: #646464;
-  text-align: center;
   word-break: break-word;
 }
 
