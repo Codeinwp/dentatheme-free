@@ -4,7 +4,7 @@
  *
  *	The template for displaying 404.
  *
- *	@package 9Pixels.
+ *	@package ThemeIsle.
  */
 get_header();
 ?>

@@ -2,7 +2,7 @@
 /**
  *	The template for displaying Single.
  *
- *	@package 9Pixels.
+ *	@package ThemeIsle.
  */
 get_header();
 ?>
@@ -26,7 +26,7 @@ get_header();
 					<div class="article-meta-left">
 						<?php _e( 'Posted by', 'denta_lite' ); ?> <?php the_author_posts_link(); ?> <?php _e( 'on', 'denta_lite' ); ?> <?php echo get_the_date(); ?>
 					</div><!--/.article-meta-left-->
-					<a href="#comments-template" title="<?php comments_number( 'No responses', 'One comment', '% comments' ); ?>" class="article-meta-right"><?php comments_number( 'No responses', 'One comment', '% comments' ); ?>
+					<a href="#comments-template" title="<?php comments_number( __('No responses','denta_lite'), __('One comment','denta_lite'), __('% comments','denta_lite') ); ?>" class="article-meta-right"><?php comments_number( __('No responses','denta_lite'), __('One comment','denta_lite'), __('% comments','denta_lite') ); ?>
 					</a><!--/.article-meta-right-->
 				</div><!--/.article-meta.cf-->
 				<div class="single-article-entry">
@@ -42,7 +42,7 @@ get_header();
 
 				if ( has_tag() ) {
 					echo '<div class="single-article-tags">';
-					the_tags('<span>Tags:</span> ');
+					the_tags('<span>'.__('Tags:','denta_lite').'</span> ');
 					echo '</div>';
 				}
 				?>
@@ -62,7 +62,7 @@ get_header();
 		$args=array(
 			'category__in'		=> $category_ids,
 			'post__not_in'		=> array($post->ID),
-			'caller_get_posts'	=> 1
+			'ignore_sticky_posts'	=> 1
 		);
 
 	 	$my_query = new wp_query($args);
@@ -83,6 +83,9 @@ get_header();
 		 			if ( $featured_image ) {
 		 				echo '<div class="similar-article-image" style="background-image: url('. $featured_image[0] .');"></div>';
 		 			}
+					else {
+						echo '<div class="similar-article-image" style="background-image: url('. get_template_directory_uri().'/images/default.png);"></div>';
+					}
 		 			?>
 					<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
 						<?php the_title(); ?>

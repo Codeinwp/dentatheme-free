@@ -2,7 +2,7 @@
 /**
  *	The template for displaying Sidebar.
  *
- *	@package 9Pixels.
+ *	@package ThemeIsle.
  */
 ?>
 <aside id="sidebar">

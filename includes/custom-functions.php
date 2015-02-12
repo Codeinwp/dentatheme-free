@@ -171,9 +171,6 @@ function denta_lite_post_gallery($output, $attr) {
 
     // Now you loop through each attachment
     foreach ($attachments as $id => $attachment) {
-        // Fetch the thumbnail (or full image, it's up to you)
-//      $img = wp_get_attachment_image_src($id, 'medium');
-//      $img = wp_get_attachment_image_src($id, 'my-custom-image-size');
         $img = wp_get_attachment_image_src($id, 'full');
 
         $output .= "<dl class='gallery-item gallery-columns-". $columns ."'>";
