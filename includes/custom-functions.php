@@ -191,4 +191,12 @@ function denta_lite_post_gallery($output, $attr) {
     return $output;
 }
 
+/**
+ *  Limit words
+ */
+function denta_lite_limitwords( $string, $word_limit ) {
+    $words = explode( " ",$string );
+    return implode( " ",array_splice( $words, 0, $word_limit ) );
+}
+
 ?>
