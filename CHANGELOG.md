@@ -1,5 +1,13 @@
 
 
+### 1.1.7 - 18/02/2015
+
+ Changes: 
+
+
+ * Fixed custmizer erorr sanitization
+
+
 ### 1.1.7 - 12/02/2015
 
  Changes: 
