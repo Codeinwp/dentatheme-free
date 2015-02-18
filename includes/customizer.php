@@ -254,7 +254,7 @@ function denta_lite_customizer( $wp_customize ) {
 
             // Entry
             $wp_customize->add_setting( 'denta_lite_footer_entry', array(
-                'default'           => 'Copyright &copy; ThemeIsle.',
+                'default'           => 'Copyright ThemeIsle.',
                 'type'              => 'theme_mod',
                 'capability'        => 'edit_theme_options',
                 'transport'         => 'refresh',
