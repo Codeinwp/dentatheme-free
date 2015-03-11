@@ -9,10 +9,6 @@
 	<?php
 	if ( is_dynamic_sidebar( 'general_sidebar' ) ) {
 		dynamic_sidebar( 'general_sidebar' );
-	} else if ( is_user_logged_in() ) {
-		echo '<div class="widget">';
-		_e( 'The widget is not active.', 'denta_lite' );
-		echo '</div>';
 	} else {
 
 		$widget_args = array(
