@@ -1,5 +1,20 @@
 
 
+### 1.1.8 - 11/03/2015
+
+ Changes: 
+
+
+ * -removed free in the description in style.css; -fixed the widget area to display default widget
+ * Merge pull request #75 from cristian-ungureanu/development
+
+Small fixes
+ * Merge pull request #76 from Codeinwp/production
+
+Sync dev with pro
+ * Update style.css
+
+
 ### 1.1.7 - 18/02/2015
 
  Changes: 
