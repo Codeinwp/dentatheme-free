@@ -64,3 +64,5 @@ The exceptions to this license are as follows:
 * images/featured-article-image.jpg
 	Copyright (C) PicJumbo
 	http://picjumbo.com/writing-with-a-graphic-pen/
+
+* Image from screenshot: https://download.unsplash.com/photo-1414690165279-49ab0a9a7e66	
