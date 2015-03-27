@@ -1,5 +1,13 @@
 
 
+### 1.1.9 - 27/03/2015
+
+ Changes: 
+
+
+ * Fixed wp.org review, escape footer url, added .pot file, and fixed template for custom metaboxes
+
+
 ### 1.1.8 - 11/03/2015
 
  Changes: 
