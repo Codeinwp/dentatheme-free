@@ -24,7 +24,7 @@ function dentatheme_metaboxes( array $meta_boxes ) {
 		'id'         => 'page_custom_metaboxes',
 		'title'      => __( 'Informations', 'denta_lite' ),
 		'pages'      => array( 'page' ),
-		'show_on'    => array( 'key' => 'page-template', 'value' => 'page-custom.php' ),
+		'show_on'    => array( 'key' => 'template-template', 'value' => 'template-custom.php' ),
 		'context'    => 'normal',
 		'priority'   => 'high',
 		'show_names' => true,
