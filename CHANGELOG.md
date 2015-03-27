@@ -1,5 +1,13 @@
 
 
+### 1.2.0 - 27/03/2015
+
+ Changes: 
+
+
+ * Removed metaboxes, custom template and replaced screenshot
+
+
 ### 1.1.9 - 27/03/2015
 
  Changes: 
