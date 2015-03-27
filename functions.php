@@ -4,7 +4,6 @@
  *	Require Once
  */
 require_once( 'includes/customizer.php' );
-require_once( 'includes/metaboxes/custom-metaboxes.php' );
 require_once( 'includes/custom-functions.php' );
 require_once( 'includes/custom-widgets.php' );
 
