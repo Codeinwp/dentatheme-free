@@ -1,5 +1,13 @@
 
 
+### 1.2.1 - 31/03/2015
+
+ Changes: 
+
+
+ * Regenerated and renamed pot file
+
+
 ### 1.2.0 - 27/03/2015
 
  Changes: 
