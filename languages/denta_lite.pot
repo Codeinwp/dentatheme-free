@@ -1,26 +1,24 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Denta Lite\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-27 15:00+0200\n"
-"PO-Revision-Date: 2015-03-27 15:01+0200\n"
+"POT-Creation-Date: 2015-03-30 23:53-0800\n"
+"PO-Revision-Date: 2015-03-30 23:54-0800\n"
 "Last-Translator: \n"
 "Language-Team: codeinwp <support@codeinwp.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: ../\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: includes\n"
 
-#: 404.php:26
-#: 404.php:27
+#: 404.php:26 404.php:27 includes/customizer.php:654
 msgid "home page"
 msgstr ""
 
-#: archive.php:18
-#: archive.php:20
+#: archive.php:18 archive.php:20
 #, php-format
 msgid "%s"
 msgstr ""
@@ -30,79 +28,43 @@ msgstr ""
 msgid "%s."
 msgstr ""
 
-#: archive.php:52
-#: index.php:32
-#: search.php:34
-#: single.php:27
+#: archive.php:52 index.php:32 search.php:34 single.php:27
 #: template-blog.php:40
 msgid "Posted by"
 msgstr ""
 
-#: archive.php:52
-#: index.php:32
-#: search.php:34
-#: single.php:27
+#: archive.php:52 index.php:32 search.php:34 single.php:27
 #: template-blog.php:40
 msgid "on"
 msgstr ""
 
-#: archive.php:54
-#: search.php:36
-#: template-blog.php:42
+#: archive.php:54 search.php:36 template-blog.php:42
 msgid "No responses1"
 msgstr ""
 
-#: archive.php:54
-#: archive.php:55
-#: index.php:34
-#: index.php:35
-#: search.php:36
-#: search.php:37
-#: single.php:29
-#: template-blog.php:42
-#: template-blog.php:43
+#: archive.php:54 archive.php:55 index.php:34 index.php:35 search.php:36
+#: search.php:37 single.php:29 template-blog.php:42 template-blog.php:43
 msgid "One comment"
 msgstr ""
 
-#: archive.php:54
-#: archive.php:55
-#: index.php:34
-#: index.php:35
-#: search.php:36
-#: search.php:37
-#: single.php:29
-#: template-blog.php:42
-#: template-blog.php:43
+#: archive.php:54 archive.php:55 index.php:34 index.php:35 search.php:36
+#: search.php:37 single.php:29 template-blog.php:42 template-blog.php:43
 #, php-format
 msgid "% comments"
 msgstr ""
 
-#: archive.php:55
-#: index.php:34
-#: index.php:35
-#: search.php:37
-#: single.php:29
+#: archive.php:55 index.php:34 index.php:35 search.php:37 single.php:29
 #: template-blog.php:43
 msgid "No responses"
 msgstr ""
 
-#: archive.php:61
-#: archive.php:62
-#: front-page.php:71
-#: front-page.php:79
-#: index.php:41
-#: index.php:42
-#: search.php:43
-#: search.php:44
-#: template-blog.php:49
+#: archive.php:61 archive.php:62 front-page.php:71 front-page.php:79
+#: index.php:41 index.php:42 search.php:43 search.php:44 template-blog.php:49
 #: template-blog.php:50
 msgid "Read More"
 msgstr ""
 
-#: archive.php:68
-#: front-page.php:94
-#: index.php:48
-#: search.php:50
+#: archive.php:68 front-page.php:94 index.php:48 search.php:50
 #: template-blog.php:56
 msgid "No posts found."
 msgstr ""
@@ -111,18 +73,15 @@ msgstr ""
 msgid "Leave a Comment"
 msgstr ""
 
-#: comments.php:31
-#: comments.php:48
+#: comments.php:31 comments.php:48
 msgid "Comment navigation"
 msgstr ""
 
-#: comments.php:32
-#: comments.php:49
+#: comments.php:32 comments.php:49
 msgid "&larr; Older Comments"
 msgstr ""
 
-#: comments.php:33
-#: comments.php:50
+#: comments.php:33 comments.php:50
 msgid "Newer Comments &rarr;"
 msgstr ""
 
@@ -142,16 +101,18 @@ msgstr ""
 msgid "WordPress"
 msgstr ""
 
-#: functions.php:53
+#: functions.php:52
 msgid "Header Navigation"
 msgstr ""
 
-#: functions.php:114
+#: functions.php:113
 msgid "General Sidebar"
 msgstr ""
 
-#: functions.php:115
-msgid "Use this sidebar to display widgets in your website, including posts and pages."
+#: functions.php:114
+msgid ""
+"Use this sidebar to display widgets in your website, including posts and "
+"pages."
 msgstr ""
 
 #: index.php:11
@@ -196,8 +157,7 @@ msgstr ""
 msgid "Your comment is awaiting moderation."
 msgstr ""
 
-#: includes/custom-widgets.php:10
-#: includes/custom-widgets.php:46
+#: includes/custom-widgets.php:10 includes/custom-widgets.php:46
 msgid "Custom Search"
 msgstr ""
 
@@ -205,7 +165,11 @@ msgstr ""
 msgid "Custom Search widget."
 msgstr ""
 
-#: includes/custom-widgets.php:50
+#: includes/custom-widgets.php:50 includes/customizer.php:57
+#: includes/customizer.php:100 includes/customizer.php:302
+#: includes/customizer.php:318 includes/customizer.php:549
+#: includes/customizer.php:593 includes/customizer.php:632
+#: includes/customizer.php:692
 msgid "Title:"
 msgstr ""
 
@@ -217,8 +181,7 @@ msgstr ""
 msgid "This feature is available in the <a href=\""
 msgstr ""
 
-#: includes/customizer.php:29
-#: includes/customizer.php:615
+#: includes/customizer.php:29 includes/customizer.php:615
 msgid "General"
 msgstr ""
 
@@ -242,10 +205,8 @@ msgstr ""
 msgid "Monday to Saturday: 8am - 6pm"
 msgstr ""
 
-#: includes/customizer.php:73
-#: includes/customizer.php:267
-#: includes/customizer.php:566
-#: includes/customizer.php:665
+#: includes/customizer.php:73 includes/customizer.php:267
+#: includes/customizer.php:566 includes/customizer.php:665
 msgid "Entry:"
 msgstr ""
 
@@ -282,22 +243,23 @@ msgid "Logo:"
 msgstr ""
 
 #: includes/customizer.php:149
-msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua."
 msgstr ""
 
-#: includes/customizer.php:159
-#: includes/customizer.php:175
+#: includes/customizer.php:159 includes/customizer.php:175
 msgid "Entry 1:"
 msgstr ""
 
 #: includes/customizer.php:165
-msgid "<p>Denta Theme Ltd</p><p>7th Avenue</p><p>123 45 Oklahoma</p><p>contact@yourwebsite.com</p><p>+1 123 7798 33</p>"
+msgid ""
+"<p>Denta Theme Ltd</p><p>7th Avenue</p><p>123 45 Oklahoma</"
+"p><p>contact@yourwebsite.com</p><p>+1 123 7798 33</p>"
 msgstr ""
 
-#: includes/customizer.php:181
-#: includes/customizer.php:197
-#: includes/customizer.php:213
-#: includes/customizer.php:229
+#: includes/customizer.php:181 includes/customizer.php:197
+#: includes/customizer.php:213 includes/customizer.php:229
 #: includes/customizer.php:340
 msgid "#"
 msgstr ""
@@ -343,7 +305,15 @@ msgid "Dental Services That You Can Trust"
 msgstr ""
 
 #: includes/customizer.php:308
-msgid "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus."
+msgid ""
+"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis "
+"praesentium voluptatum deleniti atque corrupti quos dolores et quas "
+"molestias excepturi sint occaecati cupiditate non provident, similique sunt "
+"in culpa qui officia deserunt mollitia animi, id est laborum et dolorum "
+"fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero "
+"tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus "
+"id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis "
+"dolor repellendus."
 msgstr ""
 
 #: includes/customizer.php:324
@@ -374,26 +344,22 @@ msgstr ""
 msgid "Box 1 - Icon Class:"
 msgstr ""
 
-#: includes/customizer.php:379
-#: includes/customizer.php:427
+#: includes/customizer.php:379 includes/customizer.php:427
 #: includes/customizer.php:475
 msgid "Search the classes for more icons from "
 msgstr ""
 
-#: includes/customizer.php:379
-#: includes/customizer.php:427
+#: includes/customizer.php:379 includes/customizer.php:427
 #: includes/customizer.php:475
 msgid "http://fortawesome.github.io/Font-Awesome/icons"
 msgstr ""
 
-#: includes/customizer.php:379
-#: includes/customizer.php:427
+#: includes/customizer.php:379 includes/customizer.php:427
 #: includes/customizer.php:475
 msgid "Font-Awesome"
 msgstr ""
 
-#: includes/customizer.php:379
-#: includes/customizer.php:427
+#: includes/customizer.php:379 includes/customizer.php:427
 #: includes/customizer.php:475
 msgid "here"
 msgstr ""
@@ -406,8 +372,7 @@ msgstr ""
 msgid "Box 1 - Title:"
 msgstr ""
 
-#: includes/customizer.php:401
-#: includes/customizer.php:449
+#: includes/customizer.php:401 includes/customizer.php:449
 #: includes/customizer.php:497
 msgid "Per ad persius epicuri accusamus, ea usu semper."
 msgstr ""
@@ -473,11 +438,15 @@ msgid "Welcome to Our Center"
 msgstr ""
 
 #: includes/customizer.php:555
-msgid "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut."
+msgid ""
+"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis "
+"praesentium voluptatum deleniti atque corrupti quos dolores. Et harum quidem "
+"rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta "
+"nobis est eligendi optio cumque nihil impedit. Temporibus autem quibusdam et "
+"aut officiis debitis aut rerum necessitatibus saepe eveniet ut."
 msgstr ""
 
-#: includes/customizer.php:576
-#: includes/customizer.php:583
+#: includes/customizer.php:576 includes/customizer.php:583
 msgid "Latest News"
 msgstr ""
 
@@ -510,11 +479,11 @@ msgid "Subtitle:"
 msgstr ""
 
 #: includes/customizer.php:654
-msgid "The page you are looking for does not exist, I can take you to the <a href=\""
+msgid ""
+"The page you are looking for does not exist, I can take you to the <a href=\""
 msgstr ""
 
-#: includes/customizer.php:675
-#: includes/customizer.php:682
+#: includes/customizer.php:675 includes/customizer.php:682
 msgid "Contact"
 msgstr ""
 
@@ -527,7 +496,6 @@ msgid "contact@yourwebsite.com"
 msgstr ""
 
 #: includes/customizer.php:709
-#: includes/metaboxes/custom-metaboxes.php:38
 msgid "E-mail:"
 msgstr ""
 
@@ -536,7 +504,6 @@ msgid "0001234567"
 msgstr ""
 
 #: includes/customizer.php:724
-#: includes/metaboxes/custom-metaboxes.php:43
 msgid "Telephone:"
 msgstr ""
 
@@ -545,7 +512,6 @@ msgid "http://www.yourwebsite.com"
 msgstr ""
 
 #: includes/customizer.php:740
-#: includes/metaboxes/custom-metaboxes.php:49
 msgid "URL:"
 msgstr ""
 
@@ -572,84 +538,3 @@ msgstr ""
 #: includes/customizer.php:796
 msgid "View PRO Version"
 msgstr ""
-
-#: includes/metaboxes/custom-metaboxes.php:25
-msgid "Informations"
-msgstr ""
-
-#: includes/metaboxes/init.php:251
-msgid "Clear"
-msgstr ""
-
-#: includes/metaboxes/init.php:252
-msgid "Default"
-msgstr ""
-
-#: includes/metaboxes/init.php:253
-msgid "Select Color"
-msgstr ""
-
-#: includes/metaboxes/init.php:254
-msgid "Current Color"
-msgstr ""
-
-#: includes/metaboxes/init.php:1155
-msgid "Save"
-msgstr ""
-
-#: includes/metaboxes/helpers/cmb_Meta_Box_ajax.php:47
-msgid "Please Try Again"
-msgstr ""
-
-#: includes/metaboxes/helpers/cmb_Meta_Box_ajax.php:131
-msgid "Remove Embed"
-msgstr ""
-
-#: includes/metaboxes/helpers/cmb_Meta_Box_ajax.php:134
-#, php-format
-msgid "No oEmbed Results Found for %s. View more info at"
-msgstr ""
-
-#: includes/metaboxes/helpers/cmb_Meta_Box_field.php:449
-msgid "Add Group"
-msgstr ""
-
-#: includes/metaboxes/helpers/cmb_Meta_Box_field.php:450
-msgid "Remove Group"
-msgstr ""
-
-#: includes/metaboxes/helpers/cmb_Meta_Box_types.php:249
-msgid "Add Row"
-msgstr ""
-
-#: includes/metaboxes/helpers/cmb_Meta_Box_types.php:305
-#: includes/metaboxes/helpers/cmb_Meta_Box_types.php:705
-#: includes/metaboxes/helpers/cmb_Meta_Box_types.php:765
-msgid "Remove"
-msgstr ""
-
-#: includes/metaboxes/helpers/cmb_Meta_Box_types.php:600
-#: includes/metaboxes/helpers/cmb_Meta_Box_types.php:634
-msgid "No terms"
-msgstr ""
-
-#: includes/metaboxes/helpers/cmb_Meta_Box_types.php:673
-#: includes/metaboxes/helpers/cmb_Meta_Box_types.php:727
-msgid "Add or Upload File"
-msgstr ""
-
-#: includes/metaboxes/helpers/cmb_Meta_Box_types.php:694
-#: includes/metaboxes/helpers/cmb_Meta_Box_types.php:757
-msgid "Remove Image"
-msgstr ""
-
-#: includes/metaboxes/helpers/cmb_Meta_Box_types.php:705
-#: includes/metaboxes/helpers/cmb_Meta_Box_types.php:765
-msgid "File:"
-msgstr ""
-
-#: includes/metaboxes/helpers/cmb_Meta_Box_types.php:705
-#: includes/metaboxes/helpers/cmb_Meta_Box_types.php:765
-msgid "Download"
-msgstr ""
-
