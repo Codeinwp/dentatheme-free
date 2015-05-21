@@ -793,7 +793,8 @@ function denta_lite_registers() {
     wp_enqueue_script( 'denta_lite_customizer_script' );
     wp_localize_script( 'denta_lite_customizer_script', 'denta_lite_buttons', array(
         'doc'       => __( 'Documentation', 'denta_lite' ),
-        'pro'       => __( 'View PRO Version', 'denta_lite' )
+        'pro'       => __( 'View PRO Version', 'denta_lite' ),
+		'review' => __('Leave a review (it will help us)','denta_lite'),
     ) );
 }
 add_action( 'customize_controls_enqueue_scripts', 'denta_lite_registers' );
