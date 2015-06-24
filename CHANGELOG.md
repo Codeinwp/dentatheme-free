@@ -1,5 +1,18 @@
 
 
+### 1.2.2 - 24/06/2015
+
+ Changes: 
+
+
+ * added review button
+ * Merge pull request #83 from cristian-ungureanu/development
+
+added review button
+ * Fixed #80, featured article for large images
+ * Update style.css
+
+
 ### 1.2.1 - 31/03/2015
 
  Changes: 
