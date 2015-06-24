@@ -9,7 +9,7 @@ License URI: license.txt
 Tags: white, light, two-columns, right-sidebar, custom-header, custom-menu, featured-images, rtl-language-support, sticky-post, translation-ready
 Text Domain: denta_lite
 Domain Path: /languages/
-Version: 1.2.1
+Version: 1.2.2
 
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
@@ -900,9 +900,9 @@ h4 {
 }
 
 .featured-article-image {
-  /* width: 494px; */
   margin: 0 58px 30px 0;
   float: left;
+  display: inline-block;
 }
 .featured-article-image img {
   max-width: 100%;
@@ -910,7 +910,7 @@ h4 {
 
 .featured-article-content h3 {
   width: 100%;
-  height: 30px;
+  line-height: 30px;
   margin-bottom: 28px;
   line-height: 30px;
   display: block;
