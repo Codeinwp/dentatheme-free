@@ -1,5 +1,14 @@
 
 
+### 1.2.3 - 06/07/2015
+
+ Changes: 
+
+
+ * Replaced non gpl images
+ * Remove non gpl image and optimize featured article image
+
+
 ### 1.2.2 - 24/06/2015
 
  Changes: 
