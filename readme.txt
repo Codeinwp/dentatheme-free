@@ -66,3 +66,8 @@ The exceptions to this license are as follows:
 	http://picjumbo.com/writing-with-a-graphic-pen/
 
 * Image from screenshot: https://download.unsplash.com/photo-1414690165279-49ab0a9a7e66	
+
+ 
+ featured-article-image.jpg: https://download.unsplash.com/photo-1429216967620-ece20ff3a5f9
+ 
+ License: All unsplash.com images are licensed under the terms of the Creative Commons Zero, http://creativecommons.org/publicdomain/zero/1.0/ 
