@@ -9,7 +9,7 @@ License URI: license.txt
 Tags: white, light, two-columns, right-sidebar, custom-header, custom-menu, featured-images, rtl-language-support, sticky-post, translation-ready
 Text Domain: denta_lite
 Domain Path: /languages/
-Version: 1.2.3
+Version: 1.2.4
 
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
@@ -2119,7 +2119,7 @@ h4 {
   box-sizing: border-box;
 }
 .comment .children .depth-2 .comment-content {
-  width: 722px;
+  width: auto;
 }
 .comment .children .depth-3 {
   padding-left: 115px;
@@ -2128,7 +2128,7 @@ h4 {
   box-sizing: border-box;
 }
 .comment .children .depth-3 .comment-content {
-  width: 607px;
+  width: auto;
 }
 .comment .children .depth-4 {
   padding-left: 115px;
@@ -2137,19 +2137,16 @@ h4 {
   box-sizing: border-box;
 }
 .comment .children .depth-4 .comment-content {
-  width: 492px;
+  width: auto;
 }
 .comment .comment-gravatar {
   width: 115px;
   height: 115px;
   float: left;
+  margin-right: 20px;
 }
 .comment .comment-gravatar img {
   border-radius: 50%;
-}
-.comment .comment-content {
-  width: 837px;
-  float: right;
 }
 .comment .comment-content .comment-content-meta {
   width: 100%;
@@ -3244,6 +3241,17 @@ h4 {
   #services .services-right {
     width: 100% !important;
   }
+  
+  .comment .children .depth-2 {
+	padding-left: 0px;
+  }
+  .comment .children .depth-3 {
+	padding-left: 0px;
+  }
+  .comment .children .depth-4 {
+	padding-left: 0px;
+  } 
+  
 }
 /* 8.4 Max Width: 1024px */
 @media only screen and (max-width: 1024px) {
