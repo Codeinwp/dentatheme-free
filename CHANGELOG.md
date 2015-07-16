@@ -1,5 +1,13 @@
 
 
+### 1.2.4 - 16/07/2015
+
+ Changes: 
+
+
+ * Fixed #86, comments cut off on mobile
+
+
 ### 1.2.3 - 06/07/2015
 
  Changes: 
