@@ -13,6 +13,9 @@ require_once( 'includes/custom-widgets.php' );
 if ( !function_exists( 'denta_lite_setup' ) ) {
 
     function denta_lite_setup() {
+		
+		// Text domain
+		load_child_theme_textdomain( 'denta_lite', get_stylesheet_directory() . '/languages' );
 
         // Post Thumbnails
         add_theme_support( 'post-thumbnails' );
