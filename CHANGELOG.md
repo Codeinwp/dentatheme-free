@@ -1,5 +1,13 @@
 
 
+### 1.2.5 - 20/08/2015
+
+ Changes: 
+
+
+ * Added text domain
+
+
 ### 1.2.4 - 16/07/2015
 
  Changes: 
