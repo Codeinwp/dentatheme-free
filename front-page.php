@@ -68,7 +68,7 @@ get_template_part( 'includes/featured-article' );
 								<div class="article-featured-background-hover">
 								</div><!--/.article-featured-background-hover-->
 								<div class="article-featured-image-hover">
-									<?php _e( 'Read More', 'denta_lite' ); ?>
+									<?php _e( 'Read More', 'denta-lite' ); ?>
 								</div><!--/.article-featured-image-hover-->
 							</a><!--/.article-featured-image-->
 						<?php } else { ?>
@@ -76,7 +76,7 @@ get_template_part( 'includes/featured-article' );
 								<div class="article-featured-background-hover">
 								</div><!--/.article-featured-background-hover-->
 								<div class="article-featured-image-hover">
-									<?php _e( 'Read More', 'denta_lite' ); ?>
+									<?php _e( 'Read More', 'denta-lite' ); ?>
 								</div><!--/.article-featured-image-hover-->
 							</a><!--/.article-featured-image-->
 						<?php }
@@ -91,7 +91,7 @@ get_template_part( 'includes/featured-article' );
 
 				<?php }
 			} else {
-				echo __( 'No posts found.', 'denta_lite' );
+				echo __( 'No posts found.', 'denta-lite' );
 			}
 			wp_reset_postdata();
 			?>
