@@ -15,7 +15,7 @@ if ( !function_exists( 'denta_lite_setup' ) ) {
     function denta_lite_setup() {
 		
 		// Text domain
-		load_child_theme_textdomain( 'denta_lite', get_stylesheet_directory() . '/languages' );
+		load_child_theme_textdomain( 'denta-lite', get_stylesheet_directory() . '/languages' );
 
         // Post Thumbnails
         add_theme_support( 'post-thumbnails' );
@@ -52,7 +52,7 @@ if ( !function_exists( 'denta_lite_setup' ) ) {
 
         // Header Navigation
         $header_navigation_args = array(
-            'header_navigation' => __( 'Header Navigation', 'denta_lite' )
+            'header_navigation' => __( 'Header Navigation', 'denta-lite' )
         );
         register_nav_menus( $header_navigation_args );
 
@@ -113,8 +113,8 @@ function denta_lite_general_sidebar() {
 
     $args = array(
         'id'            => 'general_sidebar',
-        'name'          => __( 'General Sidebar', 'denta_lite' ),
-        'description'   => __( 'Use this sidebar to display widgets in your website, including posts and pages.', 'denta_lite' ),
+        'name'          => __( 'General Sidebar', 'denta-lite' ),
+        'description'   => __( 'Use this sidebar to display widgets in your website, including posts and pages.', 'denta-lite' ),
         'before_title'  => '<div class="title-widget">',
         'after_title'   => '</div>',
         'before_widget' => '<div id="%1$s" class="widget %2$s">',

@@ -8,7 +8,7 @@ get_header();
 ?>
 <div class="wrap cf">
 	<div class="fullwidth-page-title">
-		<h3><?php _e( 'Our Blog', 'denta_lite' ); ?></h3>
+		<h3><?php _e( 'Our Blog', 'denta-lite' ); ?></h3>
 	</div><!--/.fullwidth-page-title-->
 	<section id="articles">
 
@@ -29,23 +29,23 @@ get_header();
 					</a><!--/.article-title-->
 					<div class="article-meta cf">
 						<div class="article-meta-left">
-							<?php _e( 'Posted by', 'denta_lite' ); ?> <?php the_author_posts_link(); ?> <?php _e( 'on', 'denta_lite' ); ?> <?php echo get_the_date(); ?>
+							<?php _e( 'Posted by', 'denta-lite' ); ?> <?php the_author_posts_link(); ?> <?php _e( 'on', 'denta-lite' ); ?> <?php echo get_the_date(); ?>
 						</div><!--/.article-meta-left-->
-						<a href="<?php the_permalink(); ?>#comments-template" title="<?php comments_number( __( 'No responses', 'denta_lite' ), __( 'One comment', 'denta_lite' ), __( '% comments', 'denta_lite' ) ); ?>" class="article-meta-right">
-							<?php comments_number( __( 'No responses', 'denta_lite' ), __( 'One comment', 'denta_lite' ), __( '% comments', 'denta_lite' ) ); ?>
+						<a href="<?php the_permalink(); ?>#comments-template" title="<?php comments_number( __( 'No responses', 'denta-lite' ), __( 'One comment', 'denta-lite' ), __( '% comments', 'denta-lite' ) ); ?>" class="article-meta-right">
+							<?php comments_number( __( 'No responses', 'denta-lite' ), __( 'One comment', 'denta-lite' ), __( '% comments', 'denta-lite' ) ); ?>
 						</a><!--/.article-meta-right-->
 					</div><!--/.article-meta.cf-->
 					<div class="article-entry">
 						<?php the_excerpt(); ?>
 					</div><!--/.article-entry-->
-					<a href="<?php the_permalink(); ?>" title="<?php _e( 'Read More', 'denta_lite' ); ?>" class="article-read-more">
-						<?php _e( 'Read More', 'denta_lite' ); ?>
+					<a href="<?php the_permalink(); ?>" title="<?php _e( 'Read More', 'denta-lite' ); ?>" class="article-read-more">
+						<?php _e( 'Read More', 'denta-lite' ); ?>
 					</a><!--/.article-read-more-->
 				</article>
 
 			<?php }
 		} else {
-			echo __( 'No posts found.', 'denta_lite' );
+			echo __( 'No posts found.', 'denta-lite' );
 		}
 
 		denta_lite_pagination();

@@ -24,9 +24,9 @@ get_header();
 				<h1><?php the_title(); ?></h1>
 				<div class="article-meta cf">
 					<div class="article-meta-left">
-						<?php _e( 'Posted by', 'denta_lite' ); ?> <?php the_author_posts_link(); ?> <?php _e( 'on', 'denta_lite' ); ?> <?php echo get_the_date(); ?>
+						<?php _e( 'Posted by', 'denta-lite' ); ?> <?php the_author_posts_link(); ?> <?php _e( 'on', 'denta-lite' ); ?> <?php echo get_the_date(); ?>
 					</div><!--/.article-meta-left-->
-					<a href="#comments-template" title="<?php comments_number( __('No responses','denta_lite'), __('One comment','denta_lite'), __('% comments','denta_lite') ); ?>" class="article-meta-right"><?php comments_number( __('No responses','denta_lite'), __('One comment','denta_lite'), __('% comments','denta_lite') ); ?>
+					<a href="#comments-template" title="<?php comments_number( __('No responses','denta-lite'), __('One comment','denta-lite'), __('% comments','denta-lite') ); ?>" class="article-meta-right"><?php comments_number( __('No responses','denta-lite'), __('One comment','denta-lite'), __('% comments','denta-lite') ); ?>
 					</a><!--/.article-meta-right-->
 				</div><!--/.article-meta.cf-->
 				<div class="single-article-entry">
@@ -34,7 +34,7 @@ get_header();
 				</div><!--/.single-article-entry-->
 				<?php
 				wp_link_pages( array(
-					'before'      => '<div class="single-article-pagination"><span class="article-pagination-title">' . __( 'Pages:', 'denta_lite' ) . '</span>',
+					'before'      => '<div class="single-article-pagination"><span class="article-pagination-title">' . __( 'Pages:', 'denta-lite' ) . '</span>',
 					'after'       => '</div>',
 					'link_before' => '<span>',
 					'link_after'  => '</span>',
@@ -42,7 +42,7 @@ get_header();
 
 				if ( has_tag() ) {
 					echo '<div class="single-article-tags">';
-					the_tags('<span>'.__('Tags:','denta_lite').'</span> ');
+					the_tags('<span>'.__('Tags:','denta-lite').'</span> ');
 					echo '</div>';
 				}
 				?>
@@ -70,7 +70,7 @@ get_header();
 		if( $my_query->have_posts() ) {
 
 		 	echo '<div id="similar-articles">';
-		 	echo '<div class="fullwidth-single-title"><h4>'. __( 'Similar Articles', 'denta_lite' ) .'</h4></div>';
+		 	echo '<div class="fullwidth-single-title"><h4>'. __( 'Similar Articles', 'denta-lite' ) .'</h4></div>';
 		 	echo '<div class="similar-articles-carousel">';
 		 	echo '<div id="similar-article-carousel">';
 
