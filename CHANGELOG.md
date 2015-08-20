@@ -1,5 +1,13 @@
 
 
+### 1.2.6 - 20/08/2015
+
+ Changes: 
+
+
+ * Changed text domain to denta-lite
+
+
 ### 1.2.5 - 20/08/2015
 
  Changes: 
